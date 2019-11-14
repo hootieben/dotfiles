@@ -1,0 +1,14 @@
+typeset -U path PATH
+path=(~/.local/bin $path)
+
+if [[ -x /usr/local/go/bin/go ]]; then
+	path=(/usr/local/go/bin $path)
+fi
+
+if [[ -x /usr/local/aws/bin ]]; then
+    path=(/usr/local/aws/bin $path)
+fi
+
+if [[ -d ~/.local/kitty.app/bin ]]; then
+    path=(~/.local/kitty.app/bin $path)
+fi

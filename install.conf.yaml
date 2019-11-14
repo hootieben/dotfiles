@@ -1,0 +1,52 @@
+- defaults:
+    link:
+      relink: true
+      force: true
+
+- clean: ['~']
+
+- create:
+  - ~/.config/nvim
+  - ~/.gnupg
+  - ~/.config/kitty
+  - ~/.ssh
+  - ~/.local/bin
+  - ~/.config/ansible
+  - ~/.zsh/completions
+  - ~/.config/pulse
+
+- link:
+    ~/.config/nvim/init.vim:
+      path: config/nvim/init.vim
+    ~/.gitconfig:
+      path: git/gitconfig
+    ~/.gitignore_global:
+      path: git/gitignore_global
+    ~/.zshrc:
+      path: zsh/zshrc
+    ~/.zshenv:
+      path: zsh/zshenv
+    ~/.gnupg/gpg-agent.conf:
+        path: gnupg/gpg-agent.conf
+    ~/.gnupg/gpg.conf:
+        path: gnupg/gpg.conf
+    ~/.config/kitty/kitty.conf:
+        path: kitty/kitty.conf
+    ~/.ssh/config:
+        path: ssh/config
+    ~/.Xresources:
+        path: Xresources 
+    ~/.config/ansible/ansible.cfg:
+        path: ansible/ansible.cfg
+    ~/.zsh/completions/_hub:
+        path: zsh/completions/_hub
+    ~/.config/pulse/default.pa:
+        path: pulse/default.pa
+
+- shell:
+  - scripts/ohmyzsh.sh 
+  - go get -u github.com/mdempsky/gocode 
+  - 
+    command: scripts/nvim.sh
+    stdout: true
+    stderr: true
