@@ -309,7 +309,7 @@ bar {
 
 #bindsym $mod+ctrl+l xautolock -locknow -detectsleep -locker "i3lock -d -c 000070"
 #bindsym Control+Mod1+l exec xautolock -locknow -detectsleep -locker i3lock
-bindsym $mod+ctrl+l exec xautolock -locknow -detectsleep -locker i3lock
+bindsym $mod+ctrl+l exec xautolock -locknow -locker "i3lock -e"
 bindsym $mod+z exec /home/hootieben/.local/bin/zoom
 
 # Autostart 
