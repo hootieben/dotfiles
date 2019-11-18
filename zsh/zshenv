@@ -16,3 +16,7 @@ fi
 if [[ -d ~/go/bin ]]; then
     path=(~/go/bin $path)
 fi
+
+if [[ -d ~/.tfenv/bin ]]; then
+    path=(~/.tfenv/bin $path)
+fi
