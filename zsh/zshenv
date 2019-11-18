@@ -12,3 +12,7 @@ fi
 if [[ -d ~/.local/kitty.app/bin ]]; then
     path=(~/.local/kitty.app/bin $path)
 fi
+
+if [[ -d ~/go/bin ]]; then
+    path=(~/go/bin $path)
+fi
