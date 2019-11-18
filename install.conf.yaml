@@ -14,6 +14,7 @@
   - ~/.config/ansible
   - ~/.zsh/completions
   - ~/.config/pulse
+  - ~/.aws/cli
 
 - link:
     ~/.config/nvim/init.vim:
