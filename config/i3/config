@@ -120,6 +120,8 @@ workspace $ws2 output $secondary
 workspace $ws3 output $primary
 workspace $ws4 output $secondary
 workspace $ws5 output $primary
+workspace $ws6 output $tertiary
+workspace $ws7 output $tertiary
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace $ws1
@@ -263,16 +265,16 @@ bindsym XF86MonBrightnessDown exec xbacklight -dec 5 # decrease screen brightnes
 # ----
 # Initial Startup Apps - most are wrappers stored in ~/.local/bin
 # ----
-exec --no-startup-id xset dpms 600
+#exec --no-startup-id xset dpms 600
 exec_always --no-startup-id xautolock -time 20 -locker "i3lock -e"
 exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
 exec todoist
-exec slack
 exec calendar
-exec google-chrome
-exec /home/hootieben/.local/bin/zoom
-exec ~/.local/kitty.app/bin/kitty
+exec --no-startup-id i3-msg 'workspace 5:Zoom; exec ~/.local/bin/zoom'
+exec --no-startup-id i3-msg 'workspace 2:Term; exec ~/.local/kitty.app/bin/kitty'
+exec --no-startup-id i3-msg 'workspace 1:Slack; exec slack'
+exec --no-startup-id i3-msg 'workspace 3:Web; exec google-chrome'
 
 
 # ----
