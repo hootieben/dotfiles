@@ -1,7 +1,7 @@
 .include /etc/pulse/default.pa
 
-set-default-sink alsa_output.pci-0000_00_1f.3.analog-stereo
-
 .ifexists module-switch-on-connect.so
 load-module module-switch-on-connect
 .endif
+
+set-default-sink alsa_output.pci-0000_00_1f.3.analog-stereo
