@@ -105,3 +105,4 @@ eval "$(hub alias -s)"
 
 fpath=(~/.zsh/completions $fpath) 
 autoload -U compinit && compinit
+kitty + complete setup zsh | source /dev/stdin
