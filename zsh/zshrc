@@ -73,7 +73,7 @@ plugins=(git aws gpg-agent zsh-syntax-highlighting terraform)
 
 source $ZSH/oh-my-zsh.sh
 
-source /usr/local/aws/bin/aws_zsh_completer.sh
+#source /usr/local/aws/bin/aws_zsh_completer.sh
 
 # User configuration
 
