@@ -9,12 +9,12 @@
   - ~/.config/nvim
   - ~/.gnupg
   - ~/.config/kitty
-  - ~/.ssh
-  - ~/.local/bin
+  - ~/.ssh - ~/.local/bin
   - ~/.config/ansible
   - ~/.zsh/completions
   - ~/.config/pulse
   - ~/.aws/cli
+  - ~/.config/systemd/user
 
 - link:
     ~/.config/nvim/init.vim:
@@ -43,6 +43,9 @@
         path: zsh/completions/_hub
     ~/.config/pulse/default.pa:
         path: pulse/default.pa
+    ~/.config/systemd/user/:
+        glob: true
+        path: systemd/*
 
 - shell:
   - scripts/ohmyzsh.sh 

@@ -1,0 +1,13 @@
+[Unit]
+Description=Xidlehook Service
+BindsTo=graphical-session.target
+
+[Service]
+ExecStart=/usr/bin/env bash %h/.local/bin/xidlehook.sh
+Type=simple
+Restart=always
+RestartSec=5
+KillSignal=SIGINT
+
+[Install]
+WantedBy=graphical-session.target
