@@ -115,7 +115,12 @@ bindsym $mod+Return exec ~/.local/kitty.app/bin/kitty
 bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec dmenu_run
+#bindsym $mod+d exec dmenu_run
+#bindsym $mod+d exec --no-startup-id rofi -show run -lines 10 -eh 2 -width 30 -padding 800 -font "Fantasque Sans Mono Bold 12"
+#bindsym $mod+d exec rofi -show run -line 3 -eh 2 -width 25 -padding 40 -opacity "75" -fg "#505050" -bg "#000000" -hlfg "#ffb964" -hlbg "#000000" -font "Fantasque Sans Mono Bold 20"
+bindsym $mod+d exec rofi -show run -line 3 -eh 2 -width 25 -padding 40 -opacity "75" -font "Fantasque Sans Mono Bold 20"
+
+
 
 # change focus
 bindsym $mod+j focus left
