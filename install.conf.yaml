@@ -15,6 +15,7 @@
   - ~/.config/pulse
   - ~/.aws/cli
   - ~/.config/systemd/user
+  - ~/.config/dunst
 
 - link:
     ~/.config/nvim/init.vim:
@@ -49,6 +50,8 @@
     ~/.config/polybar/:
         glob: true
         path: config/polybar/*
+    ~/.config/dunst/dunstrc:
+        path: config/dunst/dunstrc
 
 - shell:
   - scripts/ohmyzsh.sh 
