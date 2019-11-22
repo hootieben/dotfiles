@@ -8,10 +8,10 @@ while pgrep -x polybar >/dev/null; do sleep 1; done
 
 for monitor in $(xrandr -q | grep -e "\sconnected\s" | cut -d' ' -f1); do
   MONITOR=$monitor polybar top &
-  if [ "$(xrandr -q | grep -e "\sconnected\s" | grep $monitor | grep -c primary)" == "1" ]; then
-    MONITOR=$monitor polybar bottomwithtray &
+  if [ "$(xrandr -q | grep -e "\sconnected\s" | grep -e "^$monitor" | grep -c primary)" == "1" ]; then
+      MONITOR=$monitor polybar bottomwithtray &
   else
-    MONITOR=$monitor polybar bottom &
+      MONITOR=$monitor polybar bottom &
   fi
 done
 
