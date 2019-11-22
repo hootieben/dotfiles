@@ -46,6 +46,9 @@
     ~/.config/systemd/user/:
         glob: true
         path: systemd/*
+    ~/.config/polybar/:
+        glob: true
+        path: config/polybar/*
 
 - shell:
   - scripts/ohmyzsh.sh 
