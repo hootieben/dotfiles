@@ -7,10 +7,13 @@ killall -q polybar
 while pgrep -x polybar >/dev/null; do sleep 1; done
 
 for monitor in $(xrandr -q | grep -e "\sconnected\s" | cut -d' ' -f1); do
+    echo "Running for $monitor"
   MONITOR=$monitor polybar top &
   if [ "$(xrandr -q | grep -e "\sconnected\s" | grep -e "^$monitor" | grep -c primary)" == "1" ]; then
+      echo "Primary monitor found: $monitor"
       MONITOR=$monitor polybar bottomwithtray &
   else
+      echo "Not primary monitor: $monitor"
       MONITOR=$monitor polybar bottom &
   fi
 done

@@ -16,6 +16,8 @@
   - ~/.aws/cli
   - ~/.config/systemd/user
   - ~/.config/dunst
+  - ~/.config/polybar
+  - ~/.config/autorandr
 
 - link:
     ~/.config/nvim/init.vim:
@@ -52,6 +54,12 @@
         path: config/polybar/*
     ~/.config/dunst/dunstrc:
         path: config/dunst/dunstrc
+    ~/.config/i3/config:
+        path: config/i3/config
+    ~/.config/autorandr/:
+        glob: true
+        path: config/autorandr/*
+
 
 - shell:
   - scripts/ohmyzsh.sh 

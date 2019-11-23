@@ -1,5 +1,10 @@
+export QT_AUTO_SCREEN_SCALE_FACTOR=0
+export QT_SCREEN_SCALE_FACTORS="2;2;2"
+
 typeset -U path PATH
 path=(~/.local/bin $path)
+
+
 
 if [[ -x /usr/local/go/bin/go ]]; then
 	path=(/usr/local/go/bin $path)

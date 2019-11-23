@@ -5,7 +5,7 @@ Requires=graphical-session.target
 
 [Service]
 Type=forking
-ExecStartPre=/bin/sleep 30
+#ExecStartPre=/bin/sleep 30
 ExecStart=/usr/bin/env bash %h/.config/polybar/launch.sh
 Restart=always
 RestartSec=5
