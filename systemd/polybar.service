@@ -1,14 +1,8 @@
 [Unit]
 Description=An information bar for i3
-After=graphical-session.target
-Requires=graphical-session.target
 
 [Service]
 Type=forking
-#ExecStartPre=/bin/sleep 30
 ExecStart=/usr/bin/env bash %h/.config/polybar/launch.sh
 Restart=always
 RestartSec=5
-
-[Install]
-WantedBy=graphical-session.target
