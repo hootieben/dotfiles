@@ -118,7 +118,9 @@ bindsym $mod+Shift+q kill
 #bindsym $mod+d exec dmenu_run
 #bindsym $mod+d exec --no-startup-id rofi -show run -lines 10 -eh 2 -width 30 -padding 800 -font "Fantasque Sans Mono Bold 12"
 #bindsym $mod+d exec rofi -show run -line 3 -eh 2 -width 25 -padding 40 -opacity "75" -fg "#505050" -bg "#000000" -hlfg "#ffb964" -hlbg "#000000" -font "Fantasque Sans Mono Bold 20"
-bindsym $mod+d exec rofi -show run -line 3 -eh 2 -width 25 -padding 40 -opacity "75" -font "Fantasque Sans Mono Bold 20"
+#bindsym $mod+d exec rofi -show run -line 3 -eh 2 -width 25 -padding 40 -opacity "75" -font "Fantasque Sans Mono Bold 20"
+bindsym $mod+d exec --no-startup-id i3-dmenu-desktop --dmenu='rofi -dmenu -i -line 3 -eh 2 -width 25 -padding 40 -opacity "75" -font "Fantasque Sans Mono Bold 20"'
+
 
 
 
@@ -222,10 +224,11 @@ bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ to
 bindsym XF86MonBrightnessUp exec xbacklight -inc 5 # increase screen brightness
 bindsym XF86MonBrightnessDown exec xbacklight -dec 5 # decrease screen brightness
 
+
 # ----
 # Initial Startup Apps - most are wrappers stored in ~/.local/bin
 # ----
-
+exec --no-startup-id "i3-msg 'workspace 6; append_layout ~/.config/i3/workspace6.json'"
 exec --no-startup-id 'autorandr -c; wait sleep 10; systemctl --user start polybar'
 #exec --no-startup-id 'systemctl --user start polybar'
 exec --no-startup-id nm-applet
@@ -236,18 +239,22 @@ exec --no-startup-id i3-msg 'workspace 5:Zoom; exec ~/.local/bin/zoom'
 exec --no-startup-id i3-msg 'workspace 2:Term; exec ~/.local/kitty.app/bin/kitty'
 exec --no-startup-id i3-msg 'workspace 1:Slack; exec slack'
 exec --no-startup-id i3-msg 'workspace 3:Web; exec google-chrome'
+exec --no-startup-id 'google-chrome --new-window --app=https://todoist.com'
+exec --no-startup-id 'google-chrome --new-window --app=https://calendar.google.com'
 
 
 # ----
 # App Window Configs
 # ----
-for_window [class="Chromium" instance="todoist.com"] move window to scratchpad
-for_window [class="Chromium" instance="calendar.google.com"] move window to scratchpad
-bindsym $mod+c [class="Chromium" instance="calendar.google.com"] scratchpad show
-for_window [class="Google-chrome" instance="crx_nckgahadagoaajjgafhacjanaoiihapd"] floating enable resize set 1667 1174
-bindsym $mod+t [class="Chromium" instance="todoist.com"] scratchpad show
+#for_window [class="Chromium" instance="todoist.com"] move window to scratchpad
+#for_window [class="Chromium" instance="calendar.google.com"] move window to scratchpad
+#bindsym $mod+c [class="Chromium" instance="calendar.google.com"] scratchpad show
+#for_window [class="Google-chrome" instance="crx_nckgahadagoaajjgafhacjanaoiihapd"] floating enable resize set 1667 1174
+#bindsym $mod+t [class="Chromium" instance="todoist.com"] scratchpad show
 for_window [window_role="About"] floating enable
 assign [class="Slack"] $ws1
+assign [class="Google-chrome" instance="calendar.google.com"] $ws6
+assign [class="Google-chrome" instance="todoist.com"] $ws6
 #blueman-manager", "Blueman-manager"
 for_window [class="Blueman-manager" instance="blueman-manager"] floating enable
 assign [class="zoom"] $ws5
