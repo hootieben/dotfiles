@@ -233,5 +233,6 @@
     format = "<b> %s</b>\n%b"
 
 [slack]
-    summary = Slack Notification
+    appname = "Slack"
+    summary = "*"
     format = "<b> %s</b>\n%b"
