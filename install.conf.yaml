@@ -54,8 +54,9 @@
         path: config/polybar/*
     ~/.config/dunst/dunstrc:
         path: config/dunst/dunstrc
-    ~/.config/i3/config:
-        path: config/i3/config
+    ~/.config/i3/:
+        glob: true
+        path: config/i3/*
     ~/.config/autorandr/:
         glob: true
         path: config/autorandr/*
