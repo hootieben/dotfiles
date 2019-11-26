@@ -69,7 +69,7 @@ CASE_SENSITIVE="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git aws gpg-agent zsh-syntax-highlighting terraform)
+plugins=(git aws gpg-agent terraform)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -105,4 +105,19 @@ eval "$(hub alias -s)"
 
 fpath=(~/.zsh/completions $fpath) 
 autoload -U compinit && compinit
+autoload -Uz bashcompinit && bashcompinit
 kitty + complete setup zsh | source /dev/stdin
+
+_fly_compl() {
+	args=("${COMP_WORDS[@]:1:$COMP_CWORD}")
+	local IFS=$'\n'
+	COMPREPLY=($(GO_FLAGS_COMPLETION=1 ${COMP_WORDS[0]} "${args[@]}"))
+	return 0
+}
+complete -F _fly_compl fly
+
+
+export SHOW_AWS_PROMPT="false"
+if [[ -f /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
+    source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
