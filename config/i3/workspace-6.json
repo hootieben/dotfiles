@@ -14,9 +14,7 @@
     "swallows": [
        {
         "class": "^Google\\-chrome$",
-        "instance": "^calendar\\.google\\.com$",
-       // "title": "^Google\\ Calendar\\ \\-\\ Week\\ of\\ November\\ 24\\,\\ 2019$",
-       // "window_role": "^pop\\-up$"
+        "instance": "^calendar\\.google\\.com$"
        }
     ],
     "type": "con"
@@ -37,9 +35,7 @@
     "swallows": [
        {
         "class": "^Google\\-chrome$",
-        "instance": "^todoist\\.com$",
-       // "title": "^Next\\ 7\\ days\\:\\ Todoist$",
-       // "window_role": "^pop\\-up$"
+        "instance": "^todoist\\.com$"
        }
     ],
     "type": "con"
