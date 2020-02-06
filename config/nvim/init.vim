@@ -22,6 +22,7 @@ Plug 'w0rp/ale'
 Plug 'rhysd/vim-fixjson'
 Plug 'gabrielelana/vim-markdown'
 Plug 'mdempsky/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
+Plug 'fatih/vim-hclfmt'
 call plug#end()
 
 let g:python_host_prog = "/usr/bin/python"
@@ -142,5 +143,9 @@ let g:terraform_align=1
 let g:terraform_fold_sections=1
 let g:terraform_remap_spacebar=1
 let g:terraform_fmt_on_save=1
+
+"HCL Formatting with vim-hclfmt
+let g:hcl_fmt_autosave = 1
+
 
 let g:go_version_warning = 0
