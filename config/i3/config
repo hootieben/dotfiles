@@ -212,8 +212,6 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 
-bindsym $mod+i [class="Slack"] focus
-
 bindsym $mod+Shift+v exec nmcli c up Operations_ben@litmus.com_Operations
 bindsym $mod+m move workspace to output right
 
@@ -263,7 +261,6 @@ assign [class="zoom"] $ws5
 for_window [title="Zoom Group Chat" class="zoom"] floating enable resize set 1667 1174
 
 bindsym $mod+ctrl+l exec "/usr/local/bin/xidlehook-client --socket /tmp/xidlehook.socket control --action Trigger --timer 1"
-bindsym $mod+z exec /home/hootieben/.local/bin/zoom
 
 
 # Autostart 
