@@ -81,6 +81,7 @@ workspace $ws4 output $secondary
 workspace $ws5 output $primary
 workspace $ws6 output $tertiary
 workspace $ws7 output $tertiary
+workspace $ws8 output $tertiary
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace $ws1
@@ -102,6 +103,7 @@ bindsym F4 workspace $ws4
 bindsym F5 workspace $ws5
 bindsym F6 workspace $ws6
 bindsym F7 workspace $ws7
+bindsym F8 workspace $ws8
 
 
 
