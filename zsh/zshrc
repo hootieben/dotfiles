@@ -122,6 +122,10 @@ if [[ -f /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
     source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
 
+if [[ -f /usr/local/aws/bin/aws_zsh_completer.sh ]]; then
+  source /usr/local/aws/bin/aws_zsh_completer.sh
+fi
+
 export CHEF_ORG='litmus'
 export CHEF_USER='bsykes'
 export CHEF_URL_ROOT='https://chef.svadmin.com'
