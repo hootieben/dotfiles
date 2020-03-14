@@ -41,7 +41,7 @@ font-2 = "Iosevka Nerd Font:pixelsize=25;3"
 inherit = common
 fixed-center = true
 
-modules-left = cpu-graph memory
+modules-left = cpu-graph memory spotify
 modules-center = date
 modules-right = wlan battery volume
 
@@ -260,6 +260,15 @@ content-margin = 1
 content-foreground = ${colors.fg}
 content-underline = ${colors.adapta-cyan}
 click-left = xdg-open https://www.youtube.com/
+
+[module/spotify]
+type = custom/script
+interval = 1
+format-prefix = " "
+format = <label>
+exec = python ~/.local/bin/spotify_status.py -f '{artist}: {song}'
+format-underline = #1db954
+
 ;==========================================================
 
 
