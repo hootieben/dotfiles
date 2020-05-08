@@ -27,3 +27,7 @@ fi
 if [[ -d ~/.tfenv/bin ]]; then
     path=(~/.tfenv/bin $path)
 fi
+
+if [[ -d ~/.tgenv/bin ]]; then
+    path=(~/.tfenv/bin $path)
+fi
