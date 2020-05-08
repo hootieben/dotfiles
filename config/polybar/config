@@ -41,7 +41,7 @@ font-2 = "Iosevka Nerd Font:pixelsize=25;3"
 inherit = common
 fixed-center = true
 
-modules-left = cpu-graph memory spotify
+modules-left = cpu-graph xbacklight memory spotify
 modules-center = date
 modules-right = wlan battery volume
 
@@ -298,7 +298,7 @@ format-margin = ${margin.for-modules}
 click-left = kitty bash ~/.config/polybar/updates.sh
 interval = 3600
 
-[module/xbacklight]
+[module/backlight]
 type = internal/xbacklight
 format = <label> <bar>
 format-underline = ${colors.adapta-cyan}
