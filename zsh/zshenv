@@ -29,5 +29,5 @@ if [[ -d ~/.tfenv/bin ]]; then
 fi
 
 if [[ -d ~/.tgenv/bin ]]; then
-    path=(~/.tfenv/bin $path)
+    path=(~/.tgenv/bin $path)
 fi
