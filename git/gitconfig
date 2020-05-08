@@ -12,7 +12,11 @@
   filemode = false
   trustctime = false
   autocrlf = input
-  pager = diff-so-fancy | less --tabs=4 -RFX
+  #pager = diff-so-fancy | less --tabs=4 -RFX
+  pager = delta --plus-color="#012800" --minus-color="#340001" --theme='Monokai Extended'
+
+[interactive]
+    diffFilter = delta --color-only
 
 #[alias]
 #  amend = commit --amend --reuse-message=HEAD
