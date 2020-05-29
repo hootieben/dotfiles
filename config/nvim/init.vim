@@ -23,7 +23,7 @@ Plug 'vim-ruby/vim-ruby'
 Plug 'w0rp/ale'
 "Plug 'neomake/neomake'
 "Ctags
-Plug 'ludovicchabant/vim-gutentags'
+"Plug 'ludovicchabant/vim-gutentags'
 "Commenting
 Plug 'tpope/vim-commentary'
 "FZF
@@ -34,6 +34,8 @@ Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/neosnippet-snippets'
 "Terrform
 Plug 'hashivim/vim-terraform'
+"Ansible
+Plug 'pearofducks/ansible-vim'
 
 "OLD CONFIG
 "Plug 'hashivim/vim-terraform'
@@ -59,7 +61,7 @@ Plug 'hashivim/vim-terraform'
 "Plug 'rhysd/vim-fixjson'
 "Plug 'gabrielelana/vim-markdown'
 "Plug 'mdempsky/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
-"Plug 'fatih/vim-hclfmt'
+Plug 'fatih/vim-hclfmt'
 call plug#end()
 
 "Set host progs
@@ -273,10 +275,10 @@ let g:terraform_align=1
 let g:terraform_remap_spacebar=1
 let g:terraform_fmt_on_save=1
 "
-""HCL Formatting with vim-hclfmt
-""let g:hcl_fmt_autosave = 1 
-""let g:tf_fmt_autosave = 0 
-""let g:nomad_fmt_autosave = 0
+"HCL Formatting with vim-hclfmt
+let g:hcl_fmt_autosave = 1 
+let g:tf_fmt_autosave = 0 
+let g:nomad_fmt_autosave = 0
 "
 "
 "let g:go_version_warning = 0
@@ -284,3 +286,24 @@ let g:terraform_fmt_on_save=1
 map <Leader>rr :set makeprg=ruby\ %<cr>:make<cr>
 
 au BufNewFile,BufRead /dev/shm/gopass.* setlocal noswapfile nobackup noundofile
+
+"au BufRead,BufNewFile */*-ansible/*.yml set filetype=yaml.ansible
+"au BufRead,BufNewFile */workstation/*.yml set filetype=yaml.ansible
+au BufRead,BufNewFile */*-ansible/*.yml set filetype=yaml.ansible
+au BufRead,BufNewFile */workstation/*.yml set filetype=yaml.ansible
+let g:ansible_yamlKeyName = 'yamlKey'
+
+let g:ale_list_window_size = 5
+let g:ale_set_loclist = 0
+let g:ale_set_quickfix = 1
+let g:ale_open_list = 1
+" Set this if you want to.
+" This can be useful if you are combining ALE with
+" some other plugin which sets quickfix errors, etc.
+let g:ale_keep_list_window_open = 1
+
+let g:ale_keep_list_window_open = 1
+let g:ale_fixers = {
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\   'json': ['fixjson'],
+\}
