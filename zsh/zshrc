@@ -122,7 +122,9 @@ if [[ -f /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
     source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
 export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
+if [[ -f rbenv ]]; then
+  eval "$(rbenv init -)"
+fi
 
 if [[ -f /usr/local/aws/bin/aws_zsh_completer.sh ]]; then
   source /usr/local/aws/bin/aws_zsh_completer.sh
@@ -134,7 +136,9 @@ export CHEF_URL_ROOT='https://chef.svadmin.com'
 export TF_VAR_chef_username="${CHEF_USER}"
 export TF_VAR_chef_user_key="${HOME}/.chef/${CHEF_ORG}-${CHEF_USER}.pem"
 
-eval "$(jira --completion-script-zsh)" 
+if [[ -f jira ]]; then
+  eval "$(jira --completion-script-zsh)" 
+fi
 
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
 
