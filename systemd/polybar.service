@@ -6,3 +6,6 @@ Type=forking
 ExecStart=/usr/bin/env bash %h/.config/polybar/launch.sh
 Restart=always
 RestartSec=5
+
+[Install]
+WantedBy=default.target
