@@ -266,5 +266,5 @@ for_window [title="Authy"] floating enable
 bindsym $mod+ctrl+l exec "/usr/local/bin/xidlehook-client --socket /tmp/xidlehook.socket control --action Trigger --timer 1"
 
 
-# Autostart 
+# Autostart
 exec --no-startup-id dex -a -s ~/.config/autostart

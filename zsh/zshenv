@@ -11,7 +11,7 @@ if [[ -x /usr/local/go/bin/go ]]; then
 	path=(/usr/local/go/bin $path)
 fi
 
-# Removing until I can investigate why 
+# Removing until I can investigate why
 # the AWS cli hijacked my system python install
 #if [[ -x /usr/local/aws/bin ]]; then
 #    path=(/usr/local/aws/bin $path)
