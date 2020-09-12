@@ -270,3 +270,7 @@ bindsym $mod+ctrl+l exec "/usr/local/bin/xidlehook-client --socket /tmp/xidlehoo
 
 # Autostart
 exec --no-startup-id dex -a -s ~/.config/autostart
+
+# Scratchpad
+bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+minus scratchpad show
