@@ -234,14 +234,14 @@ bindsym Control+Print exec gnome-screenshot -i
 #exec --no-startup-id i3-msg 'workspace 6; append_layout ~/.config/i3/workspace-6.json'
 exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
-exec todoist
+#exec todoist
 exec calendar
 exec --no-startup-id i3-msg 'workspace 5:Zoom; exec ~/.local/bin/zoom'
 exec --no-startup-id i3-msg 'workspace 2:Term; exec ~/.local/kitty.app/bin/kitty'
 exec --no-startup-id i3-msg 'workspace 1:Slack; exec slack'
 exec --no-startup-id i3-msg 'workspace 3:Web; exec google-chrome'
 #exec --no-startup-id '~/.local/bin/todoist'
-exec --no-startup-id '~/.local/bin/calendar'
+# exec --no-startup-id '~/.local/bin/calendar'
 #exec --no-startup-id "~/.local/bin/i3-arandr.sh"
 exec --no-startup-id xss-lock -- /usr/local/bin/xidlehook-client --socket /tmp/xidlehook.socket control --action Trigger --timer 1
 
