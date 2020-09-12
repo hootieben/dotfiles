@@ -68,7 +68,7 @@
 
 - shell:
   - scripts/ohmyzsh.sh 
-  - go get -u github.com/mdempsky/gocode 
+  # - go get -u github.com/mdempsky/gocode 
   - 
     command: scripts/nvim.sh
     stdout: true
