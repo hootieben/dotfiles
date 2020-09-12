@@ -45,6 +45,8 @@
         path: ansible/ansible.cfg
     ~/.zsh/completions/_hub:
         path: zsh/completions/_hub
+    ~/.zsh/completions/_gopass:
+        path: zsh/completions/_gopass
     ~/.config/pulse/default.pa:
         path: pulse/default.pa
     ~/.config/systemd/user/:
