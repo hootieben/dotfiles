@@ -253,7 +253,7 @@ exec --no-startup-id xss-lock -- /usr/local/bin/xidlehook-client --socket /tmp/x
 for_window [title="^Google Hangouts" window_role="pop-up"] floating enable resize set 1667 1174
 for_window [window_role="About"] floating enable
 assign [class="Slack"] $ws1
-assign [class="Google-chrome" instance="calendar.google.com"] $ws6
+assign [class="Chromium" title="^Google Calendar" window_role="pop-up"] $ws6
 assign [class="Google-chrome" instance="todoist.com"] $ws6
 for_window [class="Blueman-manager" instance="blueman-manager"] floating enable
 assign [class="zoom"] $ws5
