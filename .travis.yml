@@ -1,0 +1,7 @@
+language: bash
+os:
+  - linux
+dist: bionic
+
+script:
+  - bash install.sh
