@@ -2,16 +2,19 @@ call plug#begin()
 "Look and feel
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'scrooloose/nerdtree'
+"NerdTree
+"Plug 'scrooloose/nerdtree'
+Plug 'preservim/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
 "Completions
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'tpope/vim-endwise'
 Plug 'jiangmiao/auto-pairs'
 "LanguangeServers
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
+"Plug 'autozimu/LanguageClient-neovim', {
+"    \ 'branch': 'next',
+"    \ 'do': 'bash install.sh',
+"    \ }
 "Go Config
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 "Git
@@ -95,7 +98,7 @@ autocmd StdinReadPre * let s:std_in=1
 "autocmd VimEnter * if argc() == 0 && !exists(“s:std_in”) | exe 'NERDTree' | endif
 "autocmd vimenter * NERDTree
 au VimEnter NERD_tree_1 enew | execute 'NERDTree '.argv()[0]
-"let NERDTreeMinimalUI = 1
+let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
 augroup NERD
     au!
@@ -148,17 +151,17 @@ if has('conceal')
 endif
 
 "LanguageClient
-set hidden
-
-let g:LanguageClient_serverCommands = {
-    \ 'ruby': ['~/.rbenv/shims/solargraph', 'stdio'],
-    \ }
-
-nnoremap <F5> :call LanguageClient_contextMenu()<CR>
-" Or map each action separately
-nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+"set hidden
+"
+"let g:LanguageClient_serverCommands = {
+"    \ 'ruby': ['~/.rbenv/shims/solargraph', 'stdio'],
+"    \ }
+"
+"nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+"" Or map each action separately
+"nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+"nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+"nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
 
 
 "
@@ -276,8 +279,8 @@ let g:terraform_remap_spacebar=1
 let g:terraform_fmt_on_save=1
 "
 "HCL Formatting with vim-hclfmt
-let g:hcl_fmt_autosave = 1 
-let g:tf_fmt_autosave = 0 
+let g:hcl_fmt_autosave = 1
+let g:tf_fmt_autosave = 0
 let g:nomad_fmt_autosave = 0
 "
 "
