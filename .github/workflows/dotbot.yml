@@ -26,4 +26,6 @@ jobs:
       - name: Create PR
         uses: peter-evans/create-pull-request@v3
         with:
-          branch: dotbot-changes
+          branch: dotbot-submodule-update
+          commit-message: Automated update to dotbot submodule
+          Title: Automated Update to Dotbot Submodule
