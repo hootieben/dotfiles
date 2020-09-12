@@ -219,6 +219,10 @@
 #    summary = *twitter.com*
 #    urgency = normal
 
+[spotify]
+  appname = Spotify
+  format = ""
+
 [scrot]
     summary = scrot
     format = "<b>  %s</b>\n%b"
