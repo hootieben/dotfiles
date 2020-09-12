@@ -19,6 +19,11 @@ jobs:
 
       # Update submodule
       - name: Checkout dotbot submodule
+        id: dbsub
         uses: textbook/git-checkout-submodule-action@master
         with:
           remote: true
+      - name: Create PR
+        uses: peter-evans/create-pull-request@v3
+        with:
+          branch: dotbot-changes
