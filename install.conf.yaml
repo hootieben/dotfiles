@@ -18,6 +18,7 @@
   - ~/.config/dunst
   - ~/.config/polybar
   - ~/.config/autorandr
+  - ~/.config/i3
 
 - link:
     ~/.config/nvim/init.vim:
