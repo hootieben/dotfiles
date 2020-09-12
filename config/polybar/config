@@ -56,7 +56,7 @@ modules-left = i3
 inherit = bar/bottom
 tray-detached = false
 tray-position = right
-tray-maxsize = 60 
+tray-maxsize = 60
 #tray-padding = 10
 
 ;==========================================================
@@ -428,7 +428,7 @@ label = %percentage_used:2%%
 [module/battery]
 type = internal/battery
 time-format = %H:%M
-full-at = 88 
+full-at = 88
 battery = BAT0
 adapter = AC
 format-charging = <animation-charging> <label-charging>

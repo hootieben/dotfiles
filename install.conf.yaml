@@ -41,7 +41,7 @@
     ~/.ssh/config:
         path: ssh/config
     ~/.Xresources:
-        path: Xresources 
+        path: Xresources
     ~/.config/ansible/ansible.cfg:
         path: ansible/ansible.cfg
     ~/.zsh/completions/_hub:
@@ -67,9 +67,9 @@
 
 
 - shell:
-  - scripts/ohmyzsh.sh 
-  # - go get -u github.com/mdempsky/gocode 
-  - 
+  - scripts/ohmyzsh.sh
+  # - go get -u github.com/mdempsky/gocode
+  -
     command: scripts/nvim.sh
     stdout: true
     stderr: true
