@@ -66,10 +66,10 @@
         path: config/autorandr/*
 
 
-- shell:
-  - scripts/ohmyzsh.sh
+# - shell:
+  # - scripts/ohmyzsh.sh
   # - go get -u github.com/mdempsky/gocode
-  -
-    command: scripts/nvim.sh
-    stdout: true
-    stderr: true
+  #-
+  #  command: scripts/nvim.sh
+  #  stdout: true
+  #  stderr: true
