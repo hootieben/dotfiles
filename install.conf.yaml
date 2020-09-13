@@ -9,7 +9,8 @@
   - ~/.config/nvim
   - ~/.gnupg
   - ~/.config/kitty
-  - ~/.ssh - ~/.local/bin
+  - ~/.ssh
+  - ~/.local/bin
   - ~/.config/ansible
   - ~/.zsh/completions
   - ~/.config/pulse
