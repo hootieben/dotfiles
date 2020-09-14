@@ -66,7 +66,8 @@
   newHighlight = green bold 22
 
 [credential]
-  helper = osxkeychain
+  #helper = osxkeychain
+	helper = "!gopass-git-credentials $@"
 
 [grep]
   lineNumber = true
