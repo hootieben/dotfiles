@@ -53,3 +53,6 @@
 	gpgsign = true
 [hub]
 	protocol = ssh
+
+[includeIf "gitdir:~/repos/github.com/litmus/"]
+  path = ~/.gitconfig-litmus
