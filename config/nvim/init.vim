@@ -23,7 +23,7 @@ Plug 'airblade/vim-gitgutter'
 "Ruby
 Plug 'vim-ruby/vim-ruby'
 "Lint
-Plug 'w0rp/ale'
+Plug 'dense-analysis/ale'
 "Plug 'neomake/neomake'
 "Ctags
 "Plug 'ludovicchabant/vim-gutentags'
