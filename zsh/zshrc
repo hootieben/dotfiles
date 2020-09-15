@@ -147,3 +147,7 @@ ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
 
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /home/hootieben/.local/bin/vault vault
+
+if [[ -f aws-vault ]]; then
+  eval "$(aws-vault --completion-script-zsh)"
+fi
