@@ -28,6 +28,8 @@
       path: git/gitconfig
     ~/.gitignore_global:
       path: git/gitignore_global
+    ~/.gitconfig-litmus:
+      path: git/gitconfig-litmus
     ~/.zshrc:
       path: zsh/zshrc
     ~/.zshenv:
