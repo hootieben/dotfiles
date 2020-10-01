@@ -23,7 +23,7 @@ Plug 'airblade/vim-gitgutter'
 "Ruby
 Plug 'vim-ruby/vim-ruby'
 "Lint
-Plug 'w0rp/ale'
+Plug 'dense-analysis/ale'
 "Plug 'neomake/neomake'
 "Ctags
 "Plug 'ludovicchabant/vim-gutentags'
@@ -65,6 +65,8 @@ Plug 'pearofducks/ansible-vim'
 "Plug 'gabrielelana/vim-markdown'
 "Plug 'mdempsky/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
 Plug 'fatih/vim-hclfmt'
+Plug 'aliou/bats.vim'
+
 call plug#end()
 
 "Set host progs
