@@ -105,6 +105,7 @@ bindsym F5 workspace $ws5
 bindsym F6 workspace $ws6
 bindsym F7 workspace $ws7
 bindsym F8 workspace $ws8
+bindsym F9 workspace $ws9
 
 
 
