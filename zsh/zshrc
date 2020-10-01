@@ -123,7 +123,7 @@ export SHOW_AWS_PROMPT="false"
 if [[ -f /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
     source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
-export PATH="$HOME/.rbenv/bin:$PATH"
+export PATH="$HOME/.rbenv/bin:$HOME/.rbenv/shims:$PATH"
 if [[ -f rbenv ]]; then
   eval "$(rbenv init -)"
 fi
