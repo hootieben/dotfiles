@@ -123,7 +123,7 @@ export SHOW_AWS_PROMPT="false"
 if [[ -f /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
     source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
-export PATH="$HOME/.rbenv/bin:$PATH"
+export PATH="$HOME/.rbenv/bin:$HOME/.rbenv/shims:$PATH"
 if [[ -f rbenv ]]; then
   eval "$(rbenv init -)"
 fi
@@ -147,6 +147,17 @@ ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
 
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /home/hootieben/.local/bin/vault vault
+
+
+export ANSIBLE_VAULT_PASSWORD_FILE=/home/hootieben/.local/bin/ansible-vault-pass-client.py
+
+export AWS_VAULT_BACKEND=pass
+export AWS_VAULT_PASS_PASSWORD_STORE_DIR=~/.password-store-litmus
+export AWS_VAULT_PASS_CMD=gopass
+export AWS_VAULT_PASS_PREFIX=AWS
+
+export WORKON_HOME=$HOME/.virtualenvs
+source ~/.local/bin/virtualenvwrapper.sh
 
 if [[ -f aws-vault ]]; then
   eval "$(aws-vault --completion-script-zsh)"
