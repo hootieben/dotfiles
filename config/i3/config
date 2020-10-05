@@ -240,7 +240,8 @@ exec calendar
 exec --no-startup-id i3-msg 'workspace 5:Zoom; exec ~/.local/bin/zoom'
 exec --no-startup-id i3-msg 'workspace 2:Term; exec ~/.local/kitty.app/bin/kitty'
 exec --no-startup-id i3-msg 'workspace 1:Slack; exec slack'
-exec --no-startup-id i3-msg 'workspace 3:Web; exec google-chrome'
+#exec --no-startup-id i3-msg 'workspace 3:Web; exec google-chrome'
+exec --no-startup-id i3-msg 'workspace 3:Web; exec firefox'
 #exec --no-startup-id '~/.local/bin/todoist'
 # exec --no-startup-id '~/.local/bin/calendar'
 #exec --no-startup-id "~/.local/bin/i3-arandr.sh"
@@ -254,7 +255,8 @@ exec --no-startup-id xss-lock -- /usr/local/bin/xidlehook-client --socket /tmp/x
 for_window [title="^Google Hangouts" window_role="pop-up"] floating enable resize set 1667 1174
 for_window [window_role="About"] floating enable
 assign [class="Slack"] $ws1
-assign [class="Chromium" title="^Google Calendar" window_role="pop-up"] $ws6
+#assign [class="Chromium" title="^Google Calendar" window_role="pop-up"] $ws6
+assign [class="Firefox" title="^Google Calendar"] $ws6
 assign [class="Google-chrome" instance="todoist.com"] $ws6
 for_window [class="Blueman-manager" instance="blueman-manager"] floating enable
 assign [class="zoom"] $ws5
