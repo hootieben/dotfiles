@@ -70,7 +70,7 @@ Plug 'aliou/bats.vim'
 call plug#end()
 
 "Set host progs
-let g:python_host_prog = "/usr/bin/python"
+let g:python_host_prog = "/usr/bin/python2"
 let g:python3_host_prog = "/usr/bin/python3"
 let g:ruby_host_prog = '~/.rbenv/versions/2.7.0/bin/neovim-ruby-host'
 
