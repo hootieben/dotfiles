@@ -7,7 +7,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'preservim/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 "Completions
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+"Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'tpope/vim-endwise'
 Plug 'jiangmiao/auto-pairs'
 "LanguangeServers
@@ -39,6 +39,8 @@ Plug 'Shougo/neosnippet-snippets'
 Plug 'hashivim/vim-terraform'
 "Ansible
 Plug 'pearofducks/ansible-vim'
+"CoC
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 "OLD CONFIG
 "Plug 'hashivim/vim-terraform'
@@ -83,13 +85,13 @@ set nocompatible
 set tabstop=2 softtabstop=2 expandtab shiftwidth=2 smarttab
 
 "Deoplete Completion
-let g:deoplete#enable_at_startup = 1
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+"let g:deoplete#enable_at_startup = 1
+"inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
 "Go Config
-call deoplete#custom#option('omni_patterns', { 'go': '[^. *\t]\.\w*' })
-let g:go_def_mode='gopls'
-let g:go_info_mode='gopls'
+"call deoplete#custom#option('omni_patterns', { 'go': '[^. *\t]\.\w*' })
+"let g:go_def_mode='gopls'
+"let g:go_info_mode='gopls'
 
 
 " NERDTree
@@ -109,7 +111,6 @@ augroup NERD
 augroup END
 let g:airline_theme='powerlineish'
 
-set signcolumn=yes
 
 "Ale
 let g:ale_sign_error = '⤫'
@@ -152,13 +153,19 @@ if has('conceal')
   set conceallevel=2 concealcursor=niv
 endif
 
-"LanguageClient
-"set hidden
-"
+"LanguageClient - taken from https://github.com/neoclide/coc.nvim
+set hidden
+set nobackup
+set nowritebackup
+set cmdheight=2
+set updatetime=300
+set shortmess+=c
+set signcolumn=yes
+
 "let g:LanguageClient_serverCommands = {
-"    \ 'ruby': ['~/.rbenv/shims/solargraph', 'stdio'],
+"    \ 'sh': ['bash-language-server', 'start'],
 "    \ }
-"
+autocmd BufWritePre *.go :call LanguageClient#textDocument_formatting_sync()
 "nnoremap <F5> :call LanguageClient_contextMenu()<CR>
 "" Or map each action separately
 "nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
@@ -312,3 +319,7 @@ let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'json': ['fixjson'],
 \}
+
+"let g:ale_linters = {
+"    \ 'sh': ['language_server'],
+"    \ }
