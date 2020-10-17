@@ -30,8 +30,8 @@ Plug 'dense-analysis/ale'
 "Commenting
 Plug 'tpope/vim-commentary'
 "FZF
-Plug 'junegunn/fzf'
-Plug 'junegunn/fzf.vim'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+"Plug 'junegunn/fzf.vim'
 "Snippets
 Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/neosnippet-snippets'
@@ -323,3 +323,5 @@ let g:ale_fixers = {
 "let g:ale_linters = {
 "    \ 'sh': ['language_server'],
 "    \ }
+
+let g:ackprg = 'ag --vimgrep'
