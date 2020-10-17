@@ -33,6 +33,7 @@ foreground = ${colors.fg}
 font-0 = "Fantasque Sans Mono:pixelsize=25;3"
 font-1 = "Iosevka Nerd Font:pixelsize=30;3"
 font-2 = "Iosevka Nerd Font:pixelsize=25;3"
+enable-ipc = true
 
 #wm-restack = i3
 #override-redirect = true
@@ -41,9 +42,9 @@ font-2 = "Iosevka Nerd Font:pixelsize=25;3"
 inherit = common
 fixed-center = true
 
-modules-left = cpu-graph xbacklight memory spotify
+modules-left = cpu-graph memory spotify
 modules-center = date
-modules-right = wlan battery volume
+modules-right = wlan backlight battery volume
 
 cursor-click = pointer
 
@@ -299,7 +300,9 @@ click-left = kitty bash ~/.config/polybar/updates.sh
 interval = 3600
 
 [module/backlight]
-type = internal/xbacklight
+;type = internal/xbacklight
+type = internal/backlight
+card = intel_backlight
 format = <label> <bar>
 format-underline = ${colors.adapta-cyan}
 format-padding = 1
