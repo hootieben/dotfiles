@@ -41,8 +41,13 @@ Plug 'hashivim/vim-terraform'
 Plug 'pearofducks/ansible-vim'
 "CoC
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
-"OLD CONFIG
+"EditorConfig
+Plug 'editorconfig/editorconfig-vim'
+"
+"Ack
+Plug 'mileszs/ack.vim'
+"
+""OLD CONFIG
 "Plug 'hashivim/vim-terraform'
 "Plug 'neomake/neomake'
 "Plug 'vim-syntastic/syntastic'
