@@ -151,7 +151,7 @@ autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /home/hootieben/.local/bin/vault vault
 
 
-export ANSIBLE_VAULT_PASSWORD_FILE=/home/hootieben/.local/bin/ansible-vault-pass-client.py
+#export ANSIBLE_VAULT_PASSWORD_FILE=/home/hootieben/.local/bin/ansible-vault-pass-client.py
 
 export AWS_VAULT_BACKEND=pass
 export AWS_VAULT_PASS_PASSWORD_STORE_DIR=~/.password-store-litmus
