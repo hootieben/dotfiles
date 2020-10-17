@@ -69,7 +69,9 @@ CASE_SENSITIVE="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git aws gpg-agent terraform)
+
+export FZF_DEFAULT_COMMAND="fd --type f"
+plugins=(git fzf aws gpg-agent terraform)
 
 if [[ -f $ZSH/oh-my-zsh.sh ]]; then
   source $ZSH/oh-my-zsh.sh
