@@ -308,6 +308,7 @@ au BufNewFile,BufRead /dev/shm/gopass.* setlocal noswapfile nobackup noundofile
 "au BufRead,BufNewFile */workstation/*.yml set filetype=yaml.ansible
 au BufRead,BufNewFile */*-ansible/*.yml set filetype=yaml.ansible
 au BufRead,BufNewFile */workstation/*.yml set filetype=yaml.ansible
+au BufRead,BufNewFile */instant-api-ops/*.yml set filetype=yaml.ansible
 let g:ansible_yamlKeyName = 'yamlKey'
 
 let g:ale_list_window_size = 5
