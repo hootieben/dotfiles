@@ -161,6 +161,10 @@ export AWS_VAULT_PASS_PREFIX=AWS
 export WORKON_HOME=$HOME/.virtualenvs
 source ~/.local/bin/virtualenvwrapper.sh
 
+if [[ -n $VIRTUAL_ENV && -e "${VIRTUAL_ENV}/bin/activate" ]]; then
+  source "${VIRTUAL_ENV}/bin/activate"
+fi
+
 if [[ -f aws-vault ]]; then
   eval "$(aws-vault --completion-script-zsh)"
 fi
