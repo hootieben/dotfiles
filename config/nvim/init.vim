@@ -101,54 +101,51 @@ let g:python3_host_prog = "/usr/bin/python3"
 
 
 "NERDTree
-map <C-n> :NERDTreeToggle<CR>
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-autocmd StdinReadPre * let s:std_in=1
-au VimEnter NERD_tree_1 enew | execute 'NERDTree '.argv()[0]
-let NERDTreeMinimalUI = 1
-let NERDTreeDirArrows = 1
- augroup NERD
-     au!
-"     autocmd VimEnter * NERDTree
-"     autocmd VimEnter * wincmd p
- augroup END
-"let g:airline_theme='powerlineish'
-"let g:airline_theme='lucid'
+if exists(':NERDTree')
+  map <C-n> :NERDTreeToggle<CR>
+  autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+  autocmd StdinReadPre * let s:std_in=1
+  au VimEnter NERD_tree_1 enew | execute 'NERDTree '.argv()[0]
+  let NERDTreeMinimalUI = 1
+  let NERDTreeDirArrows = 1
+   augroup NERD
+       au!
+  "     autocmd VimEnter * NERDTree
+  "     autocmd VimEnter * wincmd p
+   augroup END
+endif
 
 "Ale
-let g:ale_sign_error = '⤫'
-let g:ale_sign_warning = '⚠'
-" Enable integration with airline.
-let g:airline#extensions#ale#enabled = 1
-let g:go_fmt_command = "goimports"
+if exists(':ALEInfo')
+  let g:ale_sign_error = '⤫'
+  let g:ale_sign_warning = '⚠'
+  " Enable integration with airline.
+  let g:airline#extensions#ale#enabled = 1
+  let g:go_fmt_command = "goimports"
 
-let g:ale_list_window_size = 5
-let g:ale_set_loclist = 0
-let g:ale_set_quickfix = 1
-let g:ale_open_list = 1
-" Set this if you want to.
-" This can be useful if you are combining ALE with
-" some other plugin which sets quickfix errors, etc.
-let g:ale_keep_list_window_open = 1
-au BufRead,BufNewFile */*-ansible/*.yml set filetype=yaml.ansible
-au BufRead,BufNewFile */workstation/*.yml set filetype=yaml.ansible
-au BufRead,BufNewFile */instant-api-ops/*.yml set filetype=yaml.ansible
-let g:ansible_yamlKeyName = 'yamlKey'
+  let g:ale_list_window_size = 5
+  let g:ale_set_loclist = 0
+  let g:ale_set_quickfix = 1
+  let g:ale_open_list = 1
+  " Set this if you want to.
+  " This can be useful if you are combining ALE with
+  " some other plugin which sets quickfix errors, etc.
+  let g:ale_keep_list_window_open = 1
+  au BufRead,BufNewFile */*-ansible/*.yml set filetype=yaml.ansible
+  au BufRead,BufNewFile */workstation/*.yml set filetype=yaml.ansible
+  au BufRead,BufNewFile */instant-api-ops/*.yml set filetype=yaml.ansible
+  let g:ansible_yamlKeyName = 'yamlKey'
 
-let g:ale_fixers = {
-\   '*': ['remove_trailing_lines', 'trim_whitespace'],
-\   'json': ['fixjson'],
-\}
+  let g:ale_fixers = {
+  \   '*': ['remove_trailing_lines', 'trim_whitespace'],
+  \   'json': ['fixjson'],
+  \}
 
-let g:ale_linters = {
-    \ 'sh': [],
-    \ 'ruby': [],
-    \ }
-
-" For conceal markers.
-" if has('conceal')
-"   set conceallevel=2 concealcursor=niv
-" endif
+  let g:ale_linters = {
+      \ 'sh': [],
+      \ 'ruby': [],
+      \ }
+endif
 
 ""LanguageClient - taken from https://github.com/neoclide/coc.nvim
 set hidden
