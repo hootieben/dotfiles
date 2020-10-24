@@ -89,7 +89,11 @@ if !empty(globpath(&rtp, 'autoload/plug.vim'))
     autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
   endif
 endif
-colorscheme landscape
+
+try
+  colorscheme landscape
+  catch
+endtry
 
 "Set host progs
 let g:python_host_prog = "/usr/bin/python2"
