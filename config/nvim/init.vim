@@ -1,121 +1,112 @@
+"Look and feel
+syntax enable
+set cursorline
+set autoindent
+set title
+set wrap
+let &t_ut=''
+set termguicolors
+set number
+set nocompatible
+set tabstop=2 softtabstop=2 expandtab shiftwidth=2 smarttab
+set splitbelow
+set splitright
+
+if executable('git')
+  if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
+    !sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+  endif
+endif
+
 call plug#begin()
 "Look and feel
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'itchyny/landscape.vim'
 "NerdTree
-"Plug 'scrooloose/nerdtree'
 Plug 'preservim/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 "Completions
-"Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'tpope/vim-endwise'
-Plug 'jiangmiao/auto-pairs'
-"LanguangeServers
-"Plug 'autozimu/LanguageClient-neovim', {
-"    \ 'branch': 'next',
-"    \ 'do': 'bash install.sh',
-"    \ }
+"Plug 'jiangmiao/auto-pairs'
 "Go Config
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+if executable('go')
+  Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+endif
 "Git
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rhubarb'
 Plug 'airblade/vim-gitgutter'
 "Ruby
-Plug 'vim-ruby/vim-ruby'
+" if executable('ruby')
+"   Plug 'vim-ruby/vim-ruby'
+" endif
 "Lint
-Plug 'dense-analysis/ale'
-"Plug 'neomake/neomake'
-"Ctags
-"Plug 'ludovicchabant/vim-gutentags'
+ Plug 'dense-analysis/ale'
 "Commenting
 Plug 'tpope/vim-commentary'
 "FZF
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-"Plug 'junegunn/fzf.vim'
-"Snippets
-Plug 'Shougo/neosnippet.vim'
-Plug 'Shougo/neosnippet-snippets'
-"Terrform
-Plug 'hashivim/vim-terraform'
+"Hashicorp Stuff
+if executable('terraform')
+  Plug 'hashivim/vim-terraform'
+endif
+if executable('packer')
+  Plug 'hashivim/vim-packer'
+endif
 "Ansible
-Plug 'pearofducks/ansible-vim'
+if executable('ansible')
+  Plug 'pearofducks/ansible-vim', { 'do': './UltiSnips/generate.sh' }
+endif
 "CoC
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+if executable('node')
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
+endif
 "EditorConfig
 Plug 'editorconfig/editorconfig-vim'
-"
 "Ack
-Plug 'mileszs/ack.vim'
-"
-""OLD CONFIG
-"Plug 'hashivim/vim-terraform'
-"Plug 'neomake/neomake'
-"Plug 'vim-syntastic/syntastic'
-"Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-"Plug 'juliosueiras/vim-terraform-completion'
-"Plug 'zchee/deoplete-jedi'
-"Plug 'zchee/deoplete-go', { 'do': 'make'}
-"Plug 'vim-airline/vim-airline'
-"Plug 'vim-airline/vim-airline-themes'
-"Plug 'Shougo/neosnippet'
-"Plug 'Shougo/neosnippet-snippets'
-"Plug 'tpope/vim-endwise'
-"Plug 'jiangmiao/auto-pairs'
-"Plug 'airblade/vim-gitgutter'
-"Plug 'ervandew/supertab'
-"Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-"Plug 'tpope/vim-fugitive'
-"Plug 'scrooloose/nerdtree'
-"Plug 'micha/vim-colors-solarized'
-"Plug 'w0rp/ale'
-"Plug 'rhysd/vim-fixjson'
-"Plug 'gabrielelana/vim-markdown'
-"Plug 'mdempsky/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
+if executable('ack') || executable('ag')
+  Plug 'mileszs/ack.vim'
+endif
+"HCL Formatting
 Plug 'fatih/vim-hclfmt'
+"BATS
 Plug 'aliou/bats.vim'
+"Snippets
+Plug 'honza/vim-snippets'
 
+Plug 'tpope/vim-surround'
+
+Plug 'tpope/vim-unimpaired'
 call plug#end()
+
+" Run PlugInstall if there are missing plugins
+if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+colorscheme landscape
 
 "Set host progs
 let g:python_host_prog = "/usr/bin/python2"
 let g:python3_host_prog = "/usr/bin/python3"
-let g:ruby_host_prog = '~/.rbenv/versions/2.7.0/bin/neovim-ruby-host'
-
-"Look and feel
-syntax enable
-set termguicolors
-set number
-set nocompatible
-"set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab
-set tabstop=2 softtabstop=2 expandtab shiftwidth=2 smarttab
-
-"Deoplete Completion
-"let g:deoplete#enable_at_startup = 1
-"inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-
-"Go Config
-"call deoplete#custom#option('omni_patterns', { 'go': '[^. *\t]\.\w*' })
-"let g:go_def_mode='gopls'
-"let g:go_info_mode='gopls'
 
 
-" NERDTree
+"NERDTree
 map <C-n> :NERDTreeToggle<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 autocmd StdinReadPre * let s:std_in=1
-"autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
-"autocmd VimEnter * if argc() == 0 && !exists(“s:std_in”) | exe 'NERDTree' | endif
-"autocmd vimenter * NERDTree
 au VimEnter NERD_tree_1 enew | execute 'NERDTree '.argv()[0]
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
-augroup NERD
-    au!
-    autocmd VimEnter * NERDTree
-    autocmd VimEnter * wincmd p
-augroup END
-let g:airline_theme='powerlineish'
-
+ augroup NERD
+     au!
+"     autocmd VimEnter * NERDTree
+"     autocmd VimEnter * wincmd p
+ augroup END
+"let g:airline_theme='powerlineish'
+"let g:airline_theme='lucid'
 
 "Ale
 let g:ale_sign_error = '⤫'
@@ -124,8 +115,6 @@ let g:ale_sign_warning = '⚠'
 let g:airline#extensions#ale#enabled = 1
 let g:go_fmt_command = "goimports"
 
-"let g:ale_lint_on_save = 1
-"let g:ale_lint_on_text_changed = 0
 let g:ale_list_window_size = 5
 let g:ale_set_loclist = 0
 let g:ale_set_quickfix = 1
@@ -134,31 +123,27 @@ let g:ale_open_list = 1
 " This can be useful if you are combining ALE with
 " some other plugin which sets quickfix errors, etc.
 let g:ale_keep_list_window_open = 1
+au BufRead,BufNewFile */*-ansible/*.yml set filetype=yaml.ansible
+au BufRead,BufNewFile */workstation/*.yml set filetype=yaml.ansible
+au BufRead,BufNewFile */instant-api-ops/*.yml set filetype=yaml.ansible
+let g:ansible_yamlKeyName = 'yamlKey'
+
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'json': ['fixjson'],
 \}
 
-"Neosnippet
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
-
-" SuperTab like snippets behavior.
-" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-"imap <expr><TAB>
-" \ pumvisible() ? "\<C-n>" :
-" \ neosnippet#expandable_or_jumpable() ?
-" \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+let g:ale_linters = {
+    \ 'sh': [],
+    \ 'ruby': [],
+    \ }
 
 " For conceal markers.
-if has('conceal')
-  set conceallevel=2 concealcursor=niv
-endif
+" if has('conceal')
+"   set conceallevel=2 concealcursor=niv
+" endif
 
-"LanguageClient - taken from https://github.com/neoclide/coc.nvim
+""LanguageClient - taken from https://github.com/neoclide/coc.nvim
 set hidden
 set nobackup
 set nowritebackup
@@ -167,125 +152,6 @@ set updatetime=300
 set shortmess+=c
 set signcolumn=yes
 
-"let g:LanguageClient_serverCommands = {
-"    \ 'sh': ['bash-language-server', 'start'],
-"    \ }
-autocmd BufWritePre *.go :call LanguageClient#textDocument_formatting_sync()
-"nnoremap <F5> :call LanguageClient_contextMenu()<CR>
-"" Or map each action separately
-"nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-"nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-"nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
-
-
-"
-"OLD CONFIG
-"
-""Syntastic Config
-"let g:syntastic_always_populate_loc_list = 1
-"let g:syntastic_auto_loc_list = 1
-"let g:syntastic_check_on_open = 1
-"let g:syntastic_check_on_wq = 0
-"
-"" (Optional)Remove Info(Preview) window
-"set completeopt-=preview
-"
-"" (Optional)Hide Info(Preview) window after completions
-"autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
-"autocmd InsertLeave * if pumvisible() == 0|pclose|endif
-"
-"" (Optional) Enable terraform plan to be include in filter
-"let g:syntastic_terraform_tffilter_plan = 1
-"
-"" (Optional) Default: 0, enable(1)/disable(0) plugin's keymapping
-"let g:terraform_completion_keys = 1
-"
-"" (Optional) Default: 1, enable(1)/disable(0) terraform module registry completion
-"let g:terraform_registry_module_completion = 0
-"
-""Deoplete Config
-"let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
-"let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
-"let g:deoplete#omni_patterns = {}
-"let g:deoplete#omni_patterns.terraform = '[^ *\t"{=$]\w*'
-"call deoplete#custom#option('num_processes', 1)
-"let g:deoplete#enable_at_startup = 1
-"call deoplete#initialize()
-"
-""imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-""smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-""xmap <C-k>     <Plug>(neosnippet_expand_target)
-"" SuperTab like snippets behavior.
-"" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-""imap <expr><TAB>
-"" \ pumvisible() ? "\<C-n>" :
-"" \ neosnippet#expandable_or_jumpable() ?
-"" \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-"smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-"\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-"
-"" For conceal markers.
-"if has('conceal')
-"  set conceallevel=2 concealcursor=niv
-"endif
-"
-"let g:SuperTabDefaultCompletionType = "<c-n>"
-"
-"" NERDTree
-"map <C-n> :NERDTreeToggle<CR>
-"autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-"autocmd StdinReadPre * let s:std_in=1
-""autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
-""autocmd VimEnter * if argc() == 0 && !exists(“s:std_in”) | exe 'NERDTree' | endif
-""autocmd vimenter * NERDTree
-"au VimEnter NERD_tree_1 enew | execute 'NERDTree '.argv()[0]
-""let NERDTreeMinimalUI = 1
-"let NERDTreeDirArrows = 1
-"augroup NERD
-"    au!
-"    autocmd VimEnter * NERDTree
-"    autocmd VimEnter * wincmd p
-"augroup END
-"let g:airline_theme='powerlineish'
-"
-"set signcolumn=yes
-"
-"" Vim-go
-"""https://hackernoon.com/my-neovim-setup-for-go-7f7b6e805876
-"let g:go_highlight_build_constraints = 1
-"let g:go_highlight_extra_types = 1
-"let g:go_highlight_fields = 1
-"let g:go_highlight_functions = 1
-"let g:go_highlight_methods = 1
-"let g:go_highlight_operators = 1
-"let g:go_highlight_structs = 1
-"let g:go_highlight_types = 1
-"let g:go_auto_sameids = 1
-"let g:go_auto_type_info = 1
-"let g:go_snippet_engin = "neosnippet"
-"" Error and warning signs.
-"let g:ale_sign_error = '⤫'
-"let g:ale_sign_warning = '⚠'
-"" Enable integration with airline.
-"let g:airline#extensions#ale#enabled = 1
-"let g:go_fmt_command = "goimports"
-"
-""let g:ale_lint_on_save = 1
-""let g:ale_lint_on_text_changed = 0
-"let g:ale_list_window_size = 5
-"let g:ale_set_loclist = 0
-"let g:ale_set_quickfix = 1
-"let g:ale_open_list = 1
-"" Set this if you want to.
-"" This can be useful if you are combining ALE with
-"" some other plugin which sets quickfix errors, etc.
-"let g:ale_keep_list_window_open = 1
-"let g:ale_fixers = {
-"\   '*': ['remove_trailing_lines', 'trim_whitespace'],
-"\   'json': ['fixjson'],
-"\}
-"
-"autocmd BufRead,BufNewFile *.hcl set filetype=terraform
 "Terraform Formatting
 let g:terraform_align=1
 "let g:terraform_fold_sections=1
@@ -296,38 +162,156 @@ let g:terraform_fmt_on_save=1
 let g:hcl_fmt_autosave = 1
 let g:tf_fmt_autosave = 0
 let g:nomad_fmt_autosave = 0
-"
-"
-"let g:go_version_warning = 0
 
 map <Leader>rr :set makeprg=ruby\ %<cr>:make<cr>
 
 au BufNewFile,BufRead /dev/shm/gopass.* setlocal noswapfile nobackup noundofile
 
-"au BufRead,BufNewFile */*-ansible/*.yml set filetype=yaml.ansible
-"au BufRead,BufNewFile */workstation/*.yml set filetype=yaml.ansible
-au BufRead,BufNewFile */*-ansible/*.yml set filetype=yaml.ansible
-au BufRead,BufNewFile */workstation/*.yml set filetype=yaml.ansible
-au BufRead,BufNewFile */instant-api-ops/*.yml set filetype=yaml.ansible
-let g:ansible_yamlKeyName = 'yamlKey'
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif
 
-let g:ale_list_window_size = 5
-let g:ale_set_loclist = 0
-let g:ale_set_quickfix = 1
-let g:ale_open_list = 1
-" Set this if you want to.
-" This can be useful if you are combining ALE with
-" some other plugin which sets quickfix errors, etc.
-let g:ale_keep_list_window_open = 1
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
-let g:ale_keep_list_window_open = 1
-let g:ale_fixers = {
-\   '*': ['remove_trailing_lines', 'trim_whitespace'],
-\   'json': ['fixjson'],
-\}
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
 
-"let g:ale_linters = {
-"    \ 'sh': ['language_server'],
-"    \ }
+" Use <c-space> to trigger completion.
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+endif
 
-let g:ackprg = 'ag --vimgrep'
+" Make <CR> auto-select the first completion item and notify coc.nvim to
+" format on enter, <cr> could be remapped by other vim plugin
+"inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+"                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
+
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+
+" Formatting selected code.
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+augroup mygroup
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder.
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+" Applying codeAction to the selected region.
+" Example: `<leader>aap` for current paragraph
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+" Remap keys for applying codeAction to the current buffer.
+nmap <leader>ac  <Plug>(coc-codeaction)
+" Apply AutoFix to problem on the current line.
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Map function and class text objects
+" NOTE: Requires 'textDocument.documentSymbol' support from the language server.
+xmap if <Plug>(coc-funcobj-i)
+omap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap af <Plug>(coc-funcobj-a)
+xmap ic <Plug>(coc-classobj-i)
+omap ic <Plug>(coc-classobj-i)
+xmap ac <Plug>(coc-classobj-a)
+omap ac <Plug>(coc-classobj-a)
+
+" Remap <C-f> and <C-b> for scroll float windows/popups.
+" Note coc#float#scroll works on neovim >= 0.5.0 or vim >= 8.2.0750
+nnoremap <expr><C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+nnoremap <expr><C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+inoremap <expr><C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<Right>"
+inoremap <expr><C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<Left>"
+
+" Use CTRL-S for selections ranges.
+" Requires 'textDocument/selectionRange' support of language server.
+nmap <silent> <C-s> <Plug>(coc-range-select)
+xmap <silent> <C-s> <Plug>(coc-range-select)
+
+" Add `:Format` command to format current buffer.
+command! -nargs=0 Format :call CocAction('format')
+
+" Add `:Fold` command to fold current buffer.
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+" Add `:OR` command for organize imports of the current buffer.
+command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+
+" Add (Neo)Vim's native statusline support.
+" NOTE: Please see `:h coc-status` for integrations with external plugins that
+" provide custom statusline: lightline.vim, vim-airline.
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
+" Mappings for CoCList
+" Show all diagnostics.
+nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
+" Manage extensions.
+nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
+" Show commands.
+nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
+" Find symbol of current document.
+nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
+" Search workspace symbols.
+nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
+" Do default action for next item.
+nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
+" Do default action for previous item.
+nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
+" Resume latest coc list.
+nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#buffer_nr_show = 1
+let g:airline#extensions#coc#enabled = 1
+let g:airline_powerline_fonts = 1
+
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+"Ansible
+let g:ansible_attribute_highlight = "ob"
+let g:ansible_name_hightlight='d'
+let g:ansible_extra_keywords_highlight = 1
