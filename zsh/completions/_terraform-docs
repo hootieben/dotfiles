@@ -1,0 +1,482 @@
+#compdef _terraform-docs terraform-docs
+
+
+function _terraform-docs {
+  local -a commands
+
+  _arguments -C \
+    '(-c --config)'{-c,--config}'[config file name]:' \
+    '--header-from[relative path of a file to read header from]:' \
+    '*--hide[hide section [header, inputs, outputs, providers, requirements]]:' \
+    '--hide-all[hide all sections (default false)]' \
+    '--output-values[inject output values into outputs (default false)]' \
+    '--output-values-from[inject output values from file into outputs (default "")]:' \
+    '*--show[show section [header, inputs, outputs, providers, requirements]]:' \
+    '--show-all[show all sections]' \
+    '--sort[sort items]' \
+    '--sort-by-required[sort items by name and print required ones first (default false)]' \
+    '--sort-by-type[sort items by type of them (default false)]' \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "asciidoc:Generate AsciiDoc of inputs and outputs"
+      "completion:Generate shell completion code for the specified shell (bash or zsh)"
+      "help:Help about any command"
+      "json:Generate JSON of inputs and outputs"
+      "markdown:Generate Markdown of inputs and outputs"
+      "pretty:Generate colorized pretty of inputs and outputs"
+      "tfvars:Generate terraform.tfvars of inputs"
+      "toml:Generate TOML of inputs and outputs"
+      "version:Print the version number of terraform-docs"
+      "xml:Generate XML of inputs and outputs"
+      "yaml:Generate YAML of inputs and outputs"
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  asciidoc)
+    _terraform-docs_asciidoc
+    ;;
+  completion)
+    _terraform-docs_completion
+    ;;
+  help)
+    _terraform-docs_help
+    ;;
+  json)
+    _terraform-docs_json
+    ;;
+  markdown)
+    _terraform-docs_markdown
+    ;;
+  pretty)
+    _terraform-docs_pretty
+    ;;
+  tfvars)
+    _terraform-docs_tfvars
+    ;;
+  toml)
+    _terraform-docs_toml
+    ;;
+  version)
+    _terraform-docs_version
+    ;;
+  xml)
+    _terraform-docs_xml
+    ;;
+  yaml)
+    _terraform-docs_yaml
+    ;;
+  esac
+}
+
+
+function _terraform-docs_asciidoc {
+  local -a commands
+
+  _arguments -C \
+    '--indent[indention level of AsciiDoc sections [1, 2, 3, 4, 5]]:' \
+    '--required[show Required column or section]' \
+    '--sensitive[show Sensitive column or section]' \
+    '(-c --config)'{-c,--config}'[config file name]:' \
+    '--header-from[relative path of a file to read header from]:' \
+    '*--hide[hide section [header, inputs, outputs, providers, requirements]]:' \
+    '--hide-all[hide all sections (default false)]' \
+    '--output-values[inject output values into outputs (default false)]' \
+    '--output-values-from[inject output values from file into outputs (default "")]:' \
+    '*--show[show section [header, inputs, outputs, providers, requirements]]:' \
+    '--show-all[show all sections]' \
+    '--sort[sort items]' \
+    '--sort-by-required[sort items by name and print required ones first (default false)]' \
+    '--sort-by-type[sort items by type of them (default false)]' \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "document:Generate AsciiDoc document of inputs and outputs"
+      "table:Generate AsciiDoc tables of inputs and outputs"
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  document)
+    _terraform-docs_asciidoc_document
+    ;;
+  table)
+    _terraform-docs_asciidoc_table
+    ;;
+  esac
+}
+
+function _terraform-docs_asciidoc_document {
+  _arguments \
+    '(-c --config)'{-c,--config}'[config file name]:' \
+    '--header-from[relative path of a file to read header from]:' \
+    '*--hide[hide section [header, inputs, outputs, providers, requirements]]:' \
+    '--hide-all[hide all sections (default false)]' \
+    '--indent[indention level of AsciiDoc sections [1, 2, 3, 4, 5]]:' \
+    '--output-values[inject output values into outputs (default false)]' \
+    '--output-values-from[inject output values from file into outputs (default "")]:' \
+    '--required[show Required column or section]' \
+    '--sensitive[show Sensitive column or section]' \
+    '*--show[show section [header, inputs, outputs, providers, requirements]]:' \
+    '--show-all[show all sections]' \
+    '--sort[sort items]' \
+    '--sort-by-required[sort items by name and print required ones first (default false)]' \
+    '--sort-by-type[sort items by type of them (default false)]'
+}
+
+function _terraform-docs_asciidoc_table {
+  _arguments \
+    '(-c --config)'{-c,--config}'[config file name]:' \
+    '--header-from[relative path of a file to read header from]:' \
+    '*--hide[hide section [header, inputs, outputs, providers, requirements]]:' \
+    '--hide-all[hide all sections (default false)]' \
+    '--indent[indention level of AsciiDoc sections [1, 2, 3, 4, 5]]:' \
+    '--output-values[inject output values into outputs (default false)]' \
+    '--output-values-from[inject output values from file into outputs (default "")]:' \
+    '--required[show Required column or section]' \
+    '--sensitive[show Sensitive column or section]' \
+    '*--show[show section [header, inputs, outputs, providers, requirements]]:' \
+    '--show-all[show all sections]' \
+    '--sort[sort items]' \
+    '--sort-by-required[sort items by name and print required ones first (default false)]' \
+    '--sort-by-type[sort items by type of them (default false)]'
+}
+
+
+function _terraform-docs_completion {
+  local -a commands
+
+  _arguments -C \
+    '(-c --config)'{-c,--config}'[config file name]:' \
+    '--header-from[relative path of a file to read header from]:' \
+    '*--hide[hide section [header, inputs, outputs, providers, requirements]]:' \
+    '--hide-all[hide all sections (default false)]' \
+    '--output-values[inject output values into outputs (default false)]' \
+    '--output-values-from[inject output values from file into outputs (default "")]:' \
+    '*--show[show section [header, inputs, outputs, providers, requirements]]:' \
+    '--show-all[show all sections]' \
+    '--sort[sort items]' \
+    '--sort-by-required[sort items by name and print required ones first (default false)]' \
+    '--sort-by-type[sort items by type of them (default false)]' \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "bash:Generate shell completion for bash"
+      "zsh:Generate shel completion for zsh"
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  bash)
+    _terraform-docs_completion_bash
+    ;;
+  zsh)
+    _terraform-docs_completion_zsh
+    ;;
+  esac
+}
+
+function _terraform-docs_completion_bash {
+  _arguments \
+    '(-c --config)'{-c,--config}'[config file name]:' \
+    '--header-from[relative path of a file to read header from]:' \
+    '*--hide[hide section [header, inputs, outputs, providers, requirements]]:' \
+    '--hide-all[hide all sections (default false)]' \
+    '--output-values[inject output values into outputs (default false)]' \
+    '--output-values-from[inject output values from file into outputs (default "")]:' \
+    '*--show[show section [header, inputs, outputs, providers, requirements]]:' \
+    '--show-all[show all sections]' \
+    '--sort[sort items]' \
+    '--sort-by-required[sort items by name and print required ones first (default false)]' \
+    '--sort-by-type[sort items by type of them (default false)]'
+}
+
+function _terraform-docs_completion_zsh {
+  _arguments \
+    '(-h --help)'{-h,--help}'[help for zsh]' \
+    '(-c --config)'{-c,--config}'[config file name]:' \
+    '--header-from[relative path of a file to read header from]:' \
+    '*--hide[hide section [header, inputs, outputs, providers, requirements]]:' \
+    '--hide-all[hide all sections (default false)]' \
+    '--output-values[inject output values into outputs (default false)]' \
+    '--output-values-from[inject output values from file into outputs (default "")]:' \
+    '*--show[show section [header, inputs, outputs, providers, requirements]]:' \
+    '--show-all[show all sections]' \
+    '--sort[sort items]' \
+    '--sort-by-required[sort items by name and print required ones first (default false)]' \
+    '--sort-by-type[sort items by type of them (default false)]'
+}
+
+function _terraform-docs_help {
+  _arguments \
+    '(-c --config)'{-c,--config}'[config file name]:' \
+    '--header-from[relative path of a file to read header from]:' \
+    '*--hide[hide section [header, inputs, outputs, providers, requirements]]:' \
+    '--hide-all[hide all sections (default false)]' \
+    '--output-values[inject output values into outputs (default false)]' \
+    '--output-values-from[inject output values from file into outputs (default "")]:' \
+    '*--show[show section [header, inputs, outputs, providers, requirements]]:' \
+    '--show-all[show all sections]' \
+    '--sort[sort items]' \
+    '--sort-by-required[sort items by name and print required ones first (default false)]' \
+    '--sort-by-type[sort items by type of them (default false)]'
+}
+
+function _terraform-docs_json {
+  _arguments \
+    '--escape[escape special characters]' \
+    '(-c --config)'{-c,--config}'[config file name]:' \
+    '--header-from[relative path of a file to read header from]:' \
+    '*--hide[hide section [header, inputs, outputs, providers, requirements]]:' \
+    '--hide-all[hide all sections (default false)]' \
+    '--output-values[inject output values into outputs (default false)]' \
+    '--output-values-from[inject output values from file into outputs (default "")]:' \
+    '*--show[show section [header, inputs, outputs, providers, requirements]]:' \
+    '--show-all[show all sections]' \
+    '--sort[sort items]' \
+    '--sort-by-required[sort items by name and print required ones first (default false)]' \
+    '--sort-by-type[sort items by type of them (default false)]'
+}
+
+
+function _terraform-docs_markdown {
+  local -a commands
+
+  _arguments -C \
+    '--escape[escape special characters]' \
+    '--indent[indention level of Markdown sections [1, 2, 3, 4, 5]]:' \
+    '--required[show Required column or section]' \
+    '--sensitive[show Sensitive column or section]' \
+    '(-c --config)'{-c,--config}'[config file name]:' \
+    '--header-from[relative path of a file to read header from]:' \
+    '*--hide[hide section [header, inputs, outputs, providers, requirements]]:' \
+    '--hide-all[hide all sections (default false)]' \
+    '--output-values[inject output values into outputs (default false)]' \
+    '--output-values-from[inject output values from file into outputs (default "")]:' \
+    '*--show[show section [header, inputs, outputs, providers, requirements]]:' \
+    '--show-all[show all sections]' \
+    '--sort[sort items]' \
+    '--sort-by-required[sort items by name and print required ones first (default false)]' \
+    '--sort-by-type[sort items by type of them (default false)]' \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "document:Generate Markdown document of inputs and outputs"
+      "table:Generate Markdown tables of inputs and outputs"
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  document)
+    _terraform-docs_markdown_document
+    ;;
+  table)
+    _terraform-docs_markdown_table
+    ;;
+  esac
+}
+
+function _terraform-docs_markdown_document {
+  _arguments \
+    '(-c --config)'{-c,--config}'[config file name]:' \
+    '--escape[escape special characters]' \
+    '--header-from[relative path of a file to read header from]:' \
+    '*--hide[hide section [header, inputs, outputs, providers, requirements]]:' \
+    '--hide-all[hide all sections (default false)]' \
+    '--indent[indention level of Markdown sections [1, 2, 3, 4, 5]]:' \
+    '--output-values[inject output values into outputs (default false)]' \
+    '--output-values-from[inject output values from file into outputs (default "")]:' \
+    '--required[show Required column or section]' \
+    '--sensitive[show Sensitive column or section]' \
+    '*--show[show section [header, inputs, outputs, providers, requirements]]:' \
+    '--show-all[show all sections]' \
+    '--sort[sort items]' \
+    '--sort-by-required[sort items by name and print required ones first (default false)]' \
+    '--sort-by-type[sort items by type of them (default false)]'
+}
+
+function _terraform-docs_markdown_table {
+  _arguments \
+    '(-c --config)'{-c,--config}'[config file name]:' \
+    '--escape[escape special characters]' \
+    '--header-from[relative path of a file to read header from]:' \
+    '*--hide[hide section [header, inputs, outputs, providers, requirements]]:' \
+    '--hide-all[hide all sections (default false)]' \
+    '--indent[indention level of Markdown sections [1, 2, 3, 4, 5]]:' \
+    '--output-values[inject output values into outputs (default false)]' \
+    '--output-values-from[inject output values from file into outputs (default "")]:' \
+    '--required[show Required column or section]' \
+    '--sensitive[show Sensitive column or section]' \
+    '*--show[show section [header, inputs, outputs, providers, requirements]]:' \
+    '--show-all[show all sections]' \
+    '--sort[sort items]' \
+    '--sort-by-required[sort items by name and print required ones first (default false)]' \
+    '--sort-by-type[sort items by type of them (default false)]'
+}
+
+function _terraform-docs_pretty {
+  _arguments \
+    '--color[colorize printed result]' \
+    '(-c --config)'{-c,--config}'[config file name]:' \
+    '--header-from[relative path of a file to read header from]:' \
+    '*--hide[hide section [header, inputs, outputs, providers, requirements]]:' \
+    '--hide-all[hide all sections (default false)]' \
+    '--output-values[inject output values into outputs (default false)]' \
+    '--output-values-from[inject output values from file into outputs (default "")]:' \
+    '*--show[show section [header, inputs, outputs, providers, requirements]]:' \
+    '--show-all[show all sections]' \
+    '--sort[sort items]' \
+    '--sort-by-required[sort items by name and print required ones first (default false)]' \
+    '--sort-by-type[sort items by type of them (default false)]'
+}
+
+
+function _terraform-docs_tfvars {
+  local -a commands
+
+  _arguments -C \
+    '(-c --config)'{-c,--config}'[config file name]:' \
+    '--header-from[relative path of a file to read header from]:' \
+    '*--hide[hide section [header, inputs, outputs, providers, requirements]]:' \
+    '--hide-all[hide all sections (default false)]' \
+    '--output-values[inject output values into outputs (default false)]' \
+    '--output-values-from[inject output values from file into outputs (default "")]:' \
+    '*--show[show section [header, inputs, outputs, providers, requirements]]:' \
+    '--show-all[show all sections]' \
+    '--sort[sort items]' \
+    '--sort-by-required[sort items by name and print required ones first (default false)]' \
+    '--sort-by-type[sort items by type of them (default false)]' \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "hcl:Generate HCL format of terraform.tfvars of inputs"
+      "json:Generate JSON format of terraform.tfvars of inputs"
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  hcl)
+    _terraform-docs_tfvars_hcl
+    ;;
+  json)
+    _terraform-docs_tfvars_json
+    ;;
+  esac
+}
+
+function _terraform-docs_tfvars_hcl {
+  _arguments \
+    '(-c --config)'{-c,--config}'[config file name]:' \
+    '--header-from[relative path of a file to read header from]:' \
+    '*--hide[hide section [header, inputs, outputs, providers, requirements]]:' \
+    '--hide-all[hide all sections (default false)]' \
+    '--output-values[inject output values into outputs (default false)]' \
+    '--output-values-from[inject output values from file into outputs (default "")]:' \
+    '*--show[show section [header, inputs, outputs, providers, requirements]]:' \
+    '--show-all[show all sections]' \
+    '--sort[sort items]' \
+    '--sort-by-required[sort items by name and print required ones first (default false)]' \
+    '--sort-by-type[sort items by type of them (default false)]'
+}
+
+function _terraform-docs_tfvars_json {
+  _arguments \
+    '(-c --config)'{-c,--config}'[config file name]:' \
+    '--header-from[relative path of a file to read header from]:' \
+    '*--hide[hide section [header, inputs, outputs, providers, requirements]]:' \
+    '--hide-all[hide all sections (default false)]' \
+    '--output-values[inject output values into outputs (default false)]' \
+    '--output-values-from[inject output values from file into outputs (default "")]:' \
+    '*--show[show section [header, inputs, outputs, providers, requirements]]:' \
+    '--show-all[show all sections]' \
+    '--sort[sort items]' \
+    '--sort-by-required[sort items by name and print required ones first (default false)]' \
+    '--sort-by-type[sort items by type of them (default false)]'
+}
+
+function _terraform-docs_toml {
+  _arguments \
+    '(-c --config)'{-c,--config}'[config file name]:' \
+    '--header-from[relative path of a file to read header from]:' \
+    '*--hide[hide section [header, inputs, outputs, providers, requirements]]:' \
+    '--hide-all[hide all sections (default false)]' \
+    '--output-values[inject output values into outputs (default false)]' \
+    '--output-values-from[inject output values from file into outputs (default "")]:' \
+    '*--show[show section [header, inputs, outputs, providers, requirements]]:' \
+    '--show-all[show all sections]' \
+    '--sort[sort items]' \
+    '--sort-by-required[sort items by name and print required ones first (default false)]' \
+    '--sort-by-type[sort items by type of them (default false)]'
+}
+
+function _terraform-docs_version {
+  _arguments \
+    '(-c --config)'{-c,--config}'[config file name]:' \
+    '--header-from[relative path of a file to read header from]:' \
+    '*--hide[hide section [header, inputs, outputs, providers, requirements]]:' \
+    '--hide-all[hide all sections (default false)]' \
+    '--output-values[inject output values into outputs (default false)]' \
+    '--output-values-from[inject output values from file into outputs (default "")]:' \
+    '*--show[show section [header, inputs, outputs, providers, requirements]]:' \
+    '--show-all[show all sections]' \
+    '--sort[sort items]' \
+    '--sort-by-required[sort items by name and print required ones first (default false)]' \
+    '--sort-by-type[sort items by type of them (default false)]'
+}
+
+function _terraform-docs_xml {
+  _arguments \
+    '(-c --config)'{-c,--config}'[config file name]:' \
+    '--header-from[relative path of a file to read header from]:' \
+    '*--hide[hide section [header, inputs, outputs, providers, requirements]]:' \
+    '--hide-all[hide all sections (default false)]' \
+    '--output-values[inject output values into outputs (default false)]' \
+    '--output-values-from[inject output values from file into outputs (default "")]:' \
+    '*--show[show section [header, inputs, outputs, providers, requirements]]:' \
+    '--show-all[show all sections]' \
+    '--sort[sort items]' \
+    '--sort-by-required[sort items by name and print required ones first (default false)]' \
+    '--sort-by-type[sort items by type of them (default false)]'
+}
+
+function _terraform-docs_yaml {
+  _arguments \
+    '(-c --config)'{-c,--config}'[config file name]:' \
+    '--header-from[relative path of a file to read header from]:' \
+    '*--hide[hide section [header, inputs, outputs, providers, requirements]]:' \
+    '--hide-all[hide all sections (default false)]' \
+    '--output-values[inject output values into outputs (default false)]' \
+    '--output-values-from[inject output values from file into outputs (default "")]:' \
+    '*--show[show section [header, inputs, outputs, providers, requirements]]:' \
+    '--show-all[show all sections]' \
+    '--sort[sort items]' \
+    '--sort-by-required[sort items by name and print required ones first (default false)]' \
+    '--sort-by-type[sort items by type of them (default false)]'
+}
+

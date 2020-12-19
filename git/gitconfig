@@ -30,6 +30,10 @@
   #helper = osxkeychain
 	helper = "!gopass-git-credentials $@"
 
+[credential]
+  #helper = osxkeychain
+	helper = "!gopass-git-credentials $@"
+
 [grep]
   lineNumber = true
 
@@ -56,6 +60,9 @@
 
 [includeIf "gitdir:~/repos/github.com/litmus/"]
   path = ~/.gitconfig-litmus
+[includeIf "gitdir:~/repos/github.com/crisistextline/"]
+  path = ~/.gitconfig-crisistextline
+
 [secrets]
 	providers = git secrets --aws-provider
 	patterns = (A3T[A-Z0-9]|AKIA|AGPA|AIDA|AROA|AIPA|ANPA|ANVA|ASIA)[A-Z0-9]{16}

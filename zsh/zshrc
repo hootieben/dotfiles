@@ -1,3 +1,10 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -8,8 +15,8 @@ export ZSH=$HOME/.oh-my-zsh
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-#ZSH_THEME="robbyrussell"
-ZSH_THEME="agnoster"
+# ZSH_THEME="agnoster"
+ZSH_THEME="powerlevel10k/powerlevel10k"
 #
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -43,10 +50,10 @@ CASE_SENSITIVE="true"
 # DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
+ENABLE_CORRECTION="false"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
+#COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
@@ -70,7 +77,12 @@ CASE_SENSITIVE="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 
-export FZF_DEFAULT_COMMAND="fd --type f"
+# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+# if command -v fdfind > /dev/null; then
+#   alias fd="fdfind"
+#   export FZF_DEFAULT_COMMAND="fd --type f"
+# fi
+
 plugins=(git fzf aws gpg-agent terraform)
 
 if [[ -f $ZSH/oh-my-zsh.sh ]]; then
@@ -105,11 +117,13 @@ fi
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-eval "$(hub alias -s)"
+if command -v "$HOME/.local/bin/hub" > /dev/null; then
+  eval "$($HOME/.local/bin/hub alias -s)"
+fi
 
 fpath=(~/.zsh/completions $fpath)
-autoload -U compinit && compinit
-autoload -Uz bashcompinit && bashcompinit
+# autoload -U compinit && compinit
+# autoload -Uz bashcompinit && bashcompinit
 kitty + complete setup zsh | source /dev/stdin
 
 _fly_compl() {
@@ -121,7 +135,7 @@ _fly_compl() {
 complete -F _fly_compl fly
 
 
-export SHOW_AWS_PROMPT="false"
+export SHOW_AWS_PROMPT="true"
 if [[ -f /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
     source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
@@ -147,23 +161,20 @@ fi
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
 
 
-autoload -U +X bashcompinit && bashcompinit
+# autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /home/hootieben/.local/bin/vault vault
 
+# PIPX Completions
+eval "$(register-python-argcomplete pipx)"
 
 #export ANSIBLE_VAULT_PASSWORD_FILE=/home/hootieben/.local/bin/ansible-vault-pass-client.py
 
+export PATH=~/go/bin:$PATH:/usr/local/go/bin
 export AWS_VAULT_BACKEND=pass
-export AWS_VAULT_PASS_PASSWORD_STORE_DIR=~/.password-store-litmus
+# export AWS_VAULT_PASS_PASSWORD_STORE_DIR=/home/hootieben/.local/share/gopass/stores/litmus
+export AWS_VAULT_PASS_PASSWORD_STORE_DIR=/home/hootieben/.local/share/gopass/stores/root
 export AWS_VAULT_PASS_CMD=gopass
 export AWS_VAULT_PASS_PREFIX=AWS
-
-export WORKON_HOME=$HOME/.virtualenvs
-source ~/.local/bin/virtualenvwrapper.sh
-
-if [[ -n $VIRTUAL_ENV && -e "${VIRTUAL_ENV}/bin/activate" ]]; then
-  source "${VIRTUAL_ENV}/bin/activate"
-fi
 
 if [[ -f aws-vault ]]; then
   eval "$(aws-vault --completion-script-zsh)"
@@ -172,3 +183,17 @@ fi
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+eval "$(direnv hook zsh)"
+
+complete -C '/home/hootieben/.local/bin/aws_completer' aws
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+autoload -U compinit && compinit
+autoload -Uz bashcompinit && bashcompinit
+
+eval "$(op completion zsh)"; compdef _op op
+
+
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
