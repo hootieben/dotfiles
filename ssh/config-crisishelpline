@@ -1,0 +1,3 @@
+Host github.com
+    IdentitiesOnly yes
+    IdentityFile ~/.ssh/bsykes-litmus-ctl_ed25519
