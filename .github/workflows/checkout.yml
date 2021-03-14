@@ -25,6 +25,7 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v2
+          submodules: recursive
 
       - name: Install dotfiles
         run: ./install.sh
