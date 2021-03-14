@@ -6,7 +6,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 # If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:/usr/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
@@ -162,7 +162,9 @@ ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
 
 
 # autoload -U +X bashcompinit && bashcompinit
-complete -o nospace -C /home/hootieben/.local/bin/vault vault
+if [[ -f $HOME/.local/bin/vault ]]; then
+  complete -o nospace -C /home/hootieben/.local/bin/vault vault
+fi
 
 # PIPX Completions
 eval "$(register-python-argcomplete pipx)"
@@ -180,20 +182,34 @@ if [[ -f aws-vault ]]; then
   eval "$(aws-vault --completion-script-zsh)"
 fi
 
+if [[ -f bat ]]; then
+  export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+fi
+
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-eval "$(direnv hook zsh)"
+if [[ -f direnv ]]; then
+  eval "$(direnv hook zsh)"
+fi
 
-complete -C '/home/hootieben/.local/bin/aws_completer' aws
+if [[ -f $HOME/.local/bin/aws_completer ]]; then
+  complete -C '/home/hootieben/.local/bin/aws_completer' aws
+fi
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 autoload -U compinit && compinit
 autoload -Uz bashcompinit && bashcompinit
 
-eval "$(op completion zsh)"; compdef _op op
+if [[ -f bat ]]; then
+  alias cat='bat --paging=never'
+fi
+
+if [[ -f op ]]; then
+  eval "$(op completion zsh)"; compdef _op op
+fi
 
 
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
