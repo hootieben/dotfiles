@@ -151,6 +151,7 @@ if !empty(globpath(&rtp, 'autoload/plug.vim'))
   endif
   "HCL Formatting
   Plug 'fatih/vim-hclfmt'
+  Plug 'jvirtanen/vim-hcl'
   "BATS
   Plug 'aliou/bats.vim'
   "Snippets
@@ -178,6 +179,12 @@ if !empty(globpath(&rtp, 'autoload/plug.vim'))
 
   Plug 'AndrewRadev/splitjoin.vim'
   " Plug 'plasticboy/vim-markdown'
+  Plug 'vim-test/vim-test'
+  Plug 'tpope/vim-dispatch'
+
+  Plug 'dbakker/vim-projectroot'
+
+  " Plug 'numkil/ag.nvim'
   call plug#end()
 
   " Run PlugInstall if there are missing plugins
@@ -258,6 +265,7 @@ let g:ale_fixers = {
 \   'json': ['fixjson'],
 \}
 
+let g:ale_yaml_yamllint_options = '-c '.projectroot#guess().'/.yamllint'
 ""if exists(':CocInfo')
 " let g:ale_linters = {
 "     \ 'sh': [],
@@ -548,3 +556,20 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 " let g:UltiSnipsSnippetDirectories=["UltiSnips"]
 "
 let g:go_term_enabled = 1
+" vim-test config
+" set the default strategy to dispatch
+" let test#strategy = "dispatch"
+" Create key mapping
+nmap <silent> t<C-n> :TestNearest<CR>
+nmap <silent> t<C-f> :TestFile<CR>
+nmap <silent> t<C-s> :TestSuite<CR>
+nmap <silent> t<C-l> :TestLast<CR>
+nmap <silent> t<C-g> :TestVisit<CR>
+" Switch from insert mode to normal mode for neovim terminal
+if has('nvim')
+  tmap <C-o> <C-\><C-n>
+endif
+
+let test#neovim#term_position = "topleft"
+let test#neovim#term_position = "vert"
+let test#neovim#term_position = "vert botright 30"
