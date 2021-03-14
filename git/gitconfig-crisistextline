@@ -1,5 +1,0 @@
-[user]
-  name = litmus-ctl-user
-
-[core]
-  sshCommand = ssh -F ~/.ssh/config-crisishelpline
