@@ -1,25 +1,26 @@
+---
 - defaults:
     link:
       relink: true
       force: true
 
-- clean: ['~']
+      #- clean: ['~']
 
 - create:
   - ~/.config/nvim
-  - ~/.gnupg
+#   - ~/.gnupg
   - ~/.config/kitty
   - ~/.ssh
   - ~/.local/bin
-  - ~/.config/ansible
+#   - ~/.config/ansible
   - ~/.zsh/completions
-  - ~/.config/pulse
-  - ~/.aws/cli
-  - ~/.config/systemd/user
-  - ~/.config/dunst
-  - ~/.config/polybar
-  - ~/.config/autorandr
-  - ~/.config/i3
+#   - ~/.config/pulse
+#   - ~/.aws/cli
+#   - ~/.config/systemd/user
+#   - ~/.config/dunst
+#   - ~/.config/polybar
+#   - ~/.config/autorandr
+#   - ~/.config/i3
 
 - link:
     ~/.config/nvim/init.vim:
@@ -32,41 +33,41 @@
       path: git/gitconfig-litmus
     ~/.zshrc:
       path: zsh/zshrc
-    ~/.zshenv:
-      path: zsh/zshenv
-    ~/.gnupg/gpg-agent.conf:
-        path: gnupg/gpg-agent.conf
-    ~/.gnupg/gpg.conf:
-        path: gnupg/gpg.conf
+    # ~/.zshenv:
+      # path: zsh/zshenv
+    # ~/.gnupg/gpg-agent.conf:
+    #     path: gnupg/gpg-agent.conf
+    # ~/.gnupg/gpg.conf:
+    #     path: gnupg/gpg.conf
     ~/.config/kitty/:
         glob: true
         path: config/kitty/*
     ~/.ssh/config:
         path: ssh/config
-    ~/.Xresources:
-        path: Xresources
-    ~/.config/ansible/ansible.cfg:
-        path: ansible/ansible.cfg
-    ~/.zsh/completions/_hub:
-        path: zsh/completions/_hub
-    ~/.zsh/completions/_gopass:
-        path: zsh/completions/_gopass
-    ~/.config/pulse/default.pa:
-        path: pulse/default.pa
-    ~/.config/systemd/user/:
-        glob: true
-        path: systemd/*
-    ~/.config/polybar/:
-        glob: true
-        path: config/polybar/*
-    ~/.config/dunst/dunstrc:
-        path: config/dunst/dunstrc
-    ~/.config/i3/:
-        glob: true
-        path: config/i3/*
-    ~/.config/autorandr/:
-        glob: true
-        path: config/autorandr/*
+    # ~/.Xresources:
+    #     path: Xresources
+    # ~/.config/ansible/ansible.cfg:
+    #     path: ansible/ansible.cfg
+    # ~/.zsh/completions/_hub:
+    #     path: zsh/completions/_hub
+    # ~/.zsh/completions/_gopass:
+    #     path: zsh/completions/_gopass
+    # ~/.config/pulse/default.pa:
+    #     path: pulse/default.pa
+    # ~/.config/systemd/user/:
+    #     glob: true
+    #     path: systemd/*
+    # ~/.config/polybar/:
+    #     glob: true
+    #     path: config/polybar/*
+    # ~/.config/dunst/dunstrc:
+    #     path: config/dunst/dunstrc
+    # ~/.config/i3/:
+    #     glob: true
+    #     path: config/i3/*
+    # ~/.config/autorandr/:
+    #     glob: true
+    #     path: config/autorandr/*
 
 
 # - shell:
