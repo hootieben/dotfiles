@@ -479,4 +479,3 @@ function _terraform-docs_yaml {
     '--sort-by-required[sort items by name and print required ones first (default false)]' \
     '--sort-by-type[sort items by type of them (default false)]'
 }
-
