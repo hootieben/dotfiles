@@ -4,10 +4,13 @@
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:/usr/bin:$PATH
+export PATH=$HOME/go/bin:$HOME/.rbenv/bin:$HOME/.nodenv/bin:$HOME/.local/bin:/usr/local/bin:/usr/bin:$PATH:/usr/local/go/bin
 
+typeset -U path
+# path=(~/go/bin ~/.rbenv/bin ~/.nodenv/bin ~/.local/bin $path /usr/local/go/bin)
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 
@@ -83,15 +86,15 @@ ENABLE_CORRECTION="false"
 #   export FZF_DEFAULT_COMMAND="fd --type f"
 # fi
 
-plugins=(git fzf aws gpg-agent terraform)
+plugins=(git fzf aws gpg-agent terraform ansible zsh-syntax-highlighting)
 
 if [[ -f $ZSH/oh-my-zsh.sh ]]; then
   source $ZSH/oh-my-zsh.sh
 fi
 
-#source /usr/local/aws/bin/aws_zsh_completer.sh
 
 # User configuration
+unsetopt share_history
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -104,6 +107,7 @@ fi
 # else
 #   export EDITOR='mvim'
 # fi
+export EDITOR='nvim'
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -121,32 +125,33 @@ if command -v "$HOME/.local/bin/hub" > /dev/null; then
   eval "$($HOME/.local/bin/hub alias -s)"
 fi
 
-fpath=(~/.zsh/completions $fpath)
+fpath=(~/.zsh/custom ~/.zsh/completions $fpath)
+autoload -U +X compinit && compinit
+# autoload -Uz bashcompinit && bashcompinit
+autoload -U +X bashcompinit && bashcompinit
+
 # autoload -U compinit && compinit
 # autoload -Uz bashcompinit && bashcompinit
-kitty + complete setup zsh | source /dev/stdin
+#kitty + complete setup zsh | source /dev/stdin
 
-_fly_compl() {
-	args=("${COMP_WORDS[@]:1:$COMP_CWORD}")
-	local IFS=$'\n'
-	COMPREPLY=($(GO_FLAGS_COMPLETION=1 ${COMP_WORDS[0]} "${args[@]}"))
-	return 0
-}
-complete -F _fly_compl fly
+# _fly_compl() {
+# 	args=("${COMP_WORDS[@]:1:$COMP_CWORD}")
+# 	local IFS=$'\n'
+# 	COMPREPLY=($(GO_FLAGS_COMPLETION=1 ${COMP_WORDS[0]} "${args[@]}"))
+# 	return 0
+# }
+# complete -F _fly_compl fly
 
 
 export SHOW_AWS_PROMPT="true"
-if [[ -f /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
-    source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-fi
-export PATH="$HOME/.rbenv/bin:$HOME/.rbenv/shims:$PATH"
-if [[ -f rbenv ]]; then
-  eval "$(rbenv init -)"
-fi
-
-if [[ -f /usr/local/aws/bin/aws_zsh_completer.sh ]]; then
-  source /usr/local/aws/bin/aws_zsh_completer.sh
-fi
+# if [[ -f /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
+#     source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# fi
+# export PATH="$HOME/.rbenv/bin:$PATH"
+# if [[ -f rbenv ]]; then
+eval "$(rbenv init -)"
+# fi
+eval "$(nodenv init -)"
 
 export CHEF_ORG='litmus'
 export CHEF_USER='bsykes'
@@ -154,62 +159,70 @@ export CHEF_URL_ROOT='https://chef.svadmin.com'
 export TF_VAR_chef_username="${CHEF_USER}"
 export TF_VAR_chef_user_key="${HOME}/.chef/${CHEF_ORG}-${CHEF_USER}.pem"
 
-if [[ -f jira ]]; then
-  eval "$(jira --completion-script-zsh)"
-fi
-
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
 
 
 # autoload -U +X bashcompinit && bashcompinit
-if [[ -f $HOME/.local/bin/vault ]]; then
-  complete -o nospace -C /home/hootieben/.local/bin/vault vault
-fi
+# if [[ -f $HOME/.local/bin/vault ]]; then
+# complete -o nospace -C /home/hootieben/.local/bin/vault vault
+# fi
 
 # PIPX Completions
-eval "$(register-python-argcomplete pipx)"
-
+#eval "$(register-python-argcomplete pipx)"
+#
 #export ANSIBLE_VAULT_PASSWORD_FILE=/home/hootieben/.local/bin/ansible-vault-pass-client.py
 
-export PATH=~/go/bin:$PATH:/usr/local/go/bin
 export AWS_VAULT_BACKEND=pass
 # export AWS_VAULT_PASS_PASSWORD_STORE_DIR=/home/hootieben/.local/share/gopass/stores/litmus
 export AWS_VAULT_PASS_PASSWORD_STORE_DIR=/home/hootieben/.local/share/gopass/stores/root
 export AWS_VAULT_PASS_CMD=gopass
 export AWS_VAULT_PASS_PREFIX=AWS
 
-if [[ -f aws-vault ]]; then
-  eval "$(aws-vault --completion-script-zsh)"
-fi
+# if [[ -f aws-vault ]]; then
+# fi
 
-if [[ -f bat ]]; then
-  export MANPAGER="sh -c 'col -bx | bat -l man -p'"
-fi
+# if [[ -f bat ]]; then
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+# fi
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# export NVM_DIR="$HOME/.nvm"
+# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-if [[ -f direnv ]]; then
-  eval "$(direnv hook zsh)"
-fi
+# if [[ -f direnv ]]; then
+eval "$(direnv hook zsh)"
+export DIRENV_LOG_FORMAT=
+# fi
 
-if [[ -f $HOME/.local/bin/aws_completer ]]; then
-  complete -C '/home/hootieben/.local/bin/aws_completer' aws
-fi
+# if [[ -f $HOME/.local/bin/aws_completer ]]; then
+# fi
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-autoload -U compinit && compinit
-autoload -Uz bashcompinit && bashcompinit
+# autoload -U compinit && compinit
+# autoload -Uz bashcompinit && bashcompinit
 
-if [[ -f bat ]]; then
-  alias cat='bat --paging=never'
-fi
+# if [[ -f bat ]]; then
+alias cat='bat --paging=never'
+# fi
 
-if [[ -f op ]]; then
-  eval "$(op completion zsh)"; compdef _op op
-fi
+# if [[ -f op ]]; then
+eval "$(op completion zsh)"; compdef _op op
+# fi
 
 
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+complete -C '/home/hootieben/.local/bin/aws_completer' aws
+
+# eval "$(aws-vault --completion-script-zsh)"
+eval "$(aws-vault --completion-script-bash)"
+# eval "$(jira --completion-script-zsh)"
+eval "$(jira --completion-script-bash)"
+
+# eval "$(fly completion --shell=zsh)"
+eval "$(fly completion --shell=bash)"
+# [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# >>>> Vagrant command completion (start)
+fpath=(/tmp/.mount_vagranPF66hX/usr/gembundle/gems/vagrant-2.2.14/contrib/zsh $fpath)
+compinit
+# <<<<  Vagrant command completion (end)
