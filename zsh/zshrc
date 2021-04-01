@@ -223,6 +223,6 @@ eval "$(fly completion --shell=bash)"
 # [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # >>>> Vagrant command completion (start)
-fpath=(/tmp/.mount_vagranPF66hX/usr/gembundle/gems/vagrant-2.2.14/contrib/zsh $fpath)
-compinit
+# fpath=(/tmp/.mount_vagranPF66hX/usr/gembundle/gems/vagrant-2.2.14/contrib/zsh $fpath)
+# compinit
 # <<<<  Vagrant command completion (end)
