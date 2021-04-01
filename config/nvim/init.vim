@@ -246,7 +246,7 @@ let g:ale_sign_column_always = 1
 let g:ale_list_window_size = 7
 "let g:ale_set_loclist = 0
 "let g:ale_set_quickfix = 1
-let g:ale_open_list = 1
+" let g:ale_open_list = 1
 " let g:ale_lint_on_text_changed = 'never'
 " let g:ale_lint_on_insert_leave = 0
 " Set this if you want to.
@@ -261,6 +261,11 @@ let g:ansible_yamlKeyName = 'yamlKey'
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'json': ['fixjson'],
+\}
+
+" Disable go linters as we are using gopls through LanguangeClient
+let g:ale_linters = {
+\'go': [''],
 \}
 
 let g:ale_yaml_yamllint_options = '-c '.projectroot#guess().'/.yamllint'
@@ -336,6 +341,7 @@ let g:ansible_extra_keywords_highlight = 1
 " let g:UltiSnipsJumpForwardTrigger="<c-k>"
 " let g:UltiSnipsJumpBackwardTrigger="<c-j>"
 
+nmap <F5> <Plug>(lcn-menu)
 nmap <silent> K <Plug>(lcn-hover)
 nmap <silent> gd <Plug>(lcn-definition)
 nmap <silent> <F2> <Plug>(lcn-rename)
@@ -408,7 +414,7 @@ let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 " If you want :UltiSnipsEdit to split your window.
-" let g:UltiSnipsEditSplit="vertical"
+let g:UltiSnipsEditSplit="vertical"
 " let g:UltiSnipsSnippetDirectories=["UltiSnips"]
 "
 let g:go_term_enabled = 1
