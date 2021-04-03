@@ -33,6 +33,8 @@
       path: git/gitconfig-litmus
     ~/.zshrc:
       path: zsh/zshrc
+    ~/.p10k.zsh:
+      path: zsh/p10k.zsh
     # ~/.zshenv:
       # path: zsh/zshenv
     # ~/.gnupg/gpg-agent.conf:

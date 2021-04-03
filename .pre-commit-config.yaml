@@ -16,3 +16,4 @@ repos:
   rev: 2.1.5
   hooks:
     - id: shellcheck
+exclude: 'zsh/p10k.zsh'
