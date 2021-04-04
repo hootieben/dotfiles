@@ -1,9 +1,0 @@
-if:
-  (type = push AND branch = master) OR (type=pull_request AND branch = master)
-language: bash
-os:
-  - linux
-dist: bionic
-
-script:
-  - bash install.sh
