@@ -8,7 +8,7 @@
 
 - create:
   - ~/.config/nvim
-#   - ~/.gnupg
+  - ~/.gnupg
   - ~/.config/kitty
   - ~/.ssh
   - ~/.local/bin
@@ -37,10 +37,10 @@
       path: zsh/p10k.zsh
     # ~/.zshenv:
       # path: zsh/zshenv
-    # ~/.gnupg/gpg-agent.conf:
-    #     path: gnupg/gpg-agent.conf
-    # ~/.gnupg/gpg.conf:
-    #     path: gnupg/gpg.conf
+    ~/.gnupg/gpg-agent.conf:
+        path: gnupg/gpg-agent.conf
+    ~/.gnupg/gpg.conf:
+        path: gnupg/gpg.conf
     ~/.config/kitty/:
         glob: true
         path: config/kitty/*
