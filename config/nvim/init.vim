@@ -431,7 +431,7 @@ let g:UltiSnipsEditSplit="vertical"
 let g:go_term_enabled = 1
 " vim-test config
 " set the default strategy to dispatch
-" let test#strategy = "dispatch"
+let test#strategy = "neovim"
 " Create key mapping
 nmap <silent> t<C-n> :TestNearest<CR>
 nmap <silent> t<C-f> :TestFile<CR>
