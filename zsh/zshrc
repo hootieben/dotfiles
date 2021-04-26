@@ -226,3 +226,7 @@ eval "$(jira --completion-script-bash)"
 # eval "$(fly completion --shell=zsh)"
 eval "$(fly completion --shell=bash)"
 # [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+#
+#alias stg-deploy="ssh $(aws ec2 describe-instances --filters Name=tag:Name,Values="app02-stg" Name=instance-state-name,Values=running --query 'Reservations[].Instances[].PrivateIpAddress' --output text --no-cli-pager) -l deploy"
+#alias stg-sys="ssh $(aws ec2 describe-instances --filters Name=tag:Name,Values="app02-stg" Name=instance-state-name,Values=running --query 'Reservations[].Instances[].PrivateIpAddress' --output text --no-cli-pager) -l ubuntu"
+export PATH="/home/hootieben/repos/github.com/bigH/git-fuzzy/bin:$PATH"
