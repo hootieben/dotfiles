@@ -127,6 +127,7 @@ if !empty(globpath(&rtp, 'autoload/plug.vim'))
   Plug 'tpope/vim-commentary'
   "FZF
   Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+  Plug 'junegunn/fzf.vim'
   "Hashicorp Stuff
   if executable('terraform')
     Plug 'hashivim/vim-terraform'
@@ -432,12 +433,12 @@ if has('nvim')
   tmap <C-o> <C-\><C-n>
 endif
 
-let test#neovim#term_position = "topleft"
-let test#neovim#term_position = "vert"
-let test#neovim#term_position = "vert botright 30"
+" let test#neovim#term_position = "topleft"
+" let test#neovim#term_position = "vert"
+" let test#neovim#term_position = "vert botright 30"
 
 nmap <silent> <C-P> :Files<CR>
 " let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
-" let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.9 } }
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.9 } }
 " let $FZF_DEFAULT_OPTS="--ansi --preview-window 'right:60%' --layout reverse --margin=1,4 --preview 'bat --color=always --style=header,grid --line-range :300 {}'"
 call deoplete#custom#option('omni_patterns', { 'go': '[^. *\t]\.\w*' })
