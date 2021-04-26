@@ -165,7 +165,7 @@ if !empty(globpath(&rtp, 'autoload/plug.vim'))
     \ 'do': 'bash install.sh',
     \ }
 
-  Plug 'andymass/vim-matchup'
+  " Plug 'andymass/vim-matchup'
   Plug 'machakann/vim-highlightedyank'
   Plug 'kshenoy/vim-signature'
 
