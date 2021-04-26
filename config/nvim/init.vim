@@ -349,9 +349,19 @@ nmap <silent> <F2> <Plug>(lcn-rename)
 
 let g:LanguageClient_serverCommands = {
     \ 'ruby': ['~/.rbenv/shims/solargraph', 'stdio'],
-    \ 'go': ['gopls'],
-    \ 'terraform': ['terraform-ls', 'serve'],
-    \ }
+    \ 'go': {
+    \   'name': 'gopls',
+    \   'command': ['gopls'],
+    \   'initializationOptions': {
+    \     'usePlaceholders': v:true,
+    \     'codelenses': {
+    \       'generate': v:true,
+    \       'test': v:true,
+    \       'tidy': v:true,
+    \     },
+    \   },
+    \ },
+  \ }
 autocmd BufWritePre *.go :call LanguageClient#textDocument_formatting_sync()
 
 " Cursor column toggle
