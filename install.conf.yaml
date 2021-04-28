@@ -47,6 +47,12 @@
     ~/.ssh/:
       glob: true
       path: ssh/*
+    ~/.config/kitty/neighboring_window.py:
+      path: ~/.config/nvim/plugged/vim-kitty-navigator/neighboring_window.py
+      ignore-missing: true
+    ~/.config/kitty/pass_keys.py:
+      path: ~/.config/nvim/plugged/vim-kitty-navigator/pass_keys.py
+      ignore-missing: true
     # ~/.Xresources:
     #     path: Xresources
     # ~/.config/ansible/ansible.cfg:
