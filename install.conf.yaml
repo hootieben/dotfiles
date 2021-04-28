@@ -44,8 +44,9 @@
     ~/.config/kitty/:
         glob: true
         path: config/kitty/*
-    ~/.ssh/config:
-        path: ssh/config
+    ~/.ssh/:
+      glob: true
+      path: ssh/*
     # ~/.Xresources:
     #     path: Xresources
     # ~/.config/ansible/ansible.cfg:
