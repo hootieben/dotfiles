@@ -81,14 +81,15 @@ ENABLE_CORRECTION="false"
 # Add wisely, as too many plugins slow down shell startup.
 
 # if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-# if command -v fdfind > /dev/null; then
-#   alias fd="fdfind"
-#   export FZF_DEFAULT_COMMAND="fd --type f"
-# fi
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
-export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
+if [ -f ~/.fzf.zsh ]; then
+  source ~/.fzf.zsh
+  export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
+  if command -v fd > /dev/null 2>&1; then
+    export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+  fi
+fi
+
 # export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git/*"'
 # export FZF_BASE=$HOME/.local/bin
 # export FZF_BASE=/path/to/fzf/install/dir
@@ -127,8 +128,8 @@ export EDITOR='nvim'
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-if command -v "$HOME/.local/bin/hub" > /dev/null; then
-  eval "$($HOME/.local/bin/hub alias -s)"
+if command -v hub > /dev/null 2>&1; then
+  eval "hub alias -s"
 fi
 
 fpath=(~/.zsh/custom ~/.zsh/completions $fpath)
@@ -153,11 +154,13 @@ export SHOW_AWS_PROMPT="true"
 # if [[ -f /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
 #     source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 # fi
-# export PATH="$HOME/.rbenv/bin:$PATH"
-# if [[ -f rbenv ]]; then
-eval "$(rbenv init -)"
-# fi
-eval "$(nodenv init -)"
+if command -v rbenv > /dev/null 2>&1; then
+  eval "$(rbenv init -)"
+fi
+
+if command -v nodenv > /dev/null 2>&1; then
+  eval "$(nodenv init -)"
+fi
 
 export CHEF_ORG='litmus'
 export CHEF_USER='bsykes'
@@ -178,28 +181,21 @@ ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
 #
 #export ANSIBLE_VAULT_PASSWORD_FILE=/home/hootieben/.local/bin/ansible-vault-pass-client.py
 
-export AWS_VAULT_BACKEND=pass
-# export AWS_VAULT_PASS_PASSWORD_STORE_DIR=/home/hootieben/.local/share/gopass/stores/litmus
-export AWS_VAULT_PASS_PASSWORD_STORE_DIR=/home/hootieben/.local/share/gopass/stores/root
-export AWS_VAULT_PASS_CMD=gopass
-export AWS_VAULT_PASS_PREFIX=AWS
 
-# if [[ -f aws-vault ]]; then
-# fi
-
-# if [[ -f bat ]]; then
-export MANPAGER="sh -c 'col -bx | bat -l man -p'"
-# fi
+if command -v bat > /dev/null 2>&1; then
+  export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+  alias cat='bat --paging=never'
+fi
 
 # export NVM_DIR="$HOME/.nvm"
 # [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 # [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 
-# if [[ -f direnv ]]; then
-eval "$(direnv hook zsh)"
-export DIRENV_LOG_FORMAT=
-# fi
+if command -v direnv > /dev/null 2>&1; then
+  eval "$(direnv hook zsh)"
+  export DIRENV_LOG_FORMAT=
+fi
 
 # if [[ -f $HOME/.local/bin/aws_completer ]]; then
 # fi
@@ -207,26 +203,33 @@ export DIRENV_LOG_FORMAT=
 # autoload -U compinit && compinit
 # autoload -Uz bashcompinit && bashcompinit
 
-# if [[ -f bat ]]; then
-alias cat='bat --paging=never'
-# fi
-
-# if [[ -f op ]]; then
-eval "$(op completion zsh)"; compdef _op op
-# fi
+if command -v op > /dev/null 2>&1; then
+  eval "$(op completion zsh)"; compdef _op op
+fi
 
 
 complete -C '/home/hootieben/.local/bin/aws_completer' aws
 
-# eval "$(aws-vault --completion-script-zsh)"
-eval "$(aws-vault --completion-script-bash)"
-# eval "$(jira --completion-script-zsh)"
-eval "$(jira --completion-script-bash)"
+if command -v aws-vault > /dev/null 2>&1; then
+  eval "$(aws-vault --completion-script-bash)"
+  if command -v gopass > /dev/null 2>&1; then
+    export AWS_VAULT_BACKEND=pass
+    export AWS_VAULT_PASS_CMD=gopass
+    if [[ -f $HOME/.local/share/gopass/stores/root ]]; then
+      export AWS_VAULT_PASS_PASSWORD_STORE_DIR=/home/hootieben/.local/share/gopass/stores/root
+      export AWS_VAULT_PASS_PREFIX=AWS
+    fi
+  fi
+fi
 
-# eval "$(fly completion --shell=zsh)"
-eval "$(fly completion --shell=bash)"
+if command -v jira > /dev/null 2>&1; then
+  eval "$(jira --completion-script-bash)"
+fi
+
+if command -v fly > /dev/null 2>&1; then
+  eval "$(fly completion --shell=bash)"
+fi
 # [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 #
 #alias stg-deploy="ssh $(aws ec2 describe-instances --filters Name=tag:Name,Values="app02-stg" Name=instance-state-name,Values=running --query 'Reservations[].Instances[].PrivateIpAddress' --output text --no-cli-pager) -l deploy"
 #alias stg-sys="ssh $(aws ec2 describe-instances --filters Name=tag:Name,Values="app02-stg" Name=instance-state-name,Values=running --query 'Reservations[].Instances[].PrivateIpAddress' --output text --no-cli-pager) -l ubuntu"
-export PATH="/home/hootieben/repos/github.com/bigH/git-fuzzy/bin:$PATH"
