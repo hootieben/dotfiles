@@ -114,7 +114,16 @@ unsetopt share_history
 # else
 #   export EDITOR='mvim'
 # fi
-export EDITOR='nvim'
+if command -v nvim > /dev/null 2>&1; then
+  export EDITOR='nvim'
+  export GIT_EDITOR='nvim'
+  alias vi='nvim'
+  alias vim='nvim'
+fi
+
+if command -v delta > /dev/null 2>&1; then
+  export GIT_PAGER='delta'
+fi
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"

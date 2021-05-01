@@ -8,11 +8,9 @@
 
 [core]
   excludesfile = ~/.gitignore_global
-  editor = nvim
   filemode = false
   trustctime = false
   autocrlf = input
-  pager = delta
 
 [diff]
   colorMoved = default
