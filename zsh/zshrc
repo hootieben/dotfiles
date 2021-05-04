@@ -138,7 +138,7 @@ fi
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 if command -v hub > /dev/null 2>&1; then
-  eval "hub alias -s"
+  eval "$(hub alias -s)"
 fi
 
 fpath=(~/.zsh/custom ~/.zsh/completions $fpath)
