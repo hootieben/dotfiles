@@ -224,7 +224,7 @@ if command -v aws-vault > /dev/null 2>&1; then
   if command -v gopass > /dev/null 2>&1; then
     export AWS_VAULT_BACKEND=pass
     export AWS_VAULT_PASS_CMD=gopass
-    if [[ -f $HOME/.local/share/gopass/stores/root ]]; then
+    if [[ -d $HOME/.local/share/gopass/stores/root ]]; then
       export AWS_VAULT_PASS_PASSWORD_STORE_DIR=/home/hootieben/.local/share/gopass/stores/root
       export AWS_VAULT_PASS_PREFIX=AWS
     fi
