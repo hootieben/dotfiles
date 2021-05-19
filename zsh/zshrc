@@ -171,12 +171,6 @@ if command -v nodenv > /dev/null 2>&1; then
   eval "$(nodenv init -)"
 fi
 
-# export CHEF_ORG='litmus'
-# export CHEF_USER='bsykes'
-# export CHEF_URL_ROOT='https://chef.svadmin.com'
-# export TF_VAR_chef_username="${CHEF_USER}"
-# export TF_VAR_chef_user_key="${HOME}/.chef/${CHEF_ORG}-${CHEF_USER}.pem"
-
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
 
 
