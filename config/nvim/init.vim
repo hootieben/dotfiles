@@ -78,7 +78,7 @@ endif
 
 
 if executable('git') && executable('curl')
-  if empty(globpath(&rtp, 'autoload/plug.vim'))
+  if empty(globpath(&runtimepath, 'autoload/plug.vim'))
     if has('nvim')
       !sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
     else
@@ -91,7 +91,7 @@ if executable('git') && executable('curl')
 endif
 
 "if !empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
-if !empty(globpath(&rtp, 'autoload/plug.vim'))
+if !empty(globpath(&runtimepath, 'autoload/plug.vim'))
   "if empty(globpath(&rtp, 'autoload/plug.vim'))
   call plug#begin()
   "Look and feel
