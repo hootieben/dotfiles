@@ -16,4 +16,9 @@ repos:
   rev: 2.1.5
   hooks:
     - id: shellcheck
+
+- repo: https://github.com/Vimjas/vint
+  rev: v0.4a4
+  hooks:
+    - id: vint
 exclude: 'zsh/p10k.zsh'

@@ -12,7 +12,6 @@ set termguicolors
 set number
 "set relativenumber
 set showmatch
-set nocompatible
 set tabstop=2
 set softtabstop=2
 set expandtab
@@ -29,8 +28,8 @@ set ruler
 set equalalways
 
 " We're using UTF-8 as file/script encoding
-scriptencoding utf-8
 set encoding=utf-8
+scriptencoding utf-8
 
 " Use bash as shell (solve compatibility issues)
 set shell=/bin/bash
@@ -53,7 +52,10 @@ let g:mapleader = ','
 set spelllang=en
 " Disable spell checking, enable for some files
 set nospell
-autocmd FileType markdown,txt,text,tex,bib,gitcommit setlocal spell
+augroup SPELL
+  au!
+  autocmd FileType markdown,txt,text,tex,bib,gitcommit setlocal spell
+augroup END
 
 " Highlight while searching, not after
 set nohlsearch
@@ -68,31 +70,34 @@ endif
 
 
 
-if !isdirectory($HOME . "/.vim_undo")
+if !isdirectory($HOME . '/.vim_undo')
   silent call mkdir($HOME.'/.vim_undo', 'p', 0700)
 endif
 
-if isdirectory($HOME . "/.vim_undo")
+if isdirectory($HOME . '/.vim_undo')
   set undodir=~/.vim_undo
   set undofile
 endif
 
 
 if executable('git') && executable('curl')
-  if empty(globpath(&rtp, 'autoload/plug.vim'))
+  if empty(globpath(&runtimepath, 'autoload/plug.vim'))
     if has('nvim')
       !sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
     else
       !curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     endif
-    if exists("$MYVIMRC")
-      autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+    if exists('$MYVIMRC')
+      augroup NATIVE_INSTALL
+        au!
+        autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+      augroup END
     endif
   endif
 endif
 
 "if !empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
-if !empty(globpath(&rtp, 'autoload/plug.vim'))
+if !empty(globpath(&runtimepath, 'autoload/plug.vim'))
   "if empty(globpath(&rtp, 'autoload/plug.vim'))
   call plug#begin()
   "Look and feel
@@ -191,8 +196,11 @@ if !empty(globpath(&rtp, 'autoload/plug.vim'))
 
   " Run PlugInstall if there are missing plugins
   if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
-    if exists("$MYVIMRC")
-      autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+    if exists($MYVIMRC)
+      augroup MISSINGPLUG
+        au!
+        autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+      augroup END
     endif
   endif
 endif
@@ -212,8 +220,8 @@ let g:deoplete#enable_at_startup = 1
 " \})
 
 "Set host progs
-let g:python_host_prog = "/usr/bin/python2"
-let g:python3_host_prog = "/usr/bin/python3"
+let g:python_host_prog = '/usr/bin/python2'
+let g:python3_host_prog = '/usr/bin/python3'
 
 "Airline
 "if exists(':AirlineExtensions')
@@ -225,17 +233,15 @@ let g:airline#extensions#ale#enabled = 1
 
 "NERDTree
 map <C-n> :NERDTreeToggle<CR>
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-autocmd StdinReadPre * let s:std_in=1
-au VimEnter NERD_tree_1 enew | execute 'NERDTree '.argv()[0]
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
 let NERDTreeShowHidden=1
 let NERDTreeIgnore = ['\..*\.sw[pom]$']
 augroup NERD
- au!
-  " autocmd VimEnter * NERDTree
-  " autocmd VimEnter * wincmd p
+  au!
+  autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+  autocmd StdinReadPre * let s:std_in=1
+  au VimEnter NERD_tree_1 enew | execute 'NERDTree '.argv()[0]
 augroup END
 
 
@@ -256,9 +262,13 @@ let g:ale_list_window_size = 7
 " This can be useful if you are combining ALE with
 " some other plugin which sets quickfix errors, etc.
 " let g:ale_keep_list_window_open = 1
-au BufRead,BufNewFile */*-ansible/*.yml set filetype=yaml.ansible
-au BufRead,BufNewFile */workstation/*.yml set filetype=yaml.ansible
-au BufRead,BufNewFile */instant-api-ops/*.yml set filetype=yaml.ansible
+augroup ansible_filetype
+  au!
+  au BufRead,BufNewFile */*-ansible/*.yml set filetype=yaml.ansible
+  au BufRead,BufNewFile */workstation/*.yml set filetype=yaml.ansible
+  au BufRead,BufNewFile */instant-api-ops/*.yml set filetype=yaml.ansible
+augroup END
+
 let g:ansible_yamlKeyName = 'yamlKey'
 
 let g:ale_fixers = {
@@ -292,7 +302,10 @@ let g:nomad_fmt_autosave = 0
 
 map <Leader>rr :set makeprg=ruby\ %<cr>:make<cr>
 
-au BufNewFile,BufRead /dev/shm/gopass.* setlocal noswapfile nobackup noundofile
+augroup GOPASS
+  au!
+  au BufNewFile,BufRead /dev/shm/gopass.* setlocal noswapfile nobackup noundofile
+augroup END
 
 if executable('ag')
   let g:ackprg = 'ag --vimgrep'
@@ -326,7 +339,7 @@ endif
 " "inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 "Ansible
-let g:ansible_attribute_highlight = "ob"
+let g:ansible_attribute_highlight = 'ob'
 let g:ansible_name_hightlight='d'
 let g:ansible_extra_keywords_highlight = 1
 
@@ -364,7 +377,12 @@ let g:LanguageClient_serverCommands = {
     \   },
     \ },
   \ }
-autocmd BufWritePre *.go :call LanguageClient#textDocument_formatting_sync()
+
+augroup GOLC
+  au!
+  autocmd BufWritePre *.go :call LanguageClient#textDocument_formatting_sync()
+augroup END
+
 
 " Cursor column toggle
 nmap <silent> <leader>c :set cursorcolumn!<CR>
@@ -373,7 +391,7 @@ xmap <silent> <leader>c :set cursorcolumn!<CR>
 vmap <silent> S :sort<CR>
 " Buffer close menu
 "
-au BufNewFile,BufRead /*.rasi setf css
+" au BufNewFile,BufRead /*.rasi setf css
 
 " Vim/Kitty integration keymap
 nnoremap <C-J> <C-W><C-J>
@@ -382,7 +400,10 @@ nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
 " Resize window on splits - mostly needed for new kitty terminal windows
-autocmd VimResized * wincmd =
+augroup VIMRESIZE
+  au!
+  autocmd VimResized * wincmd =
+augroup END
 
 " Vim-go
 " let g:go_def_mode='gopls'
@@ -397,13 +418,13 @@ let g:go_highlight_operators = 1
 
 "Auto formatting and importing
 let g:go_fmt_autosave = 1
-let g:go_fmt_command = "goimports"
+let g:go_fmt_command = 'goimports'
 " let g:go_metalinter_autosave = 1
 
 " Status line types/signatures
 let g:go_auto_type_info = 1
 set autowrite
-let g:go_list_type = "quickfix"
+let g:go_list_type = 'quickfix'
 " run :GoBuild or :GoTestCompile based on the go file
 function! s:build_go_files()
   let l:file = expand('%')
@@ -414,26 +435,32 @@ function! s:build_go_files()
   endif
 endfunction
 
-autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
-autocmd FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
+augroup GOBUILD
+  au!
+  autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
+  autocmd FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
+augroup END
 
 let g:go_textobj_include_function_doc = 1
 
 " Trigger configuration. You need to change this to something other than <tab> if you use one of the following:
 " - https://github.com/Valloric/YouCompleteMe
 " - https://github.com/nvim-lua/completion-nvim
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+" let g:UltiSnipsExpandTrigger="<tab>"
+" let g:UltiSnipsJumpForwardTrigger="<c-b>"
+" let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+let g:UltiSnipsExpandTrigger='<tab>'
+let g:UltiSnipsJumpForwardTrigger='<c-b>'
+let g:UltiSnipsJumpBackwardTrigger='<c-z>'
 
 " If you want :UltiSnipsEdit to split your window.
-let g:UltiSnipsEditSplit="vertical"
+let g:UltiSnipsEditSplit='vertical'
 " let g:UltiSnipsSnippetDirectories=["UltiSnips"]
 "
 let g:go_term_enabled = 1
 " vim-test config
 " set the default strategy to dispatch
-let test#strategy = "neovim"
+let test#strategy = 'neovim'
 " Create key mapping
 nmap <silent> t<C-n> :TestNearest<CR>
 nmap <silent> t<C-f> :TestFile<CR>
