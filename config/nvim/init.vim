@@ -28,8 +28,8 @@ set ruler
 set equalalways
 
 " We're using UTF-8 as file/script encoding
-scriptencoding utf-8
 set encoding=utf-8
+scriptencoding utf-8
 
 " Use bash as shell (solve compatibility issues)
 set shell=/bin/bash
