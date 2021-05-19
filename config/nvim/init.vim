@@ -12,7 +12,6 @@ set termguicolors
 set number
 "set relativenumber
 set showmatch
-set nocompatible
 set tabstop=2
 set softtabstop=2
 set expandtab
