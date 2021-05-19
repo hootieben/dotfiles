@@ -33,6 +33,8 @@
       path: git/gitconfig-litmus
     ~/.zshrc:
       path: zsh/zshrc
+    ~/.zsh/zsh-syntax-highlighting:
+      path: zsh/zsh-syntax-highlighting
     ~/.p10k.zsh:
       path: zsh/p10k.zsh
     # ~/.zshenv:
