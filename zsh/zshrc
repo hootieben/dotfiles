@@ -90,9 +90,6 @@ if [ -f ~/.fzf.zsh ]; then
   fi
 fi
 
-# export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git/*"'
-# export FZF_BASE=$HOME/.local/bin
-# export FZF_BASE=/path/to/fzf/install/dir
 plugins=(git fzf aws gpg-agent terraform ansible zsh-syntax-highlighting)
 
 if [[ -f $ZSH/oh-my-zsh.sh ]]; then
