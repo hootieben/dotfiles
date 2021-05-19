@@ -52,7 +52,10 @@ let g:mapleader = ','
 set spelllang=en
 " Disable spell checking, enable for some files
 set nospell
-autocmd FileType markdown,txt,text,tex,bib,gitcommit setlocal spell
+augroup SPELL
+  au!
+  autocmd FileType markdown,txt,text,tex,bib,gitcommit setlocal spell
+augroup END
 
 " Highlight while searching, not after
 set nohlsearch
@@ -85,7 +88,10 @@ if executable('git') && executable('curl')
       !curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     endif
     if exists('$MYVIMRC')
-      autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+      augroup NATIVE_INSTALL
+        au!
+        autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+      augroup END
     endif
   endif
 endif
@@ -191,7 +197,10 @@ if !empty(globpath(&runtimepath, 'autoload/plug.vim'))
   " Run PlugInstall if there are missing plugins
   if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
     if exists($MYVIMRC)
-      autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+      augroup MISSINGPLUG
+        au!
+        autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+      augroup END
     endif
   endif
 endif
@@ -224,17 +233,15 @@ let g:airline#extensions#ale#enabled = 1
 
 "NERDTree
 map <C-n> :NERDTreeToggle<CR>
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-autocmd StdinReadPre * let s:std_in=1
-au VimEnter NERD_tree_1 enew | execute 'NERDTree '.argv()[0]
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
 let NERDTreeShowHidden=1
 let NERDTreeIgnore = ['\..*\.sw[pom]$']
 augroup NERD
- au!
-  " autocmd VimEnter * NERDTree
-  " autocmd VimEnter * wincmd p
+  au!
+  autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+  autocmd StdinReadPre * let s:std_in=1
+  au VimEnter NERD_tree_1 enew | execute 'NERDTree '.argv()[0]
 augroup END
 
 
@@ -255,9 +262,13 @@ let g:ale_list_window_size = 7
 " This can be useful if you are combining ALE with
 " some other plugin which sets quickfix errors, etc.
 " let g:ale_keep_list_window_open = 1
-au BufRead,BufNewFile */*-ansible/*.yml set filetype=yaml.ansible
-au BufRead,BufNewFile */workstation/*.yml set filetype=yaml.ansible
-au BufRead,BufNewFile */instant-api-ops/*.yml set filetype=yaml.ansible
+augroup ansible_filetype
+  au!
+  au BufRead,BufNewFile */*-ansible/*.yml set filetype=yaml.ansible
+  au BufRead,BufNewFile */workstation/*.yml set filetype=yaml.ansible
+  au BufRead,BufNewFile */instant-api-ops/*.yml set filetype=yaml.ansible
+augroup END
+
 let g:ansible_yamlKeyName = 'yamlKey'
 
 let g:ale_fixers = {
@@ -291,7 +302,10 @@ let g:nomad_fmt_autosave = 0
 
 map <Leader>rr :set makeprg=ruby\ %<cr>:make<cr>
 
-au BufNewFile,BufRead /dev/shm/gopass.* setlocal noswapfile nobackup noundofile
+augroup GOPASS
+  au!
+  au BufNewFile,BufRead /dev/shm/gopass.* setlocal noswapfile nobackup noundofile
+augroup END
 
 if executable('ag')
   let g:ackprg = 'ag --vimgrep'
@@ -363,7 +377,12 @@ let g:LanguageClient_serverCommands = {
     \   },
     \ },
   \ }
-autocmd BufWritePre *.go :call LanguageClient#textDocument_formatting_sync()
+
+augroup GOLC
+  au!
+  autocmd BufWritePre *.go :call LanguageClient#textDocument_formatting_sync()
+augroup END
+
 
 " Cursor column toggle
 nmap <silent> <leader>c :set cursorcolumn!<CR>
@@ -372,7 +391,7 @@ xmap <silent> <leader>c :set cursorcolumn!<CR>
 vmap <silent> S :sort<CR>
 " Buffer close menu
 "
-au BufNewFile,BufRead /*.rasi setf css
+" au BufNewFile,BufRead /*.rasi setf css
 
 " Vim/Kitty integration keymap
 nnoremap <C-J> <C-W><C-J>
@@ -381,7 +400,10 @@ nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
 " Resize window on splits - mostly needed for new kitty terminal windows
-autocmd VimResized * wincmd =
+augroup VIMRESIZE
+  au!
+  autocmd VimResized * wincmd =
+augroup END
 
 " Vim-go
 " let g:go_def_mode='gopls'
@@ -413,8 +435,11 @@ function! s:build_go_files()
   endif
 endfunction
 
-autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
-autocmd FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
+augroup GOBUILD
+  au!
+  autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
+  autocmd FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
+augroup END
 
 let g:go_textobj_include_function_doc = 1
 
