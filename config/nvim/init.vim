@@ -67,11 +67,11 @@ endif
 
 
 
-if !isdirectory($HOME . "/.vim_undo")
+if !isdirectory($HOME . '/.vim_undo')
   silent call mkdir($HOME.'/.vim_undo', 'p', 0700)
 endif
 
-if isdirectory($HOME . "/.vim_undo")
+if isdirectory($HOME . '/.vim_undo')
   set undodir=~/.vim_undo
   set undofile
 endif
@@ -84,7 +84,7 @@ if executable('git') && executable('curl')
     else
       !curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     endif
-    if exists("$MYVIMRC")
+    if exists('$MYVIMRC')
       autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
     endif
   endif
@@ -190,7 +190,7 @@ if !empty(globpath(&rtp, 'autoload/plug.vim'))
 
   " Run PlugInstall if there are missing plugins
   if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
-    if exists("$MYVIMRC")
+    if exists($MYVIMRC)
       autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
     endif
   endif
@@ -211,8 +211,8 @@ let g:deoplete#enable_at_startup = 1
 " \})
 
 "Set host progs
-let g:python_host_prog = "/usr/bin/python2"
-let g:python3_host_prog = "/usr/bin/python3"
+let g:python_host_prog = '/usr/bin/python2'
+let g:python3_host_prog = '/usr/bin/python3'
 
 "Airline
 "if exists(':AirlineExtensions')
@@ -325,7 +325,7 @@ endif
 " "inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 "Ansible
-let g:ansible_attribute_highlight = "ob"
+let g:ansible_attribute_highlight = 'ob'
 let g:ansible_name_hightlight='d'
 let g:ansible_extra_keywords_highlight = 1
 
@@ -396,13 +396,13 @@ let g:go_highlight_operators = 1
 
 "Auto formatting and importing
 let g:go_fmt_autosave = 1
-let g:go_fmt_command = "goimports"
+let g:go_fmt_command = 'goimports'
 " let g:go_metalinter_autosave = 1
 
 " Status line types/signatures
 let g:go_auto_type_info = 1
 set autowrite
-let g:go_list_type = "quickfix"
+let g:go_list_type = 'quickfix'
 " run :GoBuild or :GoTestCompile based on the go file
 function! s:build_go_files()
   let l:file = expand('%')
@@ -421,18 +421,21 @@ let g:go_textobj_include_function_doc = 1
 " Trigger configuration. You need to change this to something other than <tab> if you use one of the following:
 " - https://github.com/Valloric/YouCompleteMe
 " - https://github.com/nvim-lua/completion-nvim
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+" let g:UltiSnipsExpandTrigger="<tab>"
+" let g:UltiSnipsJumpForwardTrigger="<c-b>"
+" let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+let g:UltiSnipsExpandTrigger='<tab>'
+let g:UltiSnipsJumpForwardTrigger='<c-b>'
+let g:UltiSnipsJumpBackwardTrigger='<c-z>'
 
 " If you want :UltiSnipsEdit to split your window.
-let g:UltiSnipsEditSplit="vertical"
+let g:UltiSnipsEditSplit='vertical'
 " let g:UltiSnipsSnippetDirectories=["UltiSnips"]
 "
 let g:go_term_enabled = 1
 " vim-test config
 " set the default strategy to dispatch
-let test#strategy = "neovim"
+let test#strategy = 'neovim'
 " Create key mapping
 nmap <silent> t<C-n> :TestNearest<CR>
 nmap <silent> t<C-f> :TestFile<CR>
