@@ -184,6 +184,8 @@ if !empty(globpath(&rtp, 'autoload/plug.vim'))
 
   Plug 'cappyzawa/fly-lint.vim'
 
+  Plug 'Yggdroot/indentLine'
+
   " Plug 'numkil/ag.nvim'
   call plug#end()
 
