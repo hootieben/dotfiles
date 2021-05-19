@@ -191,7 +191,9 @@ fpath=(~/.zsh/custom ~/.zsh/completions $fpath)
 autoload -U +X compinit && compinit
 autoload -U +X bashcompinit && bashcompinit
 
-kitty + complete setup zsh | source /dev/stdin
+if command -v kitty > /dev/null 2>&1; then
+  kitty + complete setup zsh | source /dev/stdin
+fi
 
 export SHOW_AWS_PROMPT="true"
 # if [[ -f /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
