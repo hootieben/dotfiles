@@ -183,6 +183,10 @@ if command -v fly > /dev/null 2>&1; then
   eval "$(fly completion --shell=bash)"
 fi
 
+if command -v pipx > /dev/null 2>&1; then
+  eval "$(register-python-argcomplete pipx)"
+fi
+
 fpath=(~/.zsh/custom ~/.zsh/completions $fpath)
 autoload -U +X compinit && compinit
 autoload -U +X bashcompinit && bashcompinit
@@ -196,9 +200,6 @@ export SHOW_AWS_PROMPT="true"
 
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
 
-# PIPX Completions
-#eval "$(register-python-argcomplete pipx)"
-#
 #export ANSIBLE_VAULT_PASSWORD_FILE=/home/hootieben/.local/bin/ansible-vault-pass-client.py
 
 #alias stg-deploy="ssh $(aws ec2 describe-instances --filters Name=tag:Name,Values="app02-stg" Name=instance-state-name,Values=running --query 'Reservations[].Instances[].PrivateIpAddress' --output text --no-cli-pager) -l deploy"
