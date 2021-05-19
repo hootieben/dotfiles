@@ -191,15 +191,6 @@ autoload -U +X bashcompinit && bashcompinit
 # autoload -Uz bashcompinit && bashcompinit
 #kitty + complete setup zsh | source /dev/stdin
 
-# _fly_compl() {
-# 	args=("${COMP_WORDS[@]:1:$COMP_CWORD}")
-# 	local IFS=$'\n'
-# 	COMPREPLY=($(GO_FLAGS_COMPLETION=1 ${COMP_WORDS[0]} "${args[@]}"))
-# 	return 0
-# }
-# complete -F _fly_compl fly
-
-
 export SHOW_AWS_PROMPT="true"
 # if [[ -f /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
 #     source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
