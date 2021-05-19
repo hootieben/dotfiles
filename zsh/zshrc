@@ -138,50 +138,6 @@ if command -v hub > /dev/null 2>&1; then
   eval "$(hub alias -s)"
 fi
 
-fpath=(~/.zsh/custom ~/.zsh/completions $fpath)
-autoload -U +X compinit && compinit
-# autoload -Uz bashcompinit && bashcompinit
-autoload -U +X bashcompinit && bashcompinit
-
-# autoload -U compinit && compinit
-# autoload -Uz bashcompinit && bashcompinit
-#kitty + complete setup zsh | source /dev/stdin
-
-# _fly_compl() {
-# 	args=("${COMP_WORDS[@]:1:$COMP_CWORD}")
-# 	local IFS=$'\n'
-# 	COMPREPLY=($(GO_FLAGS_COMPLETION=1 ${COMP_WORDS[0]} "${args[@]}"))
-# 	return 0
-# }
-# complete -F _fly_compl fly
-
-
-export SHOW_AWS_PROMPT="true"
-# if [[ -f /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
-#     source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-# fi
-if command -v rbenv > /dev/null 2>&1; then
-  eval "$(rbenv init -)"
-fi
-
-if command -v nodenv > /dev/null 2>&1; then
-  eval "$(nodenv init -)"
-fi
-
-ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
-
-
-# autoload -U +X bashcompinit && bashcompinit
-# if [[ -f $HOME/.local/bin/vault ]]; then
-# complete -o nospace -C /home/hootieben/.local/bin/vault vault
-# fi
-
-# PIPX Completions
-#eval "$(register-python-argcomplete pipx)"
-#
-#export ANSIBLE_VAULT_PASSWORD_FILE=/home/hootieben/.local/bin/ansible-vault-pass-client.py
-
-
 if command -v bat > /dev/null 2>&1; then
   export MANPAGER="sh -c 'col -bx | bat -l man -p'"
   alias cat='bat --paging=never'
@@ -192,16 +148,17 @@ if command -v direnv > /dev/null 2>&1; then
   export DIRENV_LOG_FORMAT=
 fi
 
-# if [[ -f $HOME/.local/bin/aws_completer ]]; then
-# fi
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-# autoload -U compinit && compinit
-# autoload -Uz bashcompinit && bashcompinit
+if command -v rbenv > /dev/null 2>&1; then
+  eval "$(rbenv init -)"
+fi
+
+if command -v nodenv > /dev/null 2>&1; then
+  eval "$(nodenv init -)"
+fi
 
 if command -v op > /dev/null 2>&1; then
   eval "$(op completion zsh)"; compdef _op op
 fi
-
 
 complete -C '/home/hootieben/.local/bin/aws_completer' aws
 
@@ -224,6 +181,51 @@ fi
 if command -v fly > /dev/null 2>&1; then
   eval "$(fly completion --shell=bash)"
 fi
+
+fpath=(~/.zsh/custom ~/.zsh/completions $fpath)
+autoload -U +X compinit && compinit
+# autoload -Uz bashcompinit && bashcompinit
+autoload -U +X bashcompinit && bashcompinit
+
+# autoload -U compinit && compinit
+# autoload -Uz bashcompinit && bashcompinit
+#kitty + complete setup zsh | source /dev/stdin
+
+# _fly_compl() {
+# 	args=("${COMP_WORDS[@]:1:$COMP_CWORD}")
+# 	local IFS=$'\n'
+# 	COMPREPLY=($(GO_FLAGS_COMPLETION=1 ${COMP_WORDS[0]} "${args[@]}"))
+# 	return 0
+# }
+# complete -F _fly_compl fly
+
+
+export SHOW_AWS_PROMPT="true"
+# if [[ -f /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
+#     source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# fi
+
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
+
+
+# autoload -U +X bashcompinit && bashcompinit
+# if [[ -f $HOME/.local/bin/vault ]]; then
+# complete -o nospace -C /home/hootieben/.local/bin/vault vault
+# fi
+
+# PIPX Completions
+#eval "$(register-python-argcomplete pipx)"
+#
+#export ANSIBLE_VAULT_PASSWORD_FILE=/home/hootieben/.local/bin/ansible-vault-pass-client.py
+
+
+
+# if [[ -f $HOME/.local/bin/aws_completer ]]; then
+# fi
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+# autoload -U compinit && compinit
+# autoload -Uz bashcompinit && bashcompinit
+
 # [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 #
 #alias stg-deploy="ssh $(aws ec2 describe-instances --filters Name=tag:Name,Values="app02-stg" Name=instance-state-name,Values=running --query 'Reservations[].Instances[].PrivateIpAddress' --output text --no-cli-pager) -l deploy"
