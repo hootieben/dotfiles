@@ -198,7 +198,6 @@ if command -v kitty > /dev/null 2>&1; then
   kitty + complete setup zsh | source /dev/stdin
 fi
 
-export SHOW_AWS_PROMPT="true"
 if [[ -f ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
     source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
