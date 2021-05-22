@@ -1,0 +1,13 @@
+---
+- defaults:
+    link:
+      relink: true
+      force: true
+
+- link:
+    ~/.gitconfig:
+      path: git/linux-gitconfig
+    ~/.gnupg/gpg-agent.conf:
+        path: gnupg/linux-gpg-agent.conf
+    ~/.gnupg/gpg.conf:
+        path: gnupg/linux-gpg.conf

@@ -1,0 +1,90 @@
+---
+- defaults:
+    link:
+      relink: true
+      force: true
+
+      #- clean: ['~']
+
+- create:
+  - ~/.config/nvim
+  - ~/.gnupg
+  - ~/.config/kitty
+  - ~/.ssh
+  - ~/.local/bin
+#   - ~/.config/ansible
+  - ~/.zsh/completions
+#   - ~/.config/pulse
+#   - ~/.aws/cli
+#   - ~/.config/systemd/user
+#   - ~/.config/dunst
+#   - ~/.config/polybar
+#   - ~/.config/autorandr
+#   - ~/.config/i3
+
+- link:
+    ~/.config/nvim/init.vim:
+      path: config/nvim/init.vim
+    # ~/.gitconfig:
+    #   path: git/gitconfig
+    ~/.gitignore_global:
+      path: git/gitignore_global
+    ~/.gitconfig-litmus:
+      path: git/gitconfig-litmus
+    ~/.zshrc:
+      path: zsh/zshrc
+    ~/.zsh/zsh-syntax-highlighting:
+      path: zsh/zsh-syntax-highlighting
+    ~/.p10k.zsh:
+      path: zsh/p10k.zsh
+    # ~/.zshenv:
+      # path: zsh/zshenv
+    # ~/.gnupg/gpg-agent.conf:
+    #     path: gnupg/gpg-agent.conf
+    # ~/.gnupg/gpg.conf:
+    #     path: gnupg/gpg.conf
+    ~/.config/kitty/:
+        glob: true
+        path: config/kitty/*
+    ~/.ssh/:
+      glob: true
+      path: ssh/*
+    ~/.config/kitty/neighboring_window.py:
+      path: ~/.config/nvim/plugged/vim-kitty-navigator/neighboring_window.py
+      ignore-missing: true
+    ~/.config/kitty/pass_keys.py:
+      path: ~/.config/nvim/plugged/vim-kitty-navigator/pass_keys.py
+      ignore-missing: true
+    # ~/.Xresources:
+    #     path: Xresources
+    # ~/.config/ansible/ansible.cfg:
+    #     path: ansible/ansible.cfg
+    # ~/.zsh/completions/_hub:
+    #     path: zsh/completions/_hub
+    # ~/.zsh/completions/_gopass:
+    #     path: zsh/completions/_gopass
+    # ~/.config/pulse/default.pa:
+    #     path: pulse/default.pa
+    # ~/.config/systemd/user/:
+    #     glob: true
+    #     path: systemd/*
+    # ~/.config/polybar/:
+    #     glob: true
+    #     path: config/polybar/*
+    # ~/.config/dunst/dunstrc:
+    #     path: config/dunst/dunstrc
+    # ~/.config/i3/:
+    #     glob: true
+    #     path: config/i3/*
+    # ~/.config/autorandr/:
+    #     glob: true
+    #     path: config/autorandr/*
+
+
+# - shell:
+  # - scripts/ohmyzsh.sh
+  # - go get -u github.com/mdempsky/gocode
+  #-
+  #  command: scripts/nvim.sh
+  #  stdout: true
+  #  stderr: true
