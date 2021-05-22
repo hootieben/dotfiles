@@ -275,6 +275,7 @@ let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'json': ['fixjson'],
 \}
+let g:ale_fix_on_save = 1
 
 " Disable go linters as we are using gopls through LanguangeClient
 let g:ale_linters = {
