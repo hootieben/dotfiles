@@ -161,7 +161,6 @@ if command -v op > /dev/null 2>&1; then
   eval "$(op completion zsh)"; compdef _op op
 fi
 
-complete -C '/home/hootieben/.local/bin/aws_completer' aws
 
 if command -v aws-vault > /dev/null 2>&1; then
   eval "$(aws-vault --completion-script-bash)"
@@ -190,6 +189,10 @@ fi
 fpath=(~/.zsh/custom ~/.zsh/completions $fpath)
 autoload -U +X compinit && compinit
 autoload -U +X bashcompinit && bashcompinit
+
+if [[ -f /home/hootieben/.local/bin/aws_completer ]]; then
+  complete -C '/home/hootieben/.local/bin/aws_completer' aws
+fi
 
 if command -v kitty > /dev/null 2>&1; then
   kitty + complete setup zsh | source /dev/stdin
