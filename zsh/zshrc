@@ -8,7 +8,7 @@ fi
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/go/bin:$HOME/.rbenv/bin:$HOME/.nodenv/bin:$HOME/.local/bin:/usr/local/bin:/usr/bin:$PATH:/usr/local/go/bin
+export PATH=$HOME/.yarn/bin:$HOME/go/bin:$HOME/.rbenv/bin:$HOME/.nodenv/bin:$HOME/.local/bin:/usr/local/bin:/usr/bin:$PATH:/usr/local/go/bin
 
 typeset -U path
 # path=(~/go/bin ~/.rbenv/bin ~/.nodenv/bin ~/.local/bin $path /usr/local/go/bin)
@@ -89,7 +89,7 @@ fi
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git fzf aws gpg-agent terraform ansible)
+plugins=(git fzf aws gpg-agent terraform ansible extract ripgrep z)
 
 # if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
 
@@ -189,6 +189,7 @@ fi
 fpath=(~/.zsh/custom ~/.zsh/completions $fpath)
 autoload -U +X compinit && compinit
 autoload -U +X bashcompinit && bashcompinit
+autoload -Uz iamconnect
 
 if [[ -f /home/hootieben/.local/bin/aws_completer ]]; then
   complete -C '/home/hootieben/.local/bin/aws_completer' aws
@@ -205,3 +206,6 @@ fi
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
 #alias stg-deploy="ssh $(aws ec2 describe-instances --filters Name=tag:Name,Values="app02-stg" Name=instance-state-name,Values=running --query 'Reservations[].Instances[].PrivateIpAddress' --output text --no-cli-pager) -l deploy"
 #alias stg-sys="ssh $(aws ec2 describe-instances --filters Name=tag:Name,Values="app02-stg" Name=instance-state-name,Values=running --query 'Reservations[].Instances[].PrivateIpAddress' --output text --no-cli-pager) -l ubuntu"
+#
+export FZF_CTRL_T_OPTS="--preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200'"
+export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
