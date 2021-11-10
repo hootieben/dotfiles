@@ -19,14 +19,10 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2.4.0
-
-      # Update submodule
-      - name: Checkout dotbot submodule
-        id: dbsub
-        uses: textbook/git-checkout-submodule-action@master
+      - name: Checkout repo
+        uses: actions/checkout@v2.4.0
         with:
-          remote: true
+          submodules: recursive
       - name: Create PR
         uses: peter-evans/create-pull-request@v3.11.0
         with:
