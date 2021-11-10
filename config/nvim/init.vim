@@ -3,18 +3,18 @@ syntax enable
 set cursorline
 set cursorcolumn
 "set autoindent
-set smartindent
+set smartindent ""
 " set title
 set wrap
 set hidden
 "let &t_ut=''
 set termguicolors
-set number
-"set relativenumber
+set number ""
+"set relativenumber ""
 set showmatch
 set tabstop=2
 set softtabstop=2
-set expandtab
+set expandtab ""
 set shiftwidth=2
 set smarttab
 set splitright
@@ -144,7 +144,7 @@ if !empty(globpath(&runtimepath, 'autoload/plug.vim'))
   endif
   "Ansible
   if executable('ansible')
-    Plug 'pearofducks/ansible-vim', { 'do': './UltiSnips/generate.sh' }
+    Plug 'pearofducks/ansible-vim', { 'do': './UltiSnips/generate.sh --style dictionary' }
   endif
   "EditorConfig
   Plug 'editorconfig/editorconfig-vim'
@@ -191,7 +191,10 @@ if !empty(globpath(&runtimepath, 'autoload/plug.vim'))
 
   Plug 'Yggdroot/indentLine'
 
+  Plug 'neovim/nvim-lspconfig'
+
   " Plug 'numkil/ag.nvim'
+  " Plug 'pedrohdz/vim-yaml-folds'
   call plug#end()
 
   " Run PlugInstall if there are missing plugins
@@ -280,15 +283,16 @@ let g:ale_fix_on_save = 1
 " Disable go linters as we are using gopls through LanguangeClient
 let g:ale_linters = {
 \'go': [''],
+\'terraform': [''],
 \}
 
 let g:ale_yaml_yamllint_options = '-c '.projectroot#guess().'/.yamllint'
 
 ""LanguageClient - taken from https://github.com/neoclide/coc.nvim
-set cmdheight=2
-set updatetime=300
-set shortmess+=c
-set signcolumn=yes
+set cmdheight=2 ""
+set updatetime=300 ""
+set shortmess+=c ""
+set signcolumn=yes ""
 
 "Terraform Formatting
 let g:terraform_align=1
@@ -377,6 +381,7 @@ let g:LanguageClient_serverCommands = {
     \     },
     \   },
     \ },
+    \ 'sh': ['bash-language-server', 'start'],
   \ }
 
 augroup GOLC
@@ -482,3 +487,58 @@ nmap <silent> <C-P> :Files<CR>
 let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.9 } }
 " let $FZF_DEFAULT_OPTS="--ansi --preview-window 'right:60%' --layout reverse --margin=1,4 --preview 'bat --color=always --style=header,grid --line-range :300 {}'"
 call deoplete#custom#option('omni_patterns', { 'go': '[^. *\t]\.\w*' })
+
+" lua <<EOF
+"   require'lspconfig'.terraformls.setup{}
+" EOF
+" autocmd BufWritePre *.tf lua vim.lsp.buf.formatting()
+
+lua << EOF
+local nvim_lsp = require('lspconfig')
+
+-- Use an on_attach function to only map the following keys
+-- after the language server attaches to the current buffer
+local on_attach = function(client, bufnr)
+  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+
+  -- Enable completion triggered by <c-x><c-o>
+  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+  -- Mappings.
+  local opts = { noremap=true, silent=true }
+
+  -- See `:help vim.lsp.*` for documentation on any of the below functions
+  buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+  buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+  buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+  buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
+  buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
+  buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
+  buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+  buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+  buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+  buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+  buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+  buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+  buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+  buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+  buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+
+end
+
+-- Use a loop to conveniently call 'setup' on multiple servers and
+-- map buffer local keybindings when the language server attaches
+local servers = { 'terraformls' }
+for _, lsp in ipairs(servers) do
+  nvim_lsp[lsp].setup {
+    on_attach = on_attach,
+    flags = {
+      debounce_text_changes = 150,
+    }
+  }
+end
+EOF
+autocmd BufWritePre *.tf lua vim.lsp.buf.formatting()
