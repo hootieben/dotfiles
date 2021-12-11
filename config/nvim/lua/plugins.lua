@@ -75,4 +75,6 @@ return require('packer').startup(function()
   use 'kosayoda/nvim-lightbulb'
   -- Terraform
   use 'hashivim/vim-terraform'
+  -- Delve
+  use 'sebdah/vim-delve'
 end)
