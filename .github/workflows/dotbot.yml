@@ -9,11 +9,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v2.4.0
+        uses: actions/checkout@v2
         with:
           submodules: recursive
       - name: Create PR
-        uses: peter-evans/create-pull-request@v3.11.0
+        uses: peter-evans/create-pull-request@v3
         with:
           token: ${{ secrets.PAT }}
           branch: dotbot-submodule-update
