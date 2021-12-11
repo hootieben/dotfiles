@@ -28,13 +28,9 @@
   file-style = bold yellow ul
   file-decoration-style = none
 
-[credential]
-  #helper = osxkeychain
-	helper = "!gopass-git-credentials $@"
 
 [credential]
-  #helper = osxkeychain
-	helper = "!gopass-git-credentials $@"
+  helper = gopass
 
 [grep]
   lineNumber = true
