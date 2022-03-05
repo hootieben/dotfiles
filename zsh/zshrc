@@ -1,3 +1,7 @@
+case $(uname -a) in
+   *codespaces*) unsetopt BG_NICE ;;
+esac
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -89,7 +93,7 @@ fi
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git fzf aws gpg-agent terraform ansible extract ripgrep z)
+plugins=(git fzf aws gpg-agent terraform ansible extract ripgrep z sudo)
 
 # if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
 
@@ -214,3 +218,5 @@ export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
 fpath=(/opt/vagrant/embedded/gems/2.2.19/gems/vagrant-2.2.19/contrib/zsh $fpath)
 compinit
 # <<<<  Vagrant command completion (end)
+
+complete -o nospace -C /home/hootieben/.local/bin/aws-sso aws-sso
