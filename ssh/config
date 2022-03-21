@@ -3,6 +3,7 @@ Include ~/.ssh/local
 Host github.com
     IdentitiesOnly yes
     IdentityFile ~/.ssh/id_rsa_yubikey.pub
+    UpdateHostKeys yes
 
 # Host output
 #   HostName 127.0.0.1
