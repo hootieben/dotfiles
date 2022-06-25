@@ -7,8 +7,10 @@
     ~/.gitconfig-litmus:
       path: git/gitconfig-litmus
     ~/.zshrc:
+      force: true
       path: zsh/zshrc
     ~/.zshenv:
+      force: true
       path: zsh/zshenv
     ~/.gnupg/:
       glob: true
