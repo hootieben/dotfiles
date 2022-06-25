@@ -20,5 +20,7 @@
       path: zsh/p10k.zsh
     ~/.gnupg/:
       glob: true
+      force: true
       create: true
+      relink: true
       path: gnupg/*
