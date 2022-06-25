@@ -203,11 +203,98 @@ if command -v kitty > /dev/null 2>&1; then
   kitty + complete setup zsh | source /dev/stdin
 fi
 
-if [[ -f ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
-    source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-fi
+# Dracula Theme (for zsh-syntax-highlighting)
+#
+# https://github.com/zenorocha/dracula-theme
+#
+# Copyright 2021, All rights reserved
+#
+# Code licensed under the MIT license
+# http://zenorocha.mit-license.org
+#
+# @author George Pickering <@bigpick>
+# @author Zeno Rocha <hi@zenorocha.com>
+# Paste this files contents inside your ~/.zshrc before you activate zsh-syntax-highlighting
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main cursor)
+typeset -gA ZSH_HIGHLIGHT_STYLES
+# Default groupings per, https://spec.draculatheme.com, try to logically separate
+# possible ZSH_HIGHLIGHT_STYLES settings accordingly...?
+#
+# Italics not yet supported by zsh; potentially soon:
+#    https://github.com/zsh-users/zsh-syntax-highlighting/issues/432
+#    https://www.zsh.org/mla/workers/2021/msg00678.html
+# ... in hopes that they will, labelling accordingly with ,italic where appropriate
+#
+# Main highlighter styling: https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/docs/highlighters/main.md
+#
+## General
+### Diffs
+### Markup
+## Classes
+## Comments
+ZSH_HIGHLIGHT_STYLES[comment]='fg=#6272A4'
+## Constants
+## Entitites
+## Functions/methods
+ZSH_HIGHLIGHT_STYLES[alias]='fg=#50FA7B'
+ZSH_HIGHLIGHT_STYLES[suffix-alias]='fg=#50FA7B'
+ZSH_HIGHLIGHT_STYLES[global-alias]='fg=#50FA7B'
+ZSH_HIGHLIGHT_STYLES[function]='fg=#50FA7B'
+ZSH_HIGHLIGHT_STYLES[command]='fg=#50FA7B'
+ZSH_HIGHLIGHT_STYLES[precommand]='fg=#50FA7B,italic'
+ZSH_HIGHLIGHT_STYLES[autodirectory]='fg=#FFB86C,italic'
+ZSH_HIGHLIGHT_STYLES[single-hyphen-option]='fg=#FFB86C'
+ZSH_HIGHLIGHT_STYLES[double-hyphen-option]='fg=#FFB86C'
+ZSH_HIGHLIGHT_STYLES[back-quoted-argument]='fg=#BD93F9'
+## Keywords
+## Built ins
+ZSH_HIGHLIGHT_STYLES[builtin]='fg=#8BE9FD'
+ZSH_HIGHLIGHT_STYLES[reserved-word]='fg=#8BE9FD'
+ZSH_HIGHLIGHT_STYLES[hashed-command]='fg=#8BE9FD'
+## Punctuation
+ZSH_HIGHLIGHT_STYLES[commandseparator]='fg=#FF79C6'
+ZSH_HIGHLIGHT_STYLES[command-substitution-delimiter]='fg=#F8F8F2'
+ZSH_HIGHLIGHT_STYLES[command-substitution-delimiter-unquoted]='fg=#F8F8F2'
+ZSH_HIGHLIGHT_STYLES[process-substitution-delimiter]='fg=#F8F8F2'
+ZSH_HIGHLIGHT_STYLES[back-quoted-argument-delimiter]='fg=#FF79C6'
+ZSH_HIGHLIGHT_STYLES[back-double-quoted-argument]='fg=#FF79C6'
+ZSH_HIGHLIGHT_STYLES[back-dollar-quoted-argument]='fg=#FF79C6'
+## Serializable / Configuration Languages
+## Storage
+## Strings
+ZSH_HIGHLIGHT_STYLES[command-substitution-quoted]='fg=#F1FA8C'
+ZSH_HIGHLIGHT_STYLES[command-substitution-delimiter-quoted]='fg=#F1FA8C'
+ZSH_HIGHLIGHT_STYLES[single-quoted-argument]='fg=#F1FA8C'
+ZSH_HIGHLIGHT_STYLES[single-quoted-argument-unclosed]='fg=#FF5555'
+ZSH_HIGHLIGHT_STYLES[double-quoted-argument]='fg=#F1FA8C'
+ZSH_HIGHLIGHT_STYLES[double-quoted-argument-unclosed]='fg=#FF5555'
+ZSH_HIGHLIGHT_STYLES[rc-quote]='fg=#F1FA8C'
+## Variables
+ZSH_HIGHLIGHT_STYLES[dollar-quoted-argument]='fg=#F8F8F2'
+ZSH_HIGHLIGHT_STYLES[dollar-quoted-argument-unclosed]='fg=#FF5555'
+ZSH_HIGHLIGHT_STYLES[dollar-double-quoted-argument]='fg=#F8F8F2'
+ZSH_HIGHLIGHT_STYLES[assign]='fg=#F8F8F2'
+ZSH_HIGHLIGHT_STYLES[named-fd]='fg=#F8F8F2'
+ZSH_HIGHLIGHT_STYLES[numeric-fd]='fg=#F8F8F2'
+## No category relevant in spec
+ZSH_HIGHLIGHT_STYLES[unknown-token]='fg=#FF5555'
+ZSH_HIGHLIGHT_STYLES[path]='fg=#F8F8F2'
+ZSH_HIGHLIGHT_STYLES[path_pathseparator]='fg=#FF79C6'
+ZSH_HIGHLIGHT_STYLES[path_prefix]='fg=#F8F8F2'
+ZSH_HIGHLIGHT_STYLES[path_prefix_pathseparator]='fg=#FF79C6'
+ZSH_HIGHLIGHT_STYLES[globbing]='fg=#F8F8F2'
+ZSH_HIGHLIGHT_STYLES[history-expansion]='fg=#BD93F9'
+#ZSH_HIGHLIGHT_STYLES[command-substitution]='fg=?'
+#ZSH_HIGHLIGHT_STYLES[command-substitution-unquoted]='fg=?'
+#ZSH_HIGHLIGHT_STYLES[process-substitution]='fg=?'
+#ZSH_HIGHLIGHT_STYLES[arithmetic-expansion]='fg=?'
+ZSH_HIGHLIGHT_STYLES[back-quoted-argument-unclosed]='fg=#FF5555'
+ZSH_HIGHLIGHT_STYLES[redirection]='fg=#F8F8F2'
+ZSH_HIGHLIGHT_STYLES[arg0]='fg=#F8F8F2'
+ZSH_HIGHLIGHT_STYLES[default]='fg=#F8F8F2'
+ZSH_HIGHLIGHT_STYLES[cursor]='standout'
 
-ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
+# ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
 #alias stg-deploy="ssh $(aws ec2 describe-instances --filters Name=tag:Name,Values="app02-stg" Name=instance-state-name,Values=running --query 'Reservations[].Instances[].PrivateIpAddress' --output text --no-cli-pager) -l deploy"
 #alias stg-sys="ssh $(aws ec2 describe-instances --filters Name=tag:Name,Values="app02-stg" Name=instance-state-name,Values=running --query 'Reservations[].Instances[].PrivateIpAddress' --output text --no-cli-pager) -l ubuntu"
 #
@@ -220,3 +307,49 @@ compinit
 # <<<<  Vagrant command completion (end)
 
 complete -o nospace -C /home/hootieben/.local/bin/aws-sso aws-sso
+# BEGIN_AWS_SSO_CLI
+
+# AWS SSO requires `bashcompinit` which needs to be enabled once and
+# only once in your shell.  Hence we do not include the two lines:
+#
+# autoload -Uz +X compinit && compinit
+# autoload -Uz +X bashcompinit && bashcompinit
+#
+# If you do not already have these lines, you must COPY the lines
+# above, place it OUTSIDE of the BEGIN/END_AWS_SSO_CLI markers
+# and of course uncomment it
+
+__aws_sso_profile_complete() {
+     local _args=${AWS_SSO_HELPER_ARGS:- -L error}
+    _multi_parts : "($(/home/hootieben/.local/bin/aws-sso list --csv $_args Profile))"
+}
+
+aws-sso-profile() {
+    local _args=${AWS_SSO_HELPER_ARGS:- -L error}
+    if [ -n "$AWS_PROFILE" ]; then
+        echo "Unable to assume a role while AWS_PROFILE is set"
+        return 1
+    fi
+    eval $(/home/hootieben/.local/bin/aws-sso $_args eval -p "$1")
+    if [ "$AWS_SSO_PROFILE" != "$1" ]; then
+        return 1
+    fi
+}
+
+aws-sso-clear() {
+    local _args=${AWS_SSO_HELPER_ARGS:- -L error}
+    if [ -z "$AWS_SSO_PROFILE" ]; then
+        echo "AWS_SSO_PROFILE is not set"
+        return 1
+    fi
+    eval $(/home/hootieben/.local/bin/aws-sso -sso eval $_args -c)
+}
+
+compdef __aws_sso_profile_complete aws-sso-profile
+complete -C /home/hootieben/.local/bin/aws-sso aws-sso
+
+# END_AWS_SSO_CLI
+#
+if [[ -f ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
+    source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
