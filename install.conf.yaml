@@ -2,10 +2,13 @@
 - link:
     ~/.gitconfig:
       path: git/gitconfig
+      relink: true
     ~/.gitignore_global:
       path: git/gitignore_global
+      relink: true
     ~/.gitconfig-litmus:
       path: git/gitconfig-litmus
+      relink: true
     ~/.zshrc:
       force: true
       path: zsh/zshrc
