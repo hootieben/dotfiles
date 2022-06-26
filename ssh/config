@@ -5,23 +5,9 @@ Host github.com
     IdentityFile ~/.ssh/id_rsa_yubikey.pub
     UpdateHostKeys yes
 
-# Host output
-#   HostName 127.0.0.1
-#   User vagrant
-#   Port 2200
-#   UserKnownHostsFile /dev/null
-#   StrictHostKeyChecking no
-#   PasswordAuthentication no
-#   IdentityFile /home/hootieben/.vagrant.d/insecure_private_key
-#   IdentitiesOnly yes
-#   LogLevel FATAL
-
 Host *
   User bsykes
   StrictHostKeyChecking no
   ForwardAgent yes
   ChallengeResponseAuthentication no
   PubkeyAuthentication yes
-  #KexAlgorithms diffie-hellman-group-exchange-sha256,diffie-hellman-group-exchange-sha1,diffie-hellman-group14-sha1
-  #Ciphers aes256-ctr,aes192-ctr,aes128-ctr
-  #MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,hmac-ripemd160-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-512,hmac-sha2-256,hmac-ripemd160,umac-128@openssh.com
