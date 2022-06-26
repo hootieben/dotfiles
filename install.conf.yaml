@@ -1,4 +1,7 @@
 ---
+- create:
+  - ~/.local/bin
+
 - link:
     ~/.gitconfig:
       path: git/gitconfig
