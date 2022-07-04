@@ -27,3 +27,9 @@
       create: true
       relink: true
       path: gnupg/*
+    ~/.ssh/:
+      glob: true
+      force: true
+      create: true
+      relink: true
+      path: ssh/*
