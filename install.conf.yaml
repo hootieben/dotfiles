@@ -39,3 +39,8 @@
       create: true
       relink: true
       path: config/kitty/*
+    ~/.config/regolith2/Xresources:
+      force: true
+      create: true
+      relink: true
+      path: config/regolith2/Xresources
