@@ -310,7 +310,7 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-complete -o nospace -C /usr/bin/aws-sso aws-sso
+#
 # BEGIN_AWS_SSO_CLI
 
 # AWS SSO requires `bashcompinit` which needs to be enabled once and
@@ -334,7 +334,8 @@ aws-sso-profile() {
         echo "Unable to assume a role while AWS_PROFILE is set"
         return 1
     fi
-    eval $(/usr/bin/aws-sso $_args eval -p "$1")
+    # eval $(/usr/bin/aws-sso $_args eval -p "$1")
+    eval $(/usr/bin/aws-sso -L error eval -p "$1")
     if [ "$AWS_SSO_PROFILE" != "$1" ]; then
         return 1
     fi
@@ -346,7 +347,8 @@ aws-sso-clear() {
         echo "AWS_SSO_PROFILE is not set"
         return 1
     fi
-    eval $(/usr/bin/aws-sso -sso eval $_args -c)
+    # eval $(/usr/bin/aws-sso -sso eval $_args -c)
+    eval $(/usr/bin/aws-sso -sso eval -L error -c)
 }
 
 compdef __aws_sso_profile_complete aws-sso-profile
