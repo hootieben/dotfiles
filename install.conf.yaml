@@ -44,3 +44,8 @@
       create: true
       relink: true
       path: config/regolith2/Xresources
+    ~/.aws-sso/config.yaml:
+      force: true
+      create: true
+      relink: true
+      path: aws-sso/config.yaml
