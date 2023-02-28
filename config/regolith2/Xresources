@@ -1,7 +1,7 @@
 i3-wm.client.focused.color.border: #6272A4
 i3-wm.client.focused.color.background: #6272A4
 i3-wm.client.focused.color.text: #F8F8F2
-i3-wm.client.focused.color.indicator: #6272A4 
+i3-wm.client.focused.color.indicator: #6272A4
 i3-wm.client.focused.color.child_border: #6272A4
 
 i3-wm.client.focused_inactive.color.border: #44475A
@@ -18,13 +18,13 @@ i3-wm.client.unfocused.color.child_border: #282A36
 
 i3-wm.client.urgent.color.border: #44475A
 i3-wm.client.urgent.color.background: #FF5555
-i3-wm.client.urgent.color.text: #F8F8F2 
+i3-wm.client.urgent.color.text: #F8F8F2
 i3-wm.client.urgent.color.indicator: #FF5555
 i3-wm.client.urgent.color.child_border: #FF5555
 
 i3-wm.client.placeholder.color.border: #282A36
 i3-wm.client.placeholder.color.background: #282A36
-i3-wm.client.placeholder.color.text: #F8F8F2 
+i3-wm.client.placeholder.color.text: #F8F8F2
 i3-wm.client.placeholder.color.indicator: #282A36
 i3-wm.client.placeholder.color.child_border: #282A36
 
