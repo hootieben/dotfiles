@@ -1,6 +1,9 @@
 ---
 - create:
   - ~/.local/bin
+  - ~/.aws
+  - ~/.aws-sso
+  - ~/.config/nvim
 
 - link:
     ~/.gitconfig:
