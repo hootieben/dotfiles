@@ -53,3 +53,8 @@
       create: true
       relink: true
       path: gh/config.yml
+    ~/.aws/cli/alias:
+      path: aws/alias
+      force: true
+      create: true
+      relink: true
