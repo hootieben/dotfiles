@@ -58,3 +58,8 @@
       force: true
       create: true
       relink: true
+    ~/.local/share/fonts:
+      glob: true
+      force: true
+      create: true
+      path: fonts/*
