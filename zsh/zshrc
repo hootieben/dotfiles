@@ -105,6 +105,8 @@ fi
 # User configuration
 unsetopt share_history
 
+export PAGER="less -F"
+
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
