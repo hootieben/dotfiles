@@ -12,7 +12,7 @@ fi
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/.yarn/bin:$HOME/go/bin:$HOME/.rbenv/bin:$HOME/.nodenv/bin:$HOME/.local/bin:/usr/local/bin:/usr/bin:$PATH:/usr/local/go/bin
+export PATH=$HOME/.pyenv/bin:$HOME/.yarn/bin:$HOME/go/bin:$HOME/.rbenv/bin:$HOME/.nodenv/bin:$HOME/.local/bin:/usr/local/bin:/usr/bin:$PATH:/usr/local/go/bin
 
 typeset -U path
 # path=(~/go/bin ~/.rbenv/bin ~/.nodenv/bin ~/.local/bin $path /usr/local/go/bin)
@@ -93,7 +93,7 @@ fi
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git fzf aws gpg-agent terraform ansible extract ripgrep z sudo)
+plugins=(git fzf aws gpg-agent terraform ansible extract ripgrep z sudo pyenv)
 
 # if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
 
@@ -358,6 +358,11 @@ complete -C /usr/bin/aws-sso aws-sso
 
 # END_AWS_SSO_CLI
 #
+if command -v pyenv > /dev/null 2>&1; then
+  eval "$(pyenv init -)"
+  eval "$(pyenv virtualenv-init -)"
+fi
+
 if [[ -f ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
     source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
