@@ -52,7 +52,13 @@
       force: true
       create: true
       relink: true
-      path: gh/config.yml
+      path: config/gh/config.yml
+    ~/.config/gh-dash:
+      glob: true
+      force: true
+      create: true
+      relink: true
+      path: config/gh-dash/*
     ~/.aws/cli/alias:
       path: aws/alias
       force: true
