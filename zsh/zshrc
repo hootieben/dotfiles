@@ -2,12 +2,15 @@ case $(uname -a) in
    *codespaces*) unsetopt BG_NICE ;;
 esac
 
+(( ${+commands[direnv]} )) && emulate zsh -c "$(direnv export zsh)"
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
+(( ${+commands[direnv]} )) && export DIRENV_LOG_FORMAT= && emulate zsh -c "$(direnv hook zsh)"
+
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
@@ -88,24 +91,24 @@ if [ -f ~/.fzf.zsh ]; then
   fi
 fi
 
+PAGER="less -RF"
+
 # Which plugins would you like to load?
 # Standard plugins can be found in ~/.oh-my-zsh/plugins/*
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
+export NVM_COMPLETION=true
+export NVM_LAZY_LOAD=true
+export NVM_LAZY_LOAD_EXTRA_COMMANDS=('vim','nvim')
 plugins=(git fzf aws gpg-agent terraform ansible extract ripgrep z sudo pyenv)
-
-# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
 
 if [[ -f $ZSH/oh-my-zsh.sh ]]; then
   source $ZSH/oh-my-zsh.sh
 fi
 
-
 # User configuration
 unsetopt share_history
-
-export PAGER="less -F"
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -118,6 +121,7 @@ export PAGER="less -F"
 # else
 #   export EDITOR='mvim'
 # fi
+# (( $+commands[foobar] ))
 if command -v nvim > /dev/null 2>&1; then
   export EDITOR='nvim'
   export GIT_EDITOR='nvim'
@@ -125,9 +129,10 @@ if command -v nvim > /dev/null 2>&1; then
   alias vim='nvim'
 fi
 
-if command -v delta > /dev/null 2>&1; then
-  export GIT_PAGER='delta'
-fi
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+
+(( ${+commands[delta]} )) && export GIT_PAGER='delta'
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -141,178 +146,17 @@ fi
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-if command -v hub > /dev/null 2>&1; then
-  eval "$(hub alias -s)"
-fi
+(( ${+commands[hub]} )) && emulate zsh -c "$(hub alias -s)"
 
-if command -v bat > /dev/null 2>&1; then
-  export MANPAGER="sh -c 'col -bx | bat -l man -p'"
-  alias cat='bat --paging=never'
-fi
-
-if command -v direnv > /dev/null 2>&1; then
-  eval "$(direnv hook zsh)"
-  export DIRENV_LOG_FORMAT=
-fi
-
-if command -v rbenv > /dev/null 2>&1; then
-  eval "$(rbenv init -)"
-fi
-
-if command -v nodenv > /dev/null 2>&1; then
-  eval "$(nodenv init -)"
-fi
-
-if command -v op > /dev/null 2>&1; then
-  eval "$(op completion zsh)"; compdef _op op
-fi
-
-
-if command -v aws-vault > /dev/null 2>&1; then
-  eval "$(aws-vault --completion-script-bash)"
-  if command -v gopass > /dev/null 2>&1; then
-    export AWS_VAULT_BACKEND=pass
-    export AWS_VAULT_PASS_CMD=gopass
-    if [[ -d $HOME/.local/share/gopass/stores/root ]]; then
-      export AWS_VAULT_PASS_PASSWORD_STORE_DIR=/home/hootieben/.local/share/gopass/stores/root
-      export AWS_VAULT_PASS_PREFIX=AWS
-    fi
-  fi
-fi
-
-if command -v jira > /dev/null 2>&1; then
-  eval "$(jira --completion-script-bash)"
-fi
-
-if command -v fly > /dev/null 2>&1; then
-  eval "$(fly completion --shell=bash)"
-fi
-
-if command -v pipx > /dev/null 2>&1; then
-  eval "$(register-python-argcomplete pipx)"
-fi
-
-fpath=(~/.zsh/custom ~/.zsh/completions $fpath)
-autoload -U +X compinit && compinit
-autoload -U +X bashcompinit && bashcompinit
-autoload -Uz iamconnect
-
-if [[ -f /home/hootieben/.local/bin/aws_completer ]]; then
-  complete -C '/home/hootieben/.local/bin/aws_completer' aws
-fi
-
-if command -v kitty > /dev/null 2>&1; then
-  kitty + complete setup zsh | source /dev/stdin
-fi
-
-# Dracula Theme (for zsh-syntax-highlighting)
-#
-# https://github.com/zenorocha/dracula-theme
-#
-# Copyright 2021, All rights reserved
-#
-# Code licensed under the MIT license
-# http://zenorocha.mit-license.org
-#
-# @author George Pickering <@bigpick>
-# @author Zeno Rocha <hi@zenorocha.com>
-# Paste this files contents inside your ~/.zshrc before you activate zsh-syntax-highlighting
-ZSH_HIGHLIGHT_HIGHLIGHTERS=(main cursor)
-typeset -gA ZSH_HIGHLIGHT_STYLES
-# Default groupings per, https://spec.draculatheme.com, try to logically separate
-# possible ZSH_HIGHLIGHT_STYLES settings accordingly...?
-#
-# Italics not yet supported by zsh; potentially soon:
-#    https://github.com/zsh-users/zsh-syntax-highlighting/issues/432
-#    https://www.zsh.org/mla/workers/2021/msg00678.html
-# ... in hopes that they will, labelling accordingly with ,italic where appropriate
-#
-# Main highlighter styling: https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/docs/highlighters/main.md
-#
-## General
-### Diffs
-### Markup
-## Classes
-## Comments
-ZSH_HIGHLIGHT_STYLES[comment]='fg=#6272A4'
-## Constants
-## Entitites
-## Functions/methods
-ZSH_HIGHLIGHT_STYLES[alias]='fg=#50FA7B'
-ZSH_HIGHLIGHT_STYLES[suffix-alias]='fg=#50FA7B'
-ZSH_HIGHLIGHT_STYLES[global-alias]='fg=#50FA7B'
-ZSH_HIGHLIGHT_STYLES[function]='fg=#50FA7B'
-ZSH_HIGHLIGHT_STYLES[command]='fg=#50FA7B'
-ZSH_HIGHLIGHT_STYLES[precommand]='fg=#50FA7B,italic'
-ZSH_HIGHLIGHT_STYLES[autodirectory]='fg=#FFB86C,italic'
-ZSH_HIGHLIGHT_STYLES[single-hyphen-option]='fg=#FFB86C'
-ZSH_HIGHLIGHT_STYLES[double-hyphen-option]='fg=#FFB86C'
-ZSH_HIGHLIGHT_STYLES[back-quoted-argument]='fg=#BD93F9'
-## Keywords
-## Built ins
-ZSH_HIGHLIGHT_STYLES[builtin]='fg=#8BE9FD'
-ZSH_HIGHLIGHT_STYLES[reserved-word]='fg=#8BE9FD'
-ZSH_HIGHLIGHT_STYLES[hashed-command]='fg=#8BE9FD'
-## Punctuation
-ZSH_HIGHLIGHT_STYLES[commandseparator]='fg=#FF79C6'
-ZSH_HIGHLIGHT_STYLES[command-substitution-delimiter]='fg=#F8F8F2'
-ZSH_HIGHLIGHT_STYLES[command-substitution-delimiter-unquoted]='fg=#F8F8F2'
-ZSH_HIGHLIGHT_STYLES[process-substitution-delimiter]='fg=#F8F8F2'
-ZSH_HIGHLIGHT_STYLES[back-quoted-argument-delimiter]='fg=#FF79C6'
-ZSH_HIGHLIGHT_STYLES[back-double-quoted-argument]='fg=#FF79C6'
-ZSH_HIGHLIGHT_STYLES[back-dollar-quoted-argument]='fg=#FF79C6'
-## Serializable / Configuration Languages
-## Storage
-## Strings
-ZSH_HIGHLIGHT_STYLES[command-substitution-quoted]='fg=#F1FA8C'
-ZSH_HIGHLIGHT_STYLES[command-substitution-delimiter-quoted]='fg=#F1FA8C'
-ZSH_HIGHLIGHT_STYLES[single-quoted-argument]='fg=#F1FA8C'
-ZSH_HIGHLIGHT_STYLES[single-quoted-argument-unclosed]='fg=#FF5555'
-ZSH_HIGHLIGHT_STYLES[double-quoted-argument]='fg=#F1FA8C'
-ZSH_HIGHLIGHT_STYLES[double-quoted-argument-unclosed]='fg=#FF5555'
-ZSH_HIGHLIGHT_STYLES[rc-quote]='fg=#F1FA8C'
-## Variables
-ZSH_HIGHLIGHT_STYLES[dollar-quoted-argument]='fg=#F8F8F2'
-ZSH_HIGHLIGHT_STYLES[dollar-quoted-argument-unclosed]='fg=#FF5555'
-ZSH_HIGHLIGHT_STYLES[dollar-double-quoted-argument]='fg=#F8F8F2'
-ZSH_HIGHLIGHT_STYLES[assign]='fg=#F8F8F2'
-ZSH_HIGHLIGHT_STYLES[named-fd]='fg=#F8F8F2'
-ZSH_HIGHLIGHT_STYLES[numeric-fd]='fg=#F8F8F2'
-## No category relevant in spec
-ZSH_HIGHLIGHT_STYLES[unknown-token]='fg=#FF5555'
-ZSH_HIGHLIGHT_STYLES[path]='fg=#F8F8F2'
-ZSH_HIGHLIGHT_STYLES[path_pathseparator]='fg=#FF79C6'
-ZSH_HIGHLIGHT_STYLES[path_prefix]='fg=#F8F8F2'
-ZSH_HIGHLIGHT_STYLES[path_prefix_pathseparator]='fg=#FF79C6'
-ZSH_HIGHLIGHT_STYLES[globbing]='fg=#F8F8F2'
-ZSH_HIGHLIGHT_STYLES[history-expansion]='fg=#BD93F9'
-#ZSH_HIGHLIGHT_STYLES[command-substitution]='fg=?'
-#ZSH_HIGHLIGHT_STYLES[command-substitution-unquoted]='fg=?'
-#ZSH_HIGHLIGHT_STYLES[process-substitution]='fg=?'
-#ZSH_HIGHLIGHT_STYLES[arithmetic-expansion]='fg=?'
-ZSH_HIGHLIGHT_STYLES[back-quoted-argument-unclosed]='fg=#FF5555'
-ZSH_HIGHLIGHT_STYLES[redirection]='fg=#F8F8F2'
-ZSH_HIGHLIGHT_STYLES[arg0]='fg=#F8F8F2'
-ZSH_HIGHLIGHT_STYLES[default]='fg=#F8F8F2'
-ZSH_HIGHLIGHT_STYLES[cursor]='standout'
-
-# ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
-#alias stg-deploy="ssh $(aws ec2 describe-instances --filters Name=tag:Name,Values="app02-stg" Name=instance-state-name,Values=running --query 'Reservations[].Instances[].PrivateIpAddress' --output text --no-cli-pager) -l deploy"
-#alias stg-sys="ssh $(aws ec2 describe-instances --filters Name=tag:Name,Values="app02-stg" Name=instance-state-name,Values=running --query 'Reservations[].Instances[].PrivateIpAddress' --output text --no-cli-pager) -l ubuntu"
-#
 export FZF_CTRL_T_OPTS="--preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200'"
 export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
 
-# >>>> Vagrant command completion (start)
-fpath=(/opt/vagrant/embedded/gems/2.2.19/gems/vagrant-2.2.19/contrib/zsh $fpath)
-compinit
-# <<<<  Vagrant command completion (end)
+# zstyle ':completion:*:*:git:*' script ~/.zsh/git-completion.bash
+fpath=(~/.zsh/custom ~/.zsh/completions $fpath)
+# fpath=(~/.zsh $fpath)
+autoload -U +X compinit && compinit
+autoload -U +X bashcompinit && bashcompinit
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-#
 # BEGIN_AWS_SSO_CLI
 
 # AWS SSO requires `bashcompinit` which needs to be enabled once and
@@ -327,7 +171,7 @@ export NVM_DIR="$HOME/.nvm"
 
 __aws_sso_profile_complete() {
      local _args=${AWS_SSO_HELPER_ARGS:- -L error}
-    _multi_parts : "($(/usr/bin/aws-sso list --csv $_args Profile))"
+    _multi_parts : "($(/usr/bin/aws-sso ${=_args} list --csv Profile))"
 }
 
 aws-sso-profile() {
@@ -336,8 +180,7 @@ aws-sso-profile() {
         echo "Unable to assume a role while AWS_PROFILE is set"
         return 1
     fi
-    # eval $(/usr/bin/aws-sso $_args eval -p "$1")
-    eval $(/usr/bin/aws-sso -L error eval -p "$1")
+    eval $(/usr/bin/aws-sso ${=_args} eval -p "$1")
     if [ "$AWS_SSO_PROFILE" != "$1" ]; then
         return 1
     fi
@@ -349,19 +192,13 @@ aws-sso-clear() {
         echo "AWS_SSO_PROFILE is not set"
         return 1
     fi
-    # eval $(/usr/bin/aws-sso -sso eval $_args -c)
-    eval $(/usr/bin/aws-sso -sso eval -L error -c)
+    eval $(/usr/bin/aws-sso ${=_args} eval -c)
 }
 
 compdef __aws_sso_profile_complete aws-sso-profile
 complete -C /usr/bin/aws-sso aws-sso
 
 # END_AWS_SSO_CLI
-#
-if command -v pyenv > /dev/null 2>&1; then
-  eval "$(pyenv init -)"
-  eval "$(pyenv virtualenv-init -)"
-fi
 
 if [[ -f ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
     source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
