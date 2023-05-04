@@ -1,10 +1,13 @@
 prSections:
 - title: My Pull Requests
   filters: is:open author:@me
+  layout:
+    author:
+      hidden: true
 - title: Needs My Review
   filters: is:open review-requested:@me
-- title: Involved
-  filters: is:open involves:@me -author:@me
+- title: SRE Reviews
+  filters: org:litmus -label:HOLD -label:WIP -label:Refactor draft:false is:pr is:open review:required team-review-requested:litmus/sre -repo:litmus/litmus
 issuesSections:
 - title: My Issues
   filters: is:open author:@me
@@ -49,6 +52,8 @@ defaults:
 keybindings:
   issues: []
   prs: []
-repoPaths: {}
+repoPaths:
+  litmus/*: ~/repos/github.com/litmus/*
+  litmus/litmus-lambdas: ~/repos/github.com/litmus/litmus-lambdas
 pager:
   diff: ""
