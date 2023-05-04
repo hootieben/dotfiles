@@ -96,7 +96,7 @@
 	allowed = wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
 [init]
 	defaultBranch = main
-	templateDir = /home/hootieben/.git-templates/git-secrets
+	templateDir = /home/hootieben/.git-templates
 
 [color]
   ui = auto
