@@ -91,7 +91,6 @@ if [ -f ~/.fzf.zsh ]; then
   fi
 fi
 
-PAGER="less -RF"
 
 # Which plugins would you like to load?
 # Standard plugins can be found in ~/.oh-my-zsh/plugins/*
@@ -107,6 +106,8 @@ if [[ -f $ZSH/oh-my-zsh.sh ]]; then
   source $ZSH/oh-my-zsh.sh
 fi
 
+
+PAGER="less -RF"
 # User configuration
 unsetopt share_history
 
