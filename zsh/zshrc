@@ -100,7 +100,7 @@ fi
 export NVM_COMPLETION=true
 export NVM_LAZY_LOAD=true
 export NVM_LAZY_LOAD_EXTRA_COMMANDS=('vim','nvim')
-plugins=(git fzf aws gpg-agent terraform ansible extract ripgrep z sudo pyenv)
+plugins=(git git-escape-magic fzf aws gpg-agent terraform ansible extract ripgrep z sudo pyenv)
 
 if [[ -f $ZSH/oh-my-zsh.sh ]]; then
   source $ZSH/oh-my-zsh.sh
