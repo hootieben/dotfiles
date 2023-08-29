@@ -232,3 +232,12 @@ fi
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 source /home/hootieben/.config/op/plugins.sh
 
+load-tfswitch() {
+  local tfswitchrc_path=".terraform-version"
+
+  if [ -f "$tfswitchrc_path" ]; then
+    tfswitch
+  fi
+}
+add-zsh-hook chpwd load-tfswitch
+load-tfswitch
