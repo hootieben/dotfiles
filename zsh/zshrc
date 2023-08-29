@@ -173,7 +173,7 @@ autoload -U +X bashcompinit && bashcompinit
 
 __aws_sso_profile_complete() {
      local _args=${AWS_SSO_HELPER_ARGS:- -L error}
-    _multi_parts : "($(/home/hootieben/.local/bin/aws-sso ${=_args} list --csv Profile))"
+    _multi_parts : "($(/home/hootieben/go/bin/aws-sso ${=_args} list --csv Profile))"
 }
 
 aws-sso-profile() {
@@ -182,7 +182,7 @@ aws-sso-profile() {
         echo "Unable to assume a role while AWS_PROFILE is set"
         return 1
     fi
-    eval $(/home/hootieben/.local/bin/aws-sso ${=_args} eval -p "$1")
+    eval $(/home/hootieben/go/bin/aws-sso ${=_args} eval -p "$1")
     if [ "$AWS_SSO_PROFILE" != "$1" ]; then
         return 1
     fi
@@ -194,11 +194,11 @@ aws-sso-clear() {
         echo "AWS_SSO_PROFILE is not set"
         return 1
     fi
-    eval $(/home/hootieben/.local/bin/aws-sso ${=_args} eval -c)
+    eval $(/home/hootieben/go/bin/aws-sso ${=_args} eval -c)
 }
 
 compdef __aws_sso_profile_complete aws-sso-profile
-complete -C /home/hootieben/.local/bin/aws-sso aws-sso
+complete -C /home/hootieben/go/bin/aws-sso aws-sso
 
 # END_AWS_SSO_CLI
 
