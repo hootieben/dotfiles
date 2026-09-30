@@ -1,163 +1,44 @@
+# ~/.zshrc
+#
+# Layout:
+#   1. p10k instant prompt       (interactive only; must stay first)
+#   2. Environment               (every shell, including Claude Code)
+#   3. Early exit for agent shells ($CLAUDECODE is set by Claude Code)
+#   4. Interactive setup         (oh-my-zsh, prompt, completions, hooks)
+
 case $(uname -a) in
    *codespaces*) unsetopt BG_NICE ;;
 esac
 
-(( ${+commands[direnv]} )) && emulate zsh -c "$(direnv export zsh)"
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# --- 1. Powerlevel10k instant prompt -----------------------------------------
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+if [[ -z $CLAUDECODE && -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
-(( ${+commands[direnv]} )) && export DIRENV_LOG_FORMAT= && emulate zsh -c "$(direnv hook zsh)"
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-# If you come from bash you might have to change your $PATH.
-export PATH=$HOME/.pyenv/bin:$HOME/.yarn/bin:$HOME/go/bin:$HOME/.rbenv/bin:$HOME/.nodenv/bin:$HOME/.local/bin:/usr/local/bin:/usr/bin:$PATH:/usr/local/go/bin
-
+# --- 2. Environment ----------------------------------------------------------
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH=$PYENV_ROOT/bin:$HOME/.yarn/bin:$HOME/go/bin:$HOME/.rbenv/bin:$HOME/.nodenv/bin:$HOME/.local/bin:/usr/local/bin:/usr/bin:$PATH:/usr/local/go/bin:/opt/nvim-linux64/bin:/opt/nvim:/opt/nvim-linux-x86_64/bin
 typeset -U path
-# path=(~/go/bin ~/.rbenv/bin ~/.nodenv/bin ~/.local/bin $path /usr/local/go/bin)
-# Path to your oh-my-zsh installation.
-export ZSH=$HOME/.oh-my-zsh
 
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-# ZSH_THEME="agnoster"
-ZSH_THEME="powerlevel10k/powerlevel10k"
-#
-# Set list of themes to pick from when loading at random
-# Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in ~/.oh-my-zsh/themes/
-# If set to an empty array, this variable will have no effect.
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
+# Added by Antigravity CLI installer
+# (~/.local/bin is already on PATH above)
 
-# Uncomment the following line to use case-sensitive completion.
-CASE_SENSITIVE="true"
+export PAGER="less -RF"
+(( ${+commands[delta]} )) && export GIT_PAGER='delta'
 
-# Uncomment the following line to use hyphen-insensitive completion.
-# Case-sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
-
-# Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
-
-# Uncomment the following line to automatically update without prompting.
-# DISABLE_UPDATE_PROMPT="true"
-
-# Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
-
-# Uncomment the following line if pasting URLs and other text is messed up.
-# DISABLE_MAGIC_FUNCTIONS=true
-
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
-
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment the following line to enable command auto-correction.
-ENABLE_CORRECTION="false"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
-#COMPLETION_WAITING_DOTS="true"
-
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# You can set one of the optional three formats:
-# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# or set a custom format using the strftime function format specifications,
-# see 'man strftime' for details.
-# HIST_STAMPS="mm/dd/yyyy"
-
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
-
-# FZF configuration - must be before OMZ fzf plugin
-if [ -f ~/.fzf.zsh ]; then
-  source ~/.fzf.zsh
-  export FZF_DEFAULT_OPTS='--color=fg:#f8f8f2,bg:#282a36,hl:#bd93f9 --color=fg+:#f8f8f2,bg+:#44475a,hl+:#bd93f9 --color=info:#ffb86c,prompt:#50fa7b,pointer:#ff79c6 --color=marker:#ff79c6,spinner:#ffb86c,header:#6272a4 --height 40% --layout=reverse --border'
-  if command -v fd > /dev/null 2>&1; then
-    export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
-  fi
-fi
-
-
-# Which plugins would you like to load?
-# Standard plugins can be found in ~/.oh-my-zsh/plugins/*
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-export NVM_COMPLETION=true
-export NVM_LAZY_LOAD=true
-export NVM_LAZY_LOAD_EXTRA_COMMANDS=('vim','nvim')
-plugins=(git git-escape-magic fzf aws gpg-agent terraform ansible extract ripgrep z sudo pyenv)
-
-if [[ -f $ZSH/oh-my-zsh.sh ]]; then
-  source $ZSH/oh-my-zsh.sh
-fi
-
-
-PAGER="less -RF"
-# User configuration
-unsetopt share_history
-
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-# (( $+commands[foobar] ))
-if command -v nvim > /dev/null 2>&1; then
+if (( ${+commands[nvim]} )); then
   export EDITOR='nvim'
   export GIT_EDITOR='nvim'
   alias vi='nvim'
   alias vim='nvim'
 fi
 
+(( ${+commands[pyenv]} )) && eval "$(pyenv init - zsh)"
+
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
-
-(( ${+commands[delta]} )) && export GIT_PAGER='delta'
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-
-(( ${+commands[hub]} )) && emulate zsh -c "$(hub alias -s)"
-
-export FZF_CTRL_T_OPTS="--preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200'"
-export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
-
-complete -C '/usr/local/bin/aws_completer' aws
-# zstyle ':completion:*:*:git:*' script ~/.zsh/git-completion.bash
-fpath=(~/.zsh/custom ~/.zsh/completions $fpath)
-# fpath=(~/.zsh $fpath)
-autoload -U +X compinit && compinit
-autoload -U +X bashcompinit && bashcompinit
 
 # BEGIN_AWS_SSO_CLI
 
@@ -197,53 +78,106 @@ aws-sso-clear() {
     eval $(/home/hootieben/go/bin/aws-sso ${=_args} eval -c)
 }
 
-compdef __aws_sso_profile_complete aws-sso-profile
-complete -C /home/hootieben/go/bin/aws-sso aws-sso
+# compdef/complete for aws-sso are registered in the interactive section below.
 
 # END_AWS_SSO_CLI
 
-# https://1password.community/discussion/138575/zsh-plugin-aliases-break-completion-for-the-command-run-by-the-plugin
-function __my_op_plugin_run() {
-    _op_plugin_run
-
-    for ((i = 2; i < CURRENT; i++)); do
-        if [[ ${words[i]} == -- ]]; then
-            shift $i words
-            ((CURRENT -= i))
-            _normal
-            return
-        fi
-    done
-
-}
-
-function __load_op_completion() {
-    completion_function="$(op completion zsh)"
-    sed -E 's/^( +)_op_plugin_run/\1__my_op_plugin_run/' <<<"${completion_function}"
-}
-
-eval "$(__load_op_completion)"
-compdef _op op
-
-
-if [[ -f ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
-    source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# --- 3. Agent shells stop here -----------------------------------------------
+# Claude Code sets CLAUDECODE=1. It needs PATH and tools, not a prompt,
+# completions, or cd hooks.
+if [[ -n $CLAUDECODE ]]; then
+  export GIT_PAGER=cat
+  return
 fi
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-source /home/hootieben/.config/op/plugins.sh
 
+# --- 4. Interactive setup ----------------------------------------------------
+export ZSH=$HOME/.oh-my-zsh
+ZSH_THEME="powerlevel10k/powerlevel10k"
+CASE_SENSITIVE="true"
+ENABLE_CORRECTION="false"
+
+# FZF configuration - must be before OMZ fzf plugin
+if [ -f ~/.fzf.zsh ]; then
+  source ~/.fzf.zsh
+  export FZF_DEFAULT_OPTS='--color=fg:#f8f8f2,bg:#282a36,hl:#bd93f9 --color=fg+:#f8f8f2,bg+:#44475a,hl+:#bd93f9 --color=info:#ffb86c,prompt:#50fa7b,pointer:#ff79c6 --color=marker:#ff79c6,spinner:#ffb86c,header:#6272a4 --height 40% --layout=reverse --border'
+  if (( ${+commands[fd]} )); then
+    export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+  fi
+fi
+export FZF_CTRL_T_OPTS="--preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200'"
+export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
+
+# Custom completions must be on fpath before OMZ runs compinit.
+fpath=(~/.zsh/custom ~/.zsh/completions $fpath)
+
+# pyenv is initialised in the environment section, so no OMZ pyenv plugin.
+plugins=(git git-escape-magic fzf aws gpg-agent terraform ansible extract z sudo direnv)
+
+if [[ -f $ZSH/oh-my-zsh.sh ]]; then
+  source $ZSH/oh-my-zsh.sh
+fi
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+unsetopt share_history
+
+(( ${+commands[hub]} )) && emulate zsh -c "$(hub alias -s)"
+
+# Completions (OMZ has already run compinit)
+autoload -U +X bashcompinit && bashcompinit
+[[ -x /usr/local/bin/aws_completer ]] && complete -C '/usr/local/bin/aws_completer' aws
+[[ -x /home/hootieben/go/bin/aws-sso ]] && complete -C /home/hootieben/go/bin/aws-sso aws-sso
+compdef __aws_sso_profile_complete aws-sso-profile
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# https://1password.community/discussion/138575/zsh-plugin-aliases-break-completion-for-the-command-run-by-the-plugin
+if (( ${+commands[op]} )); then
+  function __my_op_plugin_run() {
+      _op_plugin_run
+
+      for ((i = 2; i < CURRENT; i++)); do
+          if [[ ${words[i]} == -- ]]; then
+              shift $i words
+              ((CURRENT -= i))
+              _normal
+              return
+          fi
+      done
+  }
+
+  function __load_op_completion() {
+      completion_function="$(op completion zsh)"
+      sed -E 's/^( +)_op_plugin_run/\1__my_op_plugin_run/' <<<"${completion_function}"
+  }
+
+  eval "$(__load_op_completion)"
+  compdef _op op
+fi
+# source /home/hootieben/.config/op/plugins.sh
+
+# Switch terraform/terragrunt versions on cd
 load-tfswitch() {
   local tfswitchrc_path=".terraform-version"
 
-  if [ -f "$tfswitchrc_path" ]; then
+  if [ -f "$tfswitchrc_path" ] && (( ${+commands[tfswitch]} )); then
     tfswitch
   fi
 }
 add-zsh-hook chpwd load-tfswitch
 load-tfswitch
-export PYENV_ROOT="$HOME/.pyenv"
-command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
 
-eval "$(pyenv init -)"
+load-tgswitch() {
+  local tgswitchrc_path=".terragrunt-version"
 
-eval "$(nodenv init - zsh)"
+  if [ -f "$tgswitchrc_path" ] && (( ${+commands[tgswitch]} )); then
+    tgswitch
+  fi
+}
+add-zsh-hook chpwd load-tgswitch
+load-tgswitch
+
+# Must be sourced last.
+if [[ -f ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
+    source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
